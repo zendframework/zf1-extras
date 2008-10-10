@@ -30,6 +30,8 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'ZendX_AllTests::main');
 }
 
+require_once 'ZendX/JQuery/AllTests.php';
+
 /**
  * @category   ZendX
  * @package    ZendX
@@ -47,6 +49,8 @@ class ZendX_AllTests
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('Zend Framework Extras - ZendX');
+
+        $suite->addTestSuite('ZendX_JQuery_AllTests');
 
         return $suite;
     }
