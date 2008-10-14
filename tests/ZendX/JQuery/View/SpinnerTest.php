@@ -97,6 +97,12 @@ class ZendX_JQuery_View_SpinnerTest extends PHPUnit_Framework_TestCase
         $this->assertContains('<input', $element);
         $this->assertContains('id="elem1"', $element);
     }
+
+    public function testNumericValueShouldBecomeStartOptionParameterIfNoneGiven()
+    {
+        $element = $this->view->spinner("elem1", "100");
+        $this->assertEquals(array('$("#elem1").spinner({"start":"100"});'), $this->jquery->getOnLoadActions());
+    }
 }
 
 if (PHPUnit_MAIN_METHOD == 'ZendX_JQuery_View_SpinnerTest::main') {

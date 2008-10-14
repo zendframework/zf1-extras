@@ -152,6 +152,27 @@ class ZendX_JQuery_View_TabContainerTest extends PHPUnit_Framework_TestCase
         $this->assertContains('href="foo.html"', $tabs);
         $this->assertNotContains('This is captured, but not displayed: contentUrl overrides this output.', $tabs);
     }
+
+    public function testPaneCaptureLockExceptionNoNestingAllowed()
+    {
+        $this->view->tabPane()->captureStart('pane1', 'Label1');
+        try {
+            $this->view->tabPane()->captureStart('pane1', 'Label1');
+            $this->fail();
+        } catch(ZendX_JQuery_View_Exception $e) {
+
+        }
+    }
+
+    public function testPaneCaptureLockExceptionNoEndWithoutStartPossible()
+    {
+        try {
+            $this->view->tabPane()->captureEnd('pane3');
+            $this->fail();
+        } catch(ZendX_JQuery_View_Exception $e) {
+
+        }
+    }
 }
 
 if (PHPUnit_MAIN_METHOD == 'ZendX_JQuery_View_TabContainerTest::main') {

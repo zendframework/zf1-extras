@@ -74,7 +74,7 @@ class ZendX_JQuery_View_Helper_AjaxLink extends Zend_View_Helper_HtmlElement
 	 * BeforeSend Callback:
 	 * Can include shortcuts as a string assignment to fire of effects before sending of request.
 	 * Possible shortcuts are 'fadeOut', 'fadeOutSlow', 'hide', 'hideSlow', 'slideUp', 'flash',
-	 * @example $options = array('callback' => array('beforeSend' => 'hideSlow'));
+	 * @example $options = array('beforeSend' => 'hideSlow', 'complete' => 'show');
 	 *
 	 * @link   http://docs.jquery.com/Ajax
 	 * @param  String $label Urls Title
@@ -110,7 +110,11 @@ class ZendX_JQuery_View_Helper_AjaxLink extends Zend_View_Helper_HtmlElement
 
 		// class value is an array because the jQuery CSS selector
 		// click event needs its own classname later on
-		$attribs['class'] = array();
+		if(!isset($attribs['class'])) {
+            $attribs['class'] = array();
+		} elseif(is_string($attribs['class'])) {
+		    $attribs['class'] = explode(" ", $attribs['class']);
+		}
 		if(!empty($options['class'])) {
 		    $attribs['class'][] = $options['class'];
 		}
@@ -256,11 +260,15 @@ class ZendX_JQuery_View_Helper_AjaxLink extends Zend_View_Helper_HtmlElement
 		if($inline == true) {
 		    $attribs['onClick'] = $js;
 		} else {
-		    $clickClass = sprintf("ajaxLink%d", ZendX_JQuery_View_Helper_AjaxLink::$currentLinkCallbackId);
-		    ZendX_JQuery_View_Helper_AjaxLink::$currentLinkCallbackId++;
+		    if(!isset($attribs['id'])) {
+                $clickClass = sprintf("ajaxLink%d", ZendX_JQuery_View_Helper_AjaxLink::$currentLinkCallbackId);
+		        ZendX_JQuery_View_Helper_AjaxLink::$currentLinkCallbackId++;
 
-		    $attribs['class'][] = $clickClass;
-		    $onLoad = sprintf("%s('a.%s').click(function() { %s });", $jqHandler, $clickClass, $js);
+		        $attribs['class'][] = $clickClass;
+		        $onLoad = sprintf("%s('a.%s').click(function() { %s });", $jqHandler, $clickClass, $js);
+		    } else {
+                $onLoad = sprintf("%s('a#%s').click(function() { %s });", $jqHandler, $attribs['id'], $js);
+		    }
 
 		    $jquery->addOnLoad($onLoad);
 		}

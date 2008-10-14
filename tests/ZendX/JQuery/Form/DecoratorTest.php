@@ -124,6 +124,50 @@ class ZendX_JQuery_Form_DecoratorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array("foo" => "bar", "baz" => "baz"), $container->getJQueryParams());
     }
 
+    public function testUiWidgetPaneRenderingThrowsExceptionWithoutContainerIdOption()
+    {
+        $spinner = new ZendX_JQuery_Form_Element_Spinner("spinner1");
+        $spinner->setView(new Zend_View());
+        $spinner->setJQueryParam("title", "Title");
+
+        $pane = new ZendX_JQuery_Form_Decorator_TabPane();
+        $pane->setElement($spinner);
+
+        try {
+            $pane->render("");
+            $this->fail();
+        } catch(Zend_Form_Decorator_Exception $e) {
+
+        }
+    }
+
+    public function testUiWidgetPaneRenderingThrowsExceptionWithoutTitleOption()
+    {
+        $spinner = new ZendX_JQuery_Form_Element_Spinner("spinner1");
+        $spinner->setView(new Zend_View());
+        $spinner->setJQueryParam("containerId", "xyzId");
+
+        $pane = new ZendX_JQuery_Form_Decorator_TabPane();
+        $pane->setElement($spinner);
+
+        try {
+            $pane->render("");
+            $this->fail();
+        } catch(Zend_Form_Decorator_Exception $e) {
+
+        }
+    }
+
+    public function testUiWidgetPaneRenderingNoPaneWhenElementHasNoView()
+    {
+        $spinner = new ZendX_JQuery_Form_Element_Spinner("spinner1");
+
+        $pane = new ZendX_JQuery_Form_Decorator_TabPane();
+        $pane->setElement($spinner);
+
+        $this->assertEquals("justthis", $pane->render("justthis"));
+    }
+
     public function testUiWidgetContainerRender()
     {
         $view = new Zend_View();
@@ -166,10 +210,41 @@ class ZendX_JQuery_Form_DecoratorTest extends PHPUnit_Framework_TestCase
         $form->addSubForm($subForm1, "form1");
 
         $output = $form->render($view);
-        syslog(LOG_INFO, $output);
         $this->assertContains('id="tabContainer"', $output);
         $this->assertContains('href="#tabContainer-frag-1"', $output);
         $this->assertContains('id="tabContainer-frag-1"', $output);
+    }
+
+    public function testRenderWidgetElementShouldEnableJQueryHelper()
+    {
+        $view = new Zend_View();
+
+        $widget = new ZendX_JQuery_Form_Element_Spinner("spinner1", array("label" => "Spinner"));
+        $widget->setView($view);
+
+        $view->jQuery()->disable();
+        $view->jQuery()->uiDisable();
+
+        $widget->render();
+
+        $this->assertTrue($view->jQuery()->isEnabled());
+        $this->assertTrue($view->jQuery()->uiIsEnabled());
+    }
+
+    public function testSettingWidgetPlacement()
+    {
+        $view = new Zend_View();
+        $widget = new ZendX_JQuery_Form_Element_Spinner("spinner1");
+        $widget->setView($view);
+        $widget->getDecorator('UiWidgetElement')->setOption('separator', '[SEP]');
+
+        $widget->getDecorator('UiWidgetElement')->setOption('placement', 'APPEND');
+        $html = $widget->render();
+        $this->assertContains('[SEP]<input type="text" name="spinner1" id="spinner1" value="">', $html);
+
+        $widget->getDecorator('UiWidgetElement')->setOption('placement', 'PREPEND');
+        $html = $widget->render();
+        $this->assertContains('<input type="text" name="spinner1" id="spinner1" value="">[SEP]', $html);
     }
 }
 

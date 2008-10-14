@@ -199,6 +199,37 @@ class ZendX_JQuery_View_AjaxLinkTest extends PHPUnit_Framework_TestCase
 			$this->assertContains(sprintf("\$j('#test').%s", $js), $link);
 		}
 	}
+
+	public function testOptionsArrayAllowsForSettingAttributes()
+	{
+        $view = $this->getView();
+
+        $html = $view->ajaxLink("Label1", "/some/url", array(
+            'id' => 'ajaxLink1',
+            'title' => 'Label1',
+            'noscript' => true,
+            'attribs' => array('class' => 'test', 'target' => '_blank')
+        ));
+
+        $this->assertContains('id="ajaxLink1"', $html);
+        $this->assertContains('title="Label1"', $html);
+        $this->assertContains('href="/some/url"', $html);
+        $this->assertNotContains('href="#"', $html);
+        $this->assertContains('class="test"', $html);
+        $this->assertContains('target="_blank"', $html);
+	}
+
+	public function testSpecifyingIdDoesNotCreateAutomaticCallbackAndClassAttribute()
+	{
+        $view = $this->getView();
+
+        $html = $view->ajaxLink("Label1", "/some/url", array(
+            'id' => "someId"
+        ));
+
+        $this->assertNotContains('class=', $html);
+        $this->assertContains('id="someId"', $html);
+	}
 }
 
 if (PHPUnit_MAIN_METHOD == 'ZendX_JQuery_View_AjaxLinkTest::main') {

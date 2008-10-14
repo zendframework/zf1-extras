@@ -112,7 +112,8 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetPane extends Zend_Form_Decora
 
         // Ensure we have a title param
         if (!array_key_exists('title', $this->_jQueryParams)) {
-            $this->_jQueryParams['title'] = $this->getTitle();
+            require_once "Zend/Form/Decorator/Exception.php";
+            throw new Zend_Form_Decorator_Exception("UiWidgetPane Decorators have to have a jQueryParam 'title' to render. This title can been set via setJQueryParam('title') on the parent element.");
         }
 
         return $this->_jQueryParams;

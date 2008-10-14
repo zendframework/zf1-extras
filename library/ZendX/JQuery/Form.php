@@ -20,6 +20,8 @@
  * @version     $Id$
  */
 
+require_once "Zend/Form.php";
+
 /**
  * Form Wrapper for jQuery-enabled forms
  *
