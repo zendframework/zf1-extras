@@ -32,6 +32,7 @@ require_once "ZendX/JQuery.php";
 require_once "ZendX/JQuery/View/Helper/JQuery.php";
 
 require_once "ZendX/JQuery/JQueryTest.php";
+require_once "ZendX/JQuery/AutoCompleteActionHelperTest.php";
 require_once "ZendX/JQuery/View/AllTests.php";
 require_once "ZendX/JQuery/Form/AllTests.php";
 
@@ -49,6 +50,7 @@ class ZendX_JQuery_AllTests
         $suite->addTestSuite('ZendX_JQuery_JQueryTest');
         $suite->addTestSuite('ZendX_JQuery_View_AllTests');
         $suite->addTestSuite('ZendX_JQuery_Form_AllTests');
+        $suite->addTestSuite('ZendX_JQuery_AutoCompleteActionHelperTest');
 
         return $suite;
     }

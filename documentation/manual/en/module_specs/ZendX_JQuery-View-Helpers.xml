@@ -232,6 +232,43 @@
                     and are converted to JSON and handed through to the view script.</para>
             </example>
         </sect4>
+
+        <sect4 id="zendx.jquery.view.helpers.ui.actionhelper">
+            <title>Using an Action Helper to Send Data to AutoComplete</title>
+
+            <para>The jQuery UI Autocomplete Widget can load data from a remote location
+                rather than from an javascript array, making its usage really useful. Zend
+                Framework currently providers a bunch of server-side AutoComplete
+                Helpers and there is one for jQuery too. You register the helper
+                to the controller helper broker and it takes care of disabling layouts
+                and renders an array of data correctly to be read by the AutoComplete field.
+                To use the Action Helper you have to put this rather long statement into
+                your bootstrap or Controller initialization function:
+            </para>
+
+            <programlisting role="php"><![CDATA[
+Zend_Controller_Action_HelperBroker::addHelper(new ZendX_JQuery_Controller_Action_Helper_AutoComplete());
+]]>
+            </programlisting>
+
+            <para>You can then directly call the helper to render AutoComplete Output in
+            your Controller</para>
+
+            <programlisting role="php"><![CDATA[
+class MyIndexController extends Zend_Controller_Action
+{
+    public function autocompleteAction()
+    {
+        // The data sent via the ajax call is inside $_GET['q']
+        $filter = $_GET['q'];
+
+        // Disable Layout and stuff, just displaying AutoComplete Information.
+        $this->autoComplete(array("New York", "Bonn", "Tokio"));
+    }
+}
+]]>
+            </programlisting>
+        </sect4>
         
         <sect4 id="zendx.jquery.view.helpers.ui.layout">
             <title>jQuery UI Layout Helpers</title>
