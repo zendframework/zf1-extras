@@ -97,10 +97,9 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetPane extends Zend_Form_Decora
     {
         if (null === $this->_jQueryParams) {
             $attribs = $this->getElement()->getAttribs();
+            $this->_jQueryParams = array();
             if (array_key_exists('jQueryParams', $attribs)) {
                 $this->_jQueryParams = $attribs['jQueryParams'];
-            } else {
-                $this->_jQueryParams = array();
             }
 
             $options = $this->getOptions();
