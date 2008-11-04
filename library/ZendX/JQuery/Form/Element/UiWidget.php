@@ -40,6 +40,13 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
     public $jQueryParams = array();
 
     /**
+     * Just here to prevent errors.
+     *
+     * @var array
+     */
+    public $options = array();
+
+    /**
      * Constructor
      *
      * @param  mixed $spec

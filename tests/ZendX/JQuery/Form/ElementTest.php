@@ -27,6 +27,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 }
 
 require_once "Zend/Registry.php";
+require_once "Zend/View.php";
 require_once "Zend/Form/Element.php";
 require_once "ZendX/JQuery.php";
 require_once "ZendX/JQuery/View/Helper/JQuery.php";
@@ -92,6 +93,24 @@ class ZendX_JQuery_Form_ElementTest extends PHPUnit_Framework_TestCase
         $this->assertFalse( false !== $view->getPluginLoader('helper')->getPaths('ZendX_JQuery_View_Helper'));
         $spinner->setView($view);
         $this->assertTrue( false !== $view->getPluginLoader('helper')->getPaths('ZendX_JQuery_View_Helper'));
+    }
+
+    /**
+     * @group ZF-4694
+     */
+    public function testJQueryElementWithOnlyViewHelperIsNotAllowedToDieZf4694()
+    {
+        $view = new Zend_View();
+
+        $spinner = new ZendX_JQuery_Form_Element_Spinner("spinner1");
+        $spinner->setDecorators(array('ViewHelper'));
+        $spinner->setView($view);
+
+        try {
+            $spinner->render();
+        } catch(Exception $e) {
+            $this->fail();
+        }
     }
 }
 

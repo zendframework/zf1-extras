@@ -111,7 +111,7 @@ class ZendX_JQuery_Form_DecoratorTest extends PHPUnit_Framework_TestCase
         $ac = new ZendX_JQuery_Form_Element_Spinner("ac1");
         $container->setElement($ac);
 
-        $this->assertEquals(array("helper" => "spinner"), $container->getAttribs());
+        $this->assertEquals(array("helper" => "spinner", "options" => array()), $container->getAttribs());
     }
 
     public function testUiWidgetContainerGetJQueryParams()
