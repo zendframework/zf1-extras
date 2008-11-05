@@ -85,7 +85,7 @@
                         <entry><code>title, id, class</code></entry>
                         <entry><code>string</code></entry>
                         <entry><code>false</code></entry>
-                        <entry>Convienience shortcuts for HTML Attributes.</entry>
+                        <entry>Convenience shortcuts for HTML Attributes.</entry>
                     </row>
                     <row>
                         <entry><code>inline</code></entry>
@@ -98,8 +98,8 @@
           </table>
 
           <para>To enlighten the usage of this helper it is best to show another bunch of more complex examples. This
-            example assumes that you have only one view object that you want to display and don't care alot about
-            html best practices, since we have to output the jQuery enviroment just before the closing body tag.</para>
+            example assumes that you have only one view object that you want to display and don't care a lot about
+            html best practices, since we have to output the jQuery environment just before the closing body tag.</para>
 
           <programlisting role="php"><![CDATA[
 <html>
@@ -157,7 +157,7 @@
           </programlisting>
 
           <para>You might have already seen that the 'update', 'complete', and 'beforeSend' options have to be executed in specific order and syntax so that you cannot
-              use those callbacks and override their behaviour completly when you are using <code>ajaxLink()</code>. For larger use cases you will probably want to
+              use those callbacks and override their behaviour completely when you are using <code>ajaxLink()</code>. For larger use cases you will probably want to
               write the request via jQuery on your own. The primary use case for the callbacks is effect usage, other uses may very well become hard to maintain.
               As shown in Example Link 5, you can also forward the beforeSend/complete Callbacks to your own javascript functions.</para>
 
@@ -233,7 +233,7 @@
                 <listitem><para><code>slider($id, $value, $params, $attribs)</code>: Create a Sliding element
                     that updates its value into a hidden form field. Available since jQuery UI 1.5.</para></listitem>
                 <listitem><para><code>spinner($id, $value, $params, $attribs)</code>: Create a Spinner element
-                    that can spin through numeric values in a specified range. This is set on top of a form tex tield
+                    that can spin through numeric values in a specified range. This is set on top of a form text field
                     and is available only since jQuery UI 1.6.</para></listitem>
             </itemizedlist>
 
@@ -241,10 +241,10 @@
                 <title>Showing jQuery Form View Helper Usage</title>
 
                 <para>In this example we want to simulate a fictional web application that offers auctions
-                    on travel locations. A user may specifiy a city to travel, a start and end date, and a
+                    on travel locations. A user may specify a city to travel, a start and end date, and a
                     maximum amount of money he is willing to pay. Therefore we need an autoComplete field
                     for all the currently known travel locations, a date picker for start and end dates
-                    and a spinner to specifiy the amount.</para>
+                    and a spinner to specify the amount.</para>
 
                 <programlisting role="php"><![CDATA[
 <form method="post" action="bid.php">
@@ -347,7 +347,7 @@ class MyIndexController extends Zend_Controller_Action
                         on load but can be shown with the additional <code>dialog("open")</code> javascript function. See UI docs
                         for details.</para></listitem>
                 <listitem><para><code>tabPane($id, $content, $options)</code>: Add a new pane to a tab container with the given <code>$id</code>.
-                        The gicen <code>$content</code> is shown in this tab pane. To set the title use <code>$options['title']</code>.
+                        The given <code>$content</code> is shown in this tab pane. To set the title use <code>$options['title']</code>.
                         If <code>$options['contentUrl']</code> is set, the content of the tab is requested via ajax on tab activation.
                     </para></listitem>
                 <listitem><para><code>tabContainer($id, $params, $attribs)</code>: Render a tab container with all the currently registered
@@ -355,7 +355,7 @@ class MyIndexController extends Zend_Controller_Action
                         <code>$this->tabContainer()->addPane($id, $label, $content, $options)</code>.
                     </para></listitem>
                 <listitem><para><code>accordionPane($id, $content, $options)</code>: Add a new pane to the accordion container with the given <code>$id</code>.
-                        The gicen <code>$content</code> is shown in this tab pane. To set the title use <code>$options['title']</code>.
+                        The given <code>$content</code> is shown in this tab pane. To set the title use <code>$options['title']</code>.
                     </para></listitem>
                 <listitem><para><code>accordionContainer($id, $params, $attribs)</code>: Render an accordion container with all the currently registered
                         panes. This view helper also offers to add panes with the following syntax:
@@ -364,7 +364,7 @@ class MyIndexController extends Zend_Controller_Action
             </itemizedlist>
 
             <example id="zendx.jquery.view.helpers.ui.layout.example">
-                <title>Showing the lastest news in a Tab Container</title>
+                <title>Showing the latest news in a Tab Container</title>
 
                 <para>For this example we assume the developer already wrote the controller and model side of the script and assigned
                     an array of news items to the view script. This array contains at most 5 news elements, so we don't have to care

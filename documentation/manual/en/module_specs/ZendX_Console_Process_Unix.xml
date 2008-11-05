@@ -5,8 +5,8 @@
         <title>Introduction</title>
         <para>
             <code>ZendX_Console_Process_Unix</code> allows developers to spawn
-            an object as a new process, and so do multiple tasks parallely on
-            console enviroments. Through it's specific nature, it is only
+            an object as a new process, and so do multiple tasks in parallel on
+            console environments. Through it's specific nature, it is only
             working on *nix based systems like Linux, Solaris, Mac/OSx and such.
             Additionally, the <code>shmop_*</code>, <code>pcntl_*</code> and
             <code>posix_*</code> modules are required for this component to

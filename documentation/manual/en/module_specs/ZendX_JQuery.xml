@@ -16,9 +16,9 @@
     </itemizedlist>
 
     <para>
-        By default the jQuery javascript dependancies are loaded from the Google Ajax Library
+        By default the jQuery javascript dependencies are loaded from the Google Ajax Library
         Content Distribution Network. The CDN offers both jQuery Core and jQuery UI access points and
-        the view helpers therefore can already offer you most the dependancies out of the box. Currently
+        the view helpers therefore can already offer you most the dependencies out of the box. Currently
         the Google CDN offers jQuery UI support up to version 1.5.2, but the jQuery view and form helpers
         already make use of the UI library 1.6 version (AutoComplete, ColorPicker, Spinner, Slider).
         To make use of this great additions you have to download the release candidate version of the
