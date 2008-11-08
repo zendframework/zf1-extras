@@ -29,6 +29,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once "Zend/Registry.php";
 require_once "Zend/View.php";
 require_once "Zend/Form/Element.php";
+require_once "Zend/Json.php";
 require_once "ZendX/JQuery.php";
 require_once "ZendX/JQuery/View/Helper/JQuery.php";
 
@@ -44,6 +45,11 @@ require_once "ZendX/JQuery/Form/Decorator/UiWidgetElement.php";
 
 class ZendX_JQuery_Form_ElementTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        Zend_Registry::_unsetInstance();
+    }
+
     public function testElementSetGetJQueryParam()
     {
         $spinner = new ZendX_JQuery_Form_Element_Spinner('spinnerElem');
@@ -111,6 +117,36 @@ class ZendX_JQuery_Form_ElementTest extends PHPUnit_Framework_TestCase
         } catch(Exception $e) {
             $this->fail();
         }
+    }
+
+    /**
+     * @group ZF-4859
+     */
+    public function testAutocompleteDoesNotDoubleArrayEncodeDataJsonField()
+    {
+        $view = new Zend_View();
+        $form = new  ZendX_JQuery_Form();
+
+        $array = array(0 => 'John Doe');
+
+        $lastname = new ZendX_JQuery_Form_Element_AutoComplete("Lastname", array('label' => 'Lastname'));
+        $form->addElement($lastname);
+        $form->Lastname->setJQueryParam('data', $array);
+
+        Zend_Json::$useBuiltinEncoderDecoder = true;
+        $output = $form->render($view);
+
+        $this->assertEquals(
+            array('$("#Lastname").autocomplete({"data":["John Doe"]});'),
+            $view->jQuery()->getOnLoadActions()
+        );
+
+        Zend_Json::$useBuiltinEncoderDecoder = false;
+        $output = $form->render($view);
+        $this->assertEquals(
+            array('$("#Lastname").autocomplete({"data":["John Doe"]});'),
+            $view->jQuery()->getOnLoadActions()
+        );
     }
 }
 
