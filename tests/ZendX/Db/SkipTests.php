@@ -14,52 +14,52 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   ZendX
- * @package    ZendX
+ * @package    ZendX_Db
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: $
  */
 
-/**
- * Test helper
- */
-require_once dirname(__FILE__) . '/../TestHelper.php';
+require_once 'PHPUnit/Framework/TestCase.php';
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'ZendX_AllTests::main');
-}
+require_once 'PHPUnit/Util/Filter.php';
 
-require_once 'ZendX/Console/AllTests.php';
-require_once 'ZendX/JQuery/AllTests.php';
-require_once 'ZendX/Db/AllTests.php';
+PHPUnit_Util_Filter::addFileToFilter(__FILE__);
 
 /**
  * @category   ZendX
- * @package    ZendX
+ * @package    ZendX_Db
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ZendX_AllTests
+abstract class ZendX_Db_Skip_CommonTest extends PHPUnit_Framework_TestCase
 {
-    public static function main()
+    public $message = null;
+
+    abstract public function getDriver();
+
+    public function setUp()
     {
-        PHPUnit_TextUI_TestRunner::run(self::suite());
+        $driver = $this->getDriver();
+        $message = 'Skipping ' . $this->getDriver();
+        if ($this->message) {
+            $message .= ': ' . $this->message;
+        }
+        $this->markTestSkipped($message);
     }
 
-    public static function suite()
+    public function testDb()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Zend Framework Extras - ZendX');
-
-        $suite->addTestSuite('ZendX_Console_AllTests');
-        $suite->addTestSuite('ZendX_JQuery_AllTests');
-        $suite->addTestSuite('ZendX_Db_AllTests');
-
-        return $suite;
+        // this is here only so we have at least one test
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'ZendX_AllTests::main') {
-    Zend_AllTests::main();
+class ZendX_Db_Skip_FirebirdTest extends ZendX_Db_Skip_CommonTest
+{
+    public function getDriver()
+    {
+        return 'Firebird';
+    }
 }

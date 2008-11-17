@@ -34,6 +34,16 @@
  */
 
 /**
+ * ZendX_Db_Adapter_Firebird
+ */
+define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_ENABLED',  true);
+define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_HOSTNAME', '');
+define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_PORT', 3050);
+define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_USERNAME', 'sysdba');
+define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_PASSWORD', 'masterkey');
+define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_DATABASE', 'C:\fbtest.fdb');
+
+/**
  * PHPUnit Code Coverage / Test Report
  */
 define('TESTS_GENERATE_REPORT', false);
