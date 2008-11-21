@@ -38,7 +38,7 @@ require_once 'Zend/Db/Select.php';
 /**
  * @see Zend_Db_Statement_Firebird
  */
-require_once 'Zend/Db/Statement/Firebird.php';
+require_once 'ZendX/Db/Statement/Firebird.php';
 
 
 /**
