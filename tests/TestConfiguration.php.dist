@@ -41,7 +41,8 @@ define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_HOSTNAME', '');
 define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_PORT', 3050);
 define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_USERNAME', 'sysdba');
 define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_PASSWORD', 'masterkey');
-define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_DATABASE', 'C:\fbtest.fdb');
+define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_DATABASE', 'C:\fbtest.fdb'); //must be DOS name
+define('TESTS_ZEND_DB_ADAPTER_FIREBIRD_BINPATH', 'C:/Program Files/Firebird/Firebird_2_1/bin/'); //don't forget last slash
 
 /**
  * PHPUnit Code Coverage / Test Report
