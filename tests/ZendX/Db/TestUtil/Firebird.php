@@ -13,8 +13,8 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   ZendX
- * @package    ZendX_Db
+ * @category   Zend
+ * @package    Zend_Db
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2007 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -40,9 +40,44 @@ PHPUnit_Util_Filter::addFileToFilter(__FILE__);
  */
 class Zend_Db_TestUtil_Firebird extends Zend_Db_TestUtil_Common
 {
+    public function tearDown()
+    {
+        $this->_setUpDatabase(false);
+    }
+
+
+    private function _getConnString()
+    {
+        return  '"' .
+                TESTS_ZEND_DB_ADAPTER_FIREBIRD_HOSTNAME .
+                ( TESTS_ZEND_DB_ADAPTER_FIREBIRD_PORT ? '/' . TESTS_ZEND_DB_ADAPTER_FIREBIRD_PORT : '' ) .
+                TESTS_ZEND_DB_ADAPTER_FIREBIRD_DATABASE .
+                '" USER "' .
+                TESTS_ZEND_DB_ADAPTER_FIREBIRD_USERNAME .
+                '" PASSWORD "' .
+                TESTS_ZEND_DB_ADAPTER_FIREBIRD_PASSWORD .
+                '";';
+
+    }
+
+    private function _setUpDatabase($create = true)
+    {
+        $temp_file = tempnam(sys_get_temp_dir(), 'fbtest.sql');
+        $cmd = 'CONNECT ' . $this->_getConnString() .
+               'DROP DATABASE;' .
+               ( $create ? 'CREATE DATABASE ' . $this->_getConnString() : '');
+
+        file_put_contents($temp_file, $cmd);
+        exec('"TESTS_ZEND_DB_ADAPTER_FIREBIRD_BINPATH" -i ' . $temp_file, $output, $return_var);
+        unlink($temp_file);    
+    }
+
     public function setUp(Zend_Db_Adapter_Abstract $db)
     {
+        $this->_setUpDatabase();
+
         parent::setUp($db);
+
 
         $this->createSequence('zfbugs_seq');
         $this->createSequence('zfproducts_seq');

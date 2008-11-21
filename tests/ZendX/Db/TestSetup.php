@@ -25,7 +25,9 @@
 /**
  * Test helper
  */
-require_once 'ZendX/TestHelper.php';
+
+ 
+require_once dirname(__FILE__) . '/../../TestHelper.php';
 
 /**
  * @see Zend_Loader
