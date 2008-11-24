@@ -306,6 +306,16 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     }
 
     /**
+     * Proxies to getUiPath() for consistency in function naming.
+     *
+     * @return string
+     */
+    public function getUiLocalPath()
+    {
+        return $this->getUiPath();
+    }
+
+    /**
      * Is the jQuery Ui enabled and loaded from local scope?
      *
      * @return boolean

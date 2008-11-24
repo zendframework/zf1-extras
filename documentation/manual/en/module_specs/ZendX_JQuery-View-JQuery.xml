@@ -212,9 +212,9 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
                         currently enabled for jQuery UI</para></listitem>
                 <listitem><para><code>useUiLocal()</code>: Return true, if local usage
                         is currently enabled for jQuery UI</para></listitem>
-                <listitem><para><code>setUiPath()</code>: Set the local path to the
+                <listitem><para><code>setUiLocalPath()</code>: Set the local path to the
                         jQuery UI library</para></listitem>
-                <listitem><para><code>getUiPath()</code>: If set, get the local path
+                <listitem><para><code>getUiLocalPath()</code>: If set, get the local path
                         to the jQuery UI library</para></listitem>
             </itemizedlist>
         </sect4>
