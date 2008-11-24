@@ -230,6 +230,20 @@ class ZendX_JQuery_View_AjaxLinkTest extends PHPUnit_Framework_TestCase
         $this->assertNotContains('class=', $html);
         $this->assertContains('id="someId"', $html);
 	}
+
+    /**
+     * @group ZF-5041
+     */
+    public function testXhtmlDoctypeDoesNotMakeAnchorInvalidHtml()
+    {
+        $view = $this->getView();
+        $view->doctype('XHTML1_STRICT');
+
+        $html = $view->ajaxLink("Label1", "/some/url", array('id' => "someId"));
+
+        $this->assertNotContains("/>Label1</a>", $html);
+        $this->assertContains(">Label1</a>", $html);
+    }
 }
 
 if (PHPUnit_MAIN_METHOD == 'ZendX_JQuery_View_AjaxLinkTest::main') {

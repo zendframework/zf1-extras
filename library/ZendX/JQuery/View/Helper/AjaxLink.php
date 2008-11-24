@@ -281,7 +281,7 @@ class ZendX_JQuery_View_Helper_AjaxLink extends Zend_View_Helper_HtmlElement
 
         $html = '<a'
               . $this->_htmlAttribs($attribs)
-              . $this->getClosingBracket()
+              . '>'
               . $label
               . '</a>';
         return $html;
