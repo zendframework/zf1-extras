@@ -13,23 +13,23 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category  ZendX
- * @package   ZendX_Whois
+ * @package   ZendX_Console
  * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  * @version   $Id$
  */
 
 /**
- * @see Zend_Console_Exception
+ * @see ZendX_Console_Exception
  */
-require_once 'Zend/Console/Exception.php';
+require_once 'ZendX/Console/Exception.php';
 
 /**
  * Exception class for ZendX_Console_Process
  *
  * @category  ZendX
- * @package   ZendX_Whois
- * @uses      Zend_Exception
+ * @package   ZendX_Console
+ * @uses      ZendX_Console_Exception
  * @copyright Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd     New BSD License
  */
