@@ -114,7 +114,37 @@ class ZendX_JQuery_Form_ElementTest extends PHPUnit_Framework_TestCase
 
         try {
             $spinner->render();
+            $this->fail();
+        } catch(ZendX_JQuery_Form_Exception $e) {
+            // success here
         } catch(Exception $e) {
+            $this->fail();
+        }
+    }
+
+    /**
+     * @group ZF-5125
+     */
+    public function testJQueryElementHasToImplementMarkerInterface()
+    {
+        $view = new Zend_View();
+
+        $spinner = new ZendX_JQuery_Form_Element_Spinner("spinner1");
+        $spinner->setDecorators(array('ViewHelper'));
+        $spinner->setView($view);
+
+        try {
+            $spinner->render();
+            $this->fail();
+        } catch(ZendX_JQuery_Form_Exception $e) {
+            // success here
+        }
+
+        $spinner->setDecorators(array('UiWidgetElement'));
+        try {
+            $spinner->render();
+            // success here
+        } catch(ZendX_JQuery_Form_Exception $e) {
             $this->fail();
         }
     }

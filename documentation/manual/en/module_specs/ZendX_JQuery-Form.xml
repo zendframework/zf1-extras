@@ -71,6 +71,19 @@ $form->setDecorators(array(
             <listitem><para><code>ZendX_JQuery_Form_Element_Slider</code>: Proxy to Slider View Helper</para></listitem>
             <listitem><para><code>ZendX_JQuery_Form_Element_Spinner</code>: Proxy to Spinner View Helper</para></listitem>
         </itemizedlist>
+
+        <note id="zendx.jquery.form.elements.markerinterface">
+            <title>jQuery Decorators: Beware the Marker Interface for UiWidgetElements</title>
+
+            <para>By default all the jQuery Form elements use the <code>ZendX_JQuery_Form_Decorator_UiWidgetElement</code> decorator
+                for rendering the jQuery element with its specific view helper. This decorator is inheritly different
+                from the ViewHelper decorator that is used for most of the default form elements in Zend_Form.
+                To ensure that rendering works correctly for jQuery form elements at least one decorator has to
+                implement the <code>ZendX_JQuery_Form_Decorator_UiWidgetElementMarker</code> interface, which
+                the default decorator does. If no marker interface is found an exception is thrown. Use the marker
+                interface if you want to implement your own decorator for the jQuery form element specific rendering.
+            </para>
+        </note>
     </sect2>
 
     <sect2 id="zendx.jquery.form.decorators">

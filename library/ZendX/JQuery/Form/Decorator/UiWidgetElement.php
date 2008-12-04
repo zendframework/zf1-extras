@@ -20,7 +20,15 @@
  * @version     $Id$
  */
 
+/**
+ * @see Zend_Form_Decorator_ViewHelper
+ */
 require_once "Zend/Form/Decorator/ViewHelper.php";
+
+/**
+ * @see ZendX_JQuery_Form_Decorator_UiWidgetElementMarker
+ */
+require_once "ZendX/JQuery/Form/Decorator/UiWidgetElementMarker.php";
 
 /**
  * Abstract Form Decorator for all jQuery UI Form Elements
@@ -30,7 +38,9 @@ require_once "Zend/Form/Decorator/ViewHelper.php";
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ZendX_JQuery_Form_Decorator_UiWidgetElement extends Zend_Form_Decorator_ViewHelper
+class ZendX_JQuery_Form_Decorator_UiWidgetElement
+    extends Zend_Form_Decorator_ViewHelper
+    implements ZendX_JQuery_Form_Decorator_UiWidgetElementMarker
 {
     /**
      * Element attributes
