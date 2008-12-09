@@ -326,7 +326,7 @@ class MyIndexController extends Zend_Controller_Action
         $filter = $_GET['q'];
 
         // Disable Layout and stuff, just displaying AutoComplete Information.
-        $this->autoComplete(array("New York", "Bonn", "Tokio"));
+        $this->_helper->autoComplete(array("New York", "Bonn", "Tokio"));
     }
 }
 ]]>
