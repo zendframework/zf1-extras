@@ -550,6 +550,17 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         return $this->_onLoadActions;
     }
 
+    /**
+     * Clear the onLoadActions stack.
+     *
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
+    public function clearOnLoadActions()
+    {
+        $this->_onLoadActions = array();
+        return $this;
+    }
+
 	/**
 	 * Set which parts of the jQuery enviroment should be rendered.
 	 *

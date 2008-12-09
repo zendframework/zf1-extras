@@ -378,4 +378,19 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
     	$this->assertContains("alert();", $render);
     	$this->assertContains("helloWorld();", $render);
     }
+
+    /**
+     * @group ZF-5185
+     */
+    public function testClearAddOnLoadStack()
+    {
+        $this->helper->addOnLoad("foo");
+        $this->helper->addOnLoad("bar");
+        $this->helper->addOnLoad("baz");
+
+        $this->assertEquals(array("foo", "bar", "baz"), $this->helper->getOnLoadActions());
+
+        $this->helper->clearOnLoadActions();
+        $this->assertEquals(array(), $this->helper->getOnLoadActions());
+    }
 }
