@@ -699,7 +699,11 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         $content = '';
 
         if (!empty($onLoadActions)) {
-            $content .= '$(document).ready(function() {'."\n    ";
+            if(ZendX_JQuery_View_Helper_JQuery::getNoConflictMode() == true) {
+                $content .= '$j(document).ready(function() {'."\n    ";
+            } else {
+                $content .= '$(document).ready(function() {'."\n    ";
+            }
             $content .= implode("\n    ", $onLoadActions) . "\n";
             $content .= '});'."\n";
         }

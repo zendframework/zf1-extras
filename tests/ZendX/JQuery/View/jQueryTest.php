@@ -393,4 +393,23 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
         $this->helper->clearOnLoadActions();
         $this->assertEquals(array(), $this->helper->getOnLoadActions());
     }
+
+    /**
+     * @group ZF-5344
+     */
+    public function testNoConflictModeIsRecognizedInRenderingOnLoadStackEvent()
+    {
+        ZendX_JQuery_View_Helper_JQuery::enableNoConflictMode();
+        $this->helper->addOnLoad("foo");
+        $this->helper->addOnLoad("bar");
+        $this->helper->enable();
+
+        $jQueryStack = $this->helper->__toString();
+        $this->assertContains('$j(document).ready(function()', $jQueryStack);
+
+        ZendX_JQuery_View_Helper_JQuery::disableNoConflictMode();
+
+        $jQueryStack =  $this->helper->__toString();
+        $this->assertNotContains('$j(document).ready(function()', $jQueryStack);
+    }
 }
