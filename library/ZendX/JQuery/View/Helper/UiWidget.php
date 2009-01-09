@@ -26,6 +26,11 @@
 require_once "Zend/View/Helper/HtmlElement.php";
 
 /**
+ * @see ZendX_JQuery_Json_Expr
+ */
+require_once "ZendX/JQuery/Json/Expr.php";
+
+/**
  * jQuery Ui Widget Base class
  *
  * @uses 	   ZendX_JQuery_View_Helper_JQuery_Container
@@ -66,7 +71,7 @@ abstract class ZendX_JQuery_View_Helper_UiWidget extends Zend_View_Helper_HtmlEl
      * @param Array $attribs
      * @return Array $attribs
      */
-	public function _prepareAttributes($id, $value, $attribs)
+	protected function _prepareAttributes($id, $value, $attribs)
 	{
         if(!isset($attribs['id'])) {
             $attribs['id'] = $id;
