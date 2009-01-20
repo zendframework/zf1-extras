@@ -251,6 +251,23 @@ class ZendX_Db_Adapter_Firebird extends Zend_Db_Adapter_Abstract
         return $desc;
     }
 
+
+    /**
+     * Format a connection string to connect to database
+     *
+     * @return void
+     */
+    protected function _formatDbConnString($host, $port, $dbname)
+    {
+        if (is_numeric($port))
+            $port = '/' . (integer) $port;
+        if ($dbname)
+            $dbname = ':' . $dbname;
+
+        return $host . $port . $dbname;
+
+    }
+
     /**
      * Creates a connection to the database.
      *
@@ -271,14 +288,11 @@ class ZendX_Db_Adapter_Firebird extends Zend_Db_Adapter_Abstract
             throw new ZendX_Db_Adapter_Firebird_Exception('The Interbase extension is required for this adapter but the extension is not loaded');
         }
 
-        $port = '';
-        if (isset($this->_config['port']))
-            $port = '/' . (integer) $this->_config['port'];
 
         // Suppress connection warnings here.
         // Throw an exception instead.
         $this->_connection = @ibase_connect(
-                                $this->_config['host'] .$port. ':' . $this->_config['dbname'],
+                                $this->_formatDbConnString($this->_config['host'],$this->_config['port'] ,$this->_config['dbname']),
                                 $this->_config['username'],
                                 $this->_config['password'],
                                 $this->_config['charset'],
@@ -543,6 +557,41 @@ class ZendX_Db_Adapter_Firebird extends Zend_Db_Adapter_Abstract
             case 'named':
             default:
                 return false;
+        }
+    }
+
+    /**
+     * Test if a connection is active
+     *
+     * @return boolean
+     */
+    public function isConnected()
+    {
+        return ((bool) (is_resource($this->_connection)
+                     && get_resource_type($this->_connection) == 'Firebird/InterBase link'));
+    }
+
+    /**
+     * Retrieve server version in PHP style
+     *
+     * @return string
+     */
+    public function getServerVersion()
+    {
+        $this->_connect();
+        $service = ibase_service_attach($this->_formatDbConnString($this->_config['host'], $this->_config['port'], ''), $this->_config['username'], $this->_config['password']);
+
+        if ($service != FALSE) {
+            $server_info  = ibase_server_info($service, IBASE_SVC_SERVER_VERSION);
+            ibase_service_detach($service);
+            $matches = null;
+            if (preg_match('/((?:[0-9]{1,2}\.){1,3}[0-9]{1,2})/', $server_info, $matches)) {
+                return $matches[1];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
         }
     }
 }
