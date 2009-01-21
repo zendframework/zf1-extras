@@ -115,14 +115,14 @@ Pick your Date: <?= $this->datePicker("dp1",
         <para>jQuery offers a noConflict mode that allows the library to be run side by side with other javascript libraries
             that operate in the global namespace, Prototype for example. The Zend Framework jQuery View Helper makes usage of
             the noConflict mode very easy. If you want to run Prototype and jQuery side by side you can call
-            <code>ZendX_JQuery_View_JQuery::enableNoConflictMode();</code> and all jQuery helpers will operate in the No Conflict
+            <code>ZendX_JQuery_View_Helper_JQuery::enableNoConflictMode();</code> and all jQuery helpers will operate in the No Conflict
             Mode.</para>
 
         <example id="zend.jquery.view.jquery.noconflict">
             <title>Building your own Helper with No Conflict Mode</title>
 
             <para>To make use of the NoConflict Mode in your own jQuery helper, you only have to use the static method
-                <code>ZendX_JQuery_View_JQuery::getJQueryHandler()</code> method. It returns the variable jQuery is operating
+                <code>ZendX_JQuery_View_Helper_JQuery::getJQueryHandler()</code> method. It returns the variable jQuery is operating
                 in at the moment, either <code>$</code> or <code>$j</code>
             </para>
 
@@ -135,7 +135,7 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
         $jquery->enable(); // enable jQuery Core Library
 
         // get current jQuery handler based on noConflict settings
-        $jqHandler = ZendX_JQuery_View_JQuery::getJQueryHandler();
+        $jqHandler = ZendX_JQuery_View_Helper_JQuery::getJQueryHandler();
 
         $function = '("#element").click(function() '
                   . '{ alert("noConflict Mode Save Helper!"); }'
