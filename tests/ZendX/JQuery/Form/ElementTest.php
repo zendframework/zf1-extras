@@ -29,8 +29,10 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once "Zend/Registry.php";
 require_once "Zend/View.php";
 require_once "Zend/Form/Element.php";
+require_once "Zend/Form/SubForm.php";
 require_once "Zend/Json.php";
 require_once "ZendX/JQuery.php";
+require_once "ZendX/JQuery/Form.php";
 require_once "ZendX/JQuery/View/Helper/JQuery.php";
 
 require_once "ZendX/JQuery/Form/Element/Spinner.php";
@@ -177,6 +179,28 @@ class ZendX_JQuery_Form_ElementTest extends PHPUnit_Framework_TestCase
             array('$("#Lastname").autocomplete({"data":["John Doe"]});'),
             $view->jQuery()->getOnLoadActions()
         );
+    }
+
+    /**
+     * @group ZF-5043
+     */
+    public function testFormWithoutIdButSubformsProducesArrayNotationWhichWontWork()
+    {
+        $view = new Zend_View();
+        $form = new ZendX_JQuery_Form();
+
+        $datePicker = new ZendX_JQuery_Form_Element_DatePicker("dp1");
+
+        $subform = new Zend_Form_SubForm();
+        $subform->addElement($datePicker);
+
+        $form->addSubForm($subform, "sf1");
+        $form->setIsArray(true);
+
+        $form   = $form->render($view);
+        $jquery = $view->jQuery()->__toString();
+        $this->assertContains('sf1[dp1]', $form);
+        $this->assertNotContains('$("#sf1[dp1]")', $jquery);
     }
 }
 
