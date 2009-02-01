@@ -59,7 +59,7 @@ class ZendX_JQuery_View_Helper_DatePicker extends ZendX_JQuery_View_Helper_UiWid
 		// Prepare params
 		//
 		if(!isset($params['dateFormat']) && Zend_Registry::isRegistered('Zend_Locale')) {
-		    $params['dateFormat'] = $this->_resolveLocaleToDatePickerFormat();
+		    $params['dateFormat'] = self::resolveZendLocaleToDatePickerFormat();
 		}
 
 		// TODO: Allow translation of DatePicker Text Values to get this action from client to server
@@ -97,16 +97,54 @@ class ZendX_JQuery_View_Helper_DatePicker extends ZendX_JQuery_View_Helper_UiWid
 	 *
 	 * @return string
 	 */
-	protected function _resolveLocaleToDatePickerFormat()
+	public static function resolveZendLocaleToDatePickerFormat($format=null)
 	{
-	    $locale = Zend_Registry::get('Zend_Locale');
-	    require_once "Zend/Locale/Format.php";
-	    $dateFormat = str_replace(
-	        array('EEE', 'EEEE', 'M', 'MM', 'MMM', 'MMMM', 'YY', 'YYYY', 'yyyy'),
-	        array('D', 'DD', 'm', 'mm', 'M', 'MM', 'y', 'yy', 'yy'),
-	        Zend_Locale_Format::getDateFormat($locale)
-	    );
+        if($format == null) {
+            $locale = Zend_Registry::get('Zend_Locale');
+            if( !($locale instanceof Zend_Locale) ) {
+                require_once "ZendX/JQuery/Exception.php";
+                throw new ZendX_JQuery_Exception("Cannot resolve Zend Locale format by default, no application wide locale is set.");
+            }
+            /**
+             * @see Zend_Locale_Format
+             */
+            require_once "Zend/Locale/Format.php";
+            $format = Zend_Locale_Format::getDateFormat($locale);
+        }
 
-	    return $dateFormat;
+        $dateFormat = array(
+            'EEEEE' => 'D', 'EEEE' => 'DD', 'EEE' => 'D', 'EE' => 'D', 'E' => 'D',
+            'MMMM' => 'MM', 'MMM' => 'M', 'MM' => 'mm', 'M' => 'm',
+            'YYYYY' => 'yy', 'YYYY' => 'yy', 'YYY' => 'yy', 'YY' => 'y', 'Y' => 'y',
+            'yyyyy' => 'yy', 'yyyy' => 'yy', 'yyy' => 'yy', 'yy' => 'y',
+            'G' => '', 'e' => '', 'a' => '', 'h' => '', 'H' => '', 'm' => '',
+            's' => '', 'S' => '', 'z' => '', 'Z' => '', 'A' => '',
+        );
+
+        $newFormat = "";
+        $isText = false;
+        $i = 0;
+        while($i < strlen($format)) {
+            $chr = $format[$i];
+            if($chr == '"' || $chr == "'") {
+                $isText = !$isText;
+            }
+            $replaced = false;
+            if($isText == false) {
+                foreach($dateFormat AS $zl => $jql) {
+                    if(substr($format, $i, strlen($zl)) == $zl) {
+                        $chr = $jql;
+                        $i += strlen($zl);
+                        $replaced = true;
+                    }
+                }
+            }
+            if($replaced == false) {
+                $i++;
+            }
+            $newFormat .= $chr;
+        }
+
+	    return $newFormat;
 	}
 }

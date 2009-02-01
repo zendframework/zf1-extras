@@ -105,7 +105,7 @@ class ZendX_JQuery_View_DatePickerTest extends PHPUnit_Framework_TestCase
         $this->assertContains('value="01.01.2007"', $element);
     }
 
-    public function testDatePickerSupportsLocale()
+    public function testDatePickerSupportsLocaleDe()
     {
         $view = $this->getView();
         $locale = new Zend_Locale('de');
@@ -115,25 +115,41 @@ class ZendX_JQuery_View_DatePickerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array(
             '$("#dp1").datepicker({"dateFormat":"dd.mm.yy"});',
         ), $view->jQuery()->getOnLoadActions());
+    }
+
+    public function testDatePickerSupportsLocaleEn()
+    {
+        $view = $this->getView();
 
         $locale = new Zend_Locale('en');
         Zend_Registry::set('Zend_Locale', $locale);
         $view->datePicker("dp2");
 
         $this->assertEquals(array(
-            '$("#dp1").datepicker({"dateFormat":"dd.mm.yy"});',
-            '$("#dp2").datepicker({"dateFormat":"mmm d, yy"});',
+            '$("#dp2").datepicker({"dateFormat":"M d, yy"});',
         ), $view->jQuery()->getOnLoadActions());
+    }
+
+    public function testDatePickerSupportsLocaleFr()
+    {
+        $view = $this->getView();
 
         $locale = new Zend_Locale('fr');
         Zend_Registry::set('Zend_Locale', $locale);
         $view->datePicker("dp3");
 
         $this->assertEquals(array(
-            '$("#dp1").datepicker({"dateFormat":"dd.mm.yy"});',
-            '$("#dp2").datepicker({"dateFormat":"mmm d, yy"});',
-            '$("#dp3").datepicker({"dateFormat":"d mmm yy"});',
+            '$("#dp3").datepicker({"dateFormat":"d M yy"});',
         ), $view->jQuery()->getOnLoadActions());
+    }
+
+    /**
+     * @see ZF-5615
+     */
+    public function testDatePickerLocalization()
+    {
+        $dpFormat = ZendX_JQuery_View_Helper_DatePicker::resolveZendLocaleToDatePickerFormat("MMM d, yyyy");
+        $this->assertEquals("M d, yy", $dpFormat, "'MMM d, yyyy' has to be converted to 'M d, yy'.");
     }
 }
 
