@@ -119,7 +119,7 @@ class ZendX_JQuery_View_Helper_TabContainer extends ZendX_JQuery_View_Helper_UiW
             $params = '{}';
         }
 
-        $js = sprintf('%s("#%s > ul").tabs(%s);',
+        $js = sprintf('%s("#%s").tabs(%s);',
             ZendX_JQuery_View_Helper_JQuery::getJQueryHandler(),
             $attribs['id'],
             $params
