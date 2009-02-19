@@ -412,4 +412,31 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
         $jQueryStack =  $this->helper->__toString();
         $this->assertNotContains('$j(document).ready(function()', $jQueryStack);
     }
+
+    /**
+     * @group ZF-5839
+     */
+    public function testStylesheetShouldRenderCorrectClosingBracketBasedOnHtmlDoctypeDefinition()
+    {
+        $this->helper->addStylesheet("test.css");
+        $this->view->doctype("HTML4_STRICT");
+
+        $assert = '<link rel="stylesheet" href="test.css" type="text/css" media="screen">';
+        $this->helper->enable();
+        $this->assertContains($assert, $this->helper->__toString());
+
+    }
+
+    /**
+     * @group ZF-5839
+     */
+    public function testStylesheetShouldRenderCorrectClosingBracketBasedOnXHtmlDoctypeDefinition()
+    {
+        $this->helper->addStylesheet("test.css");
+        $this->view->doctype("XHTML1_STRICT");
+
+        $assert = '<link rel="stylesheet" href="test.css" type="text/css" media="screen" />';
+        $this->helper->enable();
+        $this->assertContains($assert, $this->helper->__toString());
+    }
 }

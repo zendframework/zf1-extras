@@ -635,7 +635,14 @@ class ZendX_JQuery_View_Helper_JQuery_Container
                 . '</style>';*/
         $style = "";
         foreach($stylesheets AS $stylesheet) {
-            $style .= '<link rel="Stylesheet" href="'.$stylesheet.'" type="text/css" />'.PHP_EOL;
+            if ($this->view instanceof Zend_View_Abstract) {
+                $closingBracket = ($this->view->doctype()->isXhtml()) ? ' />' : '>';
+            } else {
+                $closingBracket = ' />';
+            }
+
+            $style .= '<link rel="stylesheet" href="'.$stylesheet.'" '.
+                      'type="text/css" media="screen"' . $closingBracket . PHP_EOL;
         }
 
         return $style;
