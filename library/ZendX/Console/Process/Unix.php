@@ -31,6 +31,16 @@
 abstract class ZendX_Console_Process_Unix
 {
     /**
+     * Void method
+     */
+    const VOID_METHOD = 'void_method';
+
+    /**
+     * Return method
+     */
+    const RETURN_METHOD = 'void_method';
+    
+    /**
      * Unique thread name
      *
      * @var string
@@ -163,7 +173,7 @@ abstract class ZendX_Console_Process_Unix
         // Try to create the shared memory segment. The variable
         // $this->_ipcIsOkay contains the return code of this operation and must
         // be checked before forking
-        if ($this->_createIPCsegment() && $this->_createIPCsemaphore()) {
+        if ($this->_createIpcSegment() && $this->_createIpcSemaphore()) {
             $this->_ipcIsOkay = true;
         } else {
             $this->_ipcIsOkay = false;
@@ -302,7 +312,7 @@ abstract class ZendX_Console_Process_Unix
      */
     public function getVariable($name)
     {
-        $this->_readFromIPCsegment();
+        $this->_readFromIpcSegment();
 
         if (isset($this->_internalIpcData[$name])) {
             return $this->_internalIpcData[$name];
@@ -337,7 +347,7 @@ abstract class ZendX_Console_Process_Unix
     {
         return $this->_pid;
     }
-
+    
     /**
      * Set a pseudo-thread property that can be read from parent process
      * in order to know the child activity.
@@ -353,12 +363,80 @@ abstract class ZendX_Console_Process_Unix
         $this->_writeVariable('_pingTime', time());
     }
     
+
+    /**
+     * This is called from within the parent; all the communication stuff
+     * is done here.
+     *
+     * @param  string $methodName
+     * @param  array  $argList
+     * @param  string $type
+     * @return mixed
+     */
+    protected function _callCallbackMethod($methodName, array $arglist = array(), $type = self::VOID_METHOD)
+    {
+        // This is the parent, so we really cannot execute the method. Check
+        // arguments passed to the method.
+        if ($type === self::RETURN_METHOD) {
+            $this->_internalIpcData['_callType'] = self::RETURN_METHOD;
+        } else {
+            $this->_internalIpcData['_callType'] = self::VOID_METHOD;
+        }
+
+        // These setting are common to both the calling types
+        $this->_internalIpcData['_callMethod'] = $methodName;
+        $this->_internalIpcData['_callInput']  = $argList;
+
+        // Write the IPC data to the shared segment
+        $this->_writeToIpcSegment();
+
+        // Now we need to differentiate a bit.
+        switch ($this->_internalIpcData['_callType']) {
+            case VOID_METHOD:
+                // Notify the child so it can process the request
+                $this->_sendSigUsr1();
+                break;
+
+            case RETURN_METHOD:
+                // Set the semaphorew
+                shmop_write($this->_internalSemKey, 1, 0);
+
+                // Notify the child so it can process the request
+                $this->_sendSigUsr1();
+
+                // Block until the child process return
+                $this->_waitForIpcSemaphore();
+
+                // Read from the SHM segment. The result is stored into
+                // $this->_internalIpcData['_callOutput']
+                $this->_readFromIpcSegment();
+
+                // Data are returned. Now we can reset the semaphore
+                shmop_write($this->_internalSemKey, 0, 1);
+
+                // Return the result. Hence no break required here
+                return $this->_internalIpcData['_callOutput'];
+        }
+    }
+    
     /**
      * This method actually implements the pseudo-thread logic.
      * 
      * @return void
      */
     abstract protected function _run();
+    
+    /**
+     * Sends signal to the child process
+     * 
+     * @return void
+     */
+    private function _sendSigUsr1()
+    {
+        if ($this->_pid > 0) {
+            posix_kill($this->_pid, SIGUSR1);
+        }
+    }
     
     /**
      * Acutally Write a variable to the shared memory segment
@@ -404,6 +482,37 @@ abstract class ZendX_Console_Process_Unix
                 // Handle shutdown tasks. Hence no break is require
                 exit;
 
+            case SIGUSR1:
+                // This is the User-defined signal we'll use. Read the SHM segment
+                $this->_readFromIpcSegment();
+
+                if (isset($this->_internalIpcData['_callType'])) {
+                    $method = $this->_internalIpcData['_callMethod'];
+                    $params = $this->_internalIpcData['_callInput'];
+
+                    switch ($this->_internalIpcData['_callType']) {
+                        case self::VOID_METHOD:
+                            // Simple call the (void) method and return immediatly
+                            // no semaphore is placed into parent, so the processing
+                            // is async
+                            $this->$method($params);
+                            break;
+
+                        case self::RETURN_METHOD:
+                            // Process the request
+                            $this->_internalIpcData['_callOutput'] = $this->$method($params);
+
+                            // Write the result into IPC segment
+                            $this->_writeToIPCsegment();
+
+                            // Unlock the semaphore but block _writeToIpcSegment()
+                            shmop_write($this->_internalSemKey, 0, 0);
+                            shmop_write($this->_internalSemKey, 1, 1);
+                            break;
+                    }
+                }
+                break;
+                
             default:
                 // Ignore all other singals
                 break;
