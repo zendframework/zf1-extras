@@ -373,7 +373,7 @@ abstract class ZendX_Console_Process_Unix
      * @param  string $type
      * @return mixed
      */
-    protected function _callCallbackMethod($methodName, array $arglist = array(), $type = self::VOID_METHOD)
+    protected function _callCallbackMethod($methodName, array $argList = array(), $type = self::VOID_METHOD)
     {
         // This is the parent, so we really cannot execute the method. Check
         // arguments passed to the method.
@@ -495,12 +495,12 @@ abstract class ZendX_Console_Process_Unix
                             // Simple call the (void) method and return immediatly
                             // no semaphore is placed into parent, so the processing
                             // is async
-                            $this->$method($params);
+                            call_user_func(array($this, $method), $params);
                             break;
 
                         case self::RETURN_METHOD:
                             // Process the request
-                            $this->_internalIpcData['_callOutput'] = $this->$method($params);
+                            $this->_internalIpcData['_callOutput'] = call_user_func(array($this, $method), $params);
 
                             // Write the result into IPC segment
                             $this->_writeToIPCsegment();
