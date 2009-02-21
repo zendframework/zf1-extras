@@ -259,7 +259,7 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
             <para>These are quite a number of methods, but many of them are used for internally by all the
                 additional view helpers and during the printing of the jQuery environment. Unless you
                 want to build your own jQuery helper or have a complex use-case, you will probably only
-                get in contact with a view methods of these.</para>
+                get in contact with a few methods of these.</para>
         </sect4>
 
     </sect3>
@@ -301,5 +301,18 @@ $view->jQuery
         </programlisting>
 
         <para>This statement makes sure only the required javascript statements and onLoad blocks of the current page are rendered by the jQuery helper.</para>
+    </sect3>
+
+    <sect3 id="zendx.jquery.view.jquery.migrations">
+        <title>Migrations</title>
+
+        <para>Prior to 1.8 the methods <code>setCdnVersion()</code>, <code>setLocalPath()</code>
+            <code>setUiCdnVersion()</code> and <code>setUiLocalPath()</code> all enabled the view
+            helper upon calling, which is considered a bug from the following perspective: If
+            you want to use the any non-default library option, you would have to manually disable the
+            jQuery helper aftwards if you only require it to be loaded in some scenarios. With version
+            1.8 the jQuery helper does only enable itsself, when <code>enable()</code> is called,
+            which all internal jQuery View helpers do upon being called.
+        </para>
     </sect3>
 </sect2>

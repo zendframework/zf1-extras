@@ -183,7 +183,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function setCdnVersion($version = null)
     {
-        $this->enable();
         if (preg_match('/^[1-9]\.[0-9](\.[0-9])?$/', $version)) {
             $this->_version = $version;
         }
@@ -218,7 +217,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function setLocalPath($path)
     {
-        $this->enable();
         $this->_jqueryLibraryPath = (string) $path;
         return $this;
     }
@@ -264,7 +262,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function setUiCdnVersion($version="1.5.2")
     {
-    	$this->uiEnable();
     	if (preg_match('/^[1-9]\.[0-9](\.[0-9])?$/', $version)) {
     		$this->_uiPath = null;
     		$this->_uiVersion = $version;
@@ -290,7 +287,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function setUiLocalPath($path)
     {
-    	$this->uiEnable();
     	$this->_uiPath = (string) $path;
     	return $this;
     }
@@ -316,15 +312,12 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     }
 
     /**
-     * Is the jQuery Ui enabled and loaded from local scope?
+     * Is the jQuery Ui loaded from local scope?
      *
      * @return boolean
      */
     public function useUiLocal()
     {
-    	if($this->uiIsEnabled() == false) {
-    		return false;
-    	}
     	return (null===$this->_uiPath ? false : true);
     }
 
@@ -335,9 +328,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function useUiCdn()
     {
-    	if($this->uiIsEnabled() == false) {
-    		return false;
-    	}
     	return !$this->useUiLocal();
     }
 
