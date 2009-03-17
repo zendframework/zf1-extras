@@ -462,8 +462,8 @@ abstract class ZendX_Console_Process_Unix
         shmop_close($this->_internalIpcKey);
         shmop_close($this->_internalSemKey);
 
-        $this->_ipcSegFile;
-        $this->_ipcSemFile;
+        unlink($this->_ipcSegFile);
+        unlink($this->_ipcSemFile);
 
         $this->_isRunning = false;
         $this->_pid       = null;
@@ -628,7 +628,6 @@ abstract class ZendX_Console_Process_Unix
         touch($this->_ipcSemFile);
 
         $semKey = ftok($this->_ipcSemFile, 't');
-
         if ($semKey == -1) {
             require_once 'ZendX/Console/Process/Exception.php';
             throw new ZendX_Console_Process_Exception('Could not create semaphore');
