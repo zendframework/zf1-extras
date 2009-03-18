@@ -132,9 +132,9 @@ abstract class ZendX_Console_Process_Unix
      * a UMASK for the child process. This also initialize Shared Memory
      * Segments for process communications.
      *
-     * @param integer $puid
-     * @param integer $guid
-     * @param integer $umask
+     * @param  integer $puid
+     * @param  integer $guid
+     * @param  integer $umask
      * @throws ZendX_Console_Process_Exception When running on windows
      * @throws ZendX_Console_Process_Exception When running in web enviroment
      * @throws ZendX_Console_Process_Exception When shmop_* functions don't exist
@@ -181,6 +181,16 @@ abstract class ZendX_Console_Process_Unix
     }
     
     /**
+     * Stop the child on destruction
+     */
+    public function __destruct()
+    {
+        if ($this->isRunning()) {
+            $this->stop();
+        }
+    }
+    
+    /**
      * Causes this pseudo-thread to begin parallel execution.
      *
      * This method first checks of all the Shared Memory Segment. If okay, it
@@ -216,6 +226,9 @@ abstract class ZendX_Console_Process_Unix
            
             // Sleep a second to avoid problems
             sleep(1);
+            
+            // Install the signal handler
+            pcntl_signal(SIGUSR1, array($this, '_sigHandler'));
 
             // If requested, change process identity
             if ($this->_guid !== null) {
@@ -227,11 +240,13 @@ abstract class ZendX_Console_Process_Unix
             }
 
             // Run the child
-            $this->_run();
+            try {
+                $this->_run();
+            } catch (Exception $e) {
+                // We have to catch any exceptions and clean up the process,
+                // else we will have a memory leak.
+            }
 
-            // Inform the parent about the death of the child
-            $this->_writeVariable('_died', true);
-            
             // Destroy the child after _run() execution. Required to avoid
             // unuseful child processes after execution
             exit(0);
@@ -273,13 +288,7 @@ abstract class ZendX_Console_Process_Unix
      * @return boolean
      */
     public function isRunning()
-    {
-        $died = $this->getVariable('_died');
-        
-        if ($died === true) {
-            $this->_isRunning = false;
-        }
-        
+    {       
         return $this->_isRunning;
     }
 
@@ -295,7 +304,7 @@ abstract class ZendX_Console_Process_Unix
      */
     public function setVariable($name, $value)
     {
-        if ($name[0] == '_') {
+        if ($name[0] === '_') {
             require_once 'ZendX/Console/Process/Exception.php';
             throw new ZendX_Console_Process_Exception('Only internal functions may use underline (_) as variable prefix');
         }
@@ -453,6 +462,8 @@ abstract class ZendX_Console_Process_Unix
 
     /**
      * Destroy thread context and free relative resources.
+     * 
+     * @return void
      */
     private function _cleanProcessContext()
     {
@@ -462,8 +473,8 @@ abstract class ZendX_Console_Process_Unix
         shmop_close($this->_internalIpcKey);
         shmop_close($this->_internalSemKey);
 
-        unlink($this->_ipcSegFile);
-        unlink($this->_ipcSemFile);
+        @unlink($this->_ipcSegFile);
+        @unlink($this->_ipcSemFile);
 
         $this->_isRunning = false;
         $this->_pid       = null;
@@ -473,7 +484,8 @@ abstract class ZendX_Console_Process_Unix
      * This is the signal handler that makes the communications between client
      * and server possible.
      *
-     * @param integer $signo
+     * @param  integer $signo
+     * @return void
      */
     private function _sigHandler($signo)
     {
@@ -529,7 +541,7 @@ abstract class ZendX_Console_Process_Unix
         while (true) {
             $okay = shmop_read($this->_internalSemKey, 0, 1);
 
-            if ($ok == 0) {
+            if ($okay === 0) {
                 break;
             }
 
@@ -572,7 +584,7 @@ abstract class ZendX_Console_Process_Unix
         // Read the transaction bit (2 bit of _internalSemKey segment). If it's
         // value is 1, we're into the execution of a PHP_FORK_RETURN_METHOD, so
         // we must not write to segment (data corruption)
-        if (shmop_read($this->_internalSemKey, 1, 1) == 1) {
+        if (shmop_read($this->_internalSemKey, 1, 1) === 1) {
             return;
         }
 
@@ -584,7 +596,7 @@ abstract class ZendX_Console_Process_Unix
                                        0);
 
         // Check if lenght of SHM segment is enougth to contain data
-        if ($shmBytesWritten != strlen($serializedIpcData)) {
+        if ($shmBytesWritten !== strlen($serializedIpcData)) {
             require_once 'ZendX/Console/Process/Exception.php';
             throw new ZendX_Console_Process_Exception('Fatal error while writing to SHM segment');
         }
@@ -602,14 +614,15 @@ abstract class ZendX_Console_Process_Unix
         touch($this->_ipcSegFile);
 
         $shmKey = ftok($this->_ipcSegFile, 't');
-        if ($shmKey == -1) {
+        if ($shmKey === -1) {
             require_once 'ZendX/Console/Process/Exception.php';
             throw new ZendX_Console_Process_Exception('Could not create SHM segment');
         }
 
-        $this->_internalIpcKey = shmop_open($shmKey, 'c', 0644, 10240);
+        $this->_internalIpcKey = @shmop_open($shmKey, 'c', 0644, 10240);
 
         if (!$this->_internalIpcKey) {
+            @unlink($this->_ipcSegFile);
             return false;
         }
 
@@ -628,14 +641,15 @@ abstract class ZendX_Console_Process_Unix
         touch($this->_ipcSemFile);
 
         $semKey = ftok($this->_ipcSemFile, 't');
-        if ($semKey == -1) {
+        if ($semKey === -1) {
             require_once 'ZendX/Console/Process/Exception.php';
             throw new ZendX_Console_Process_Exception('Could not create semaphore');
         }
 
-        $this->_internalSemKey = shmop_open($semKey, 'c', 0644, 10);
+        $this->_internalSemKey = @shmop_open($semKey, 'c', 0644, 10);
 
         if (!$this->_internalSemKey) {
+            @unlink($this->_ipcSemFile);
             return false;
         }
 
