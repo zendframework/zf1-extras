@@ -372,11 +372,11 @@ class MyIndexController extends Zend_Controller_Action
                     about the tab container getting to many tabs.</para>
 
                 <programlisting role="php"><![CDATA[
-<?= foreach($this->news AS $article): ?>
-<? $this->tabPane("newstab",
+<?php foreach($this->news AS $article): ?>
+<?php $this->tabPane("newstab",
                   $article->body,
                   array('title' => $article->title)); ?>
-<?= endforeach; ?>
+<?php endforeach; ?>
 
 <h2>Latest News</h2>
 <?= $this->tabContainer("newstab",
