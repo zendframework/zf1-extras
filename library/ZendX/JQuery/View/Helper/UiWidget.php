@@ -26,6 +26,11 @@
 require_once "Zend/View/Helper/HtmlElement.php";
 
 /**
+ * @see ZendX_JQuery
+ */
+require_once "ZendX/JQuery.php";
+
+/**
  * jQuery Ui Widget Base class
  *
  * @uses 	   ZendX_JQuery_View_Helper_JQuery_Container

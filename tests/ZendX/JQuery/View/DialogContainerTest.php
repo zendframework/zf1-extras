@@ -28,6 +28,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 
 require_once "Zend/Registry.php";
 require_once "Zend/View.php";
+require_once "Zend/Json.php";
 require_once "ZendX/JQuery.php";
 require_once "ZendX/JQuery/View/Helper/JQuery.php";
 
@@ -97,6 +98,21 @@ class ZendX_JQuery_View_DialogContainerTest extends PHPUnit_Framework_TestCase
         $this->assertContains("<div", $element);
         $this->assertContains('id="elem1"', $element);
         $this->assertContains("</div>", $element);
+    }
+
+    /**
+     * @group ZF-4685
+     */
+    public function testUsingJsonExprForResizeShouldBeValidJsCallbackRegression()
+    {
+        $params = array(
+            "resize" => new Zend_Json_Expr("doMyThingAtResize"),
+        );
+
+        $this->view->dialogContainer("dialog1", "Some text", $params);
+
+        $actions = $this->jquery->getOnLoadActions();
+        $this->assertEquals(array('$("#dialog1").dialog({"resize":doMyThingAtResize});'), $actions);
     }
 }
 

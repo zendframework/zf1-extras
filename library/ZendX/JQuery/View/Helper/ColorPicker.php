@@ -28,7 +28,7 @@ require_once "ZendX/JQuery/View/Helper/UiWidget.php";
 /**
  * jQuery Color Picker View Helper
  *
- * @uses 	   Zend_Json, Zend_View_Helper_FormText
+ * @uses 	   Zend_View_Helper_FormText
  * @package    ZendX_JQuery
  * @subpackage View
  * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
@@ -55,11 +55,7 @@ class ZendX_JQuery_View_Helper_ColorPicker extends ZendX_JQuery_View_Helper_UiWi
 	    }
 
 	    if(count($params) > 0) {
-	        /**
-	         * @see Zend_Json
-	         */
-	        require_once "Zend/Json.php";
-	        $params = Zend_Json::encode($params);
+            $params = ZendX_JQuery::encodeJson($params);
 	    } else {
 	        $params = "{}";
 	    }

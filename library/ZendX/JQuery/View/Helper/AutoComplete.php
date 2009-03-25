@@ -63,11 +63,7 @@ class ZendX_JQuery_View_Helper_AutoComplete extends ZendX_JQuery_View_Helper_UiW
             throw new ZendX_JQuery_Exception("Cannot construct AutoComplete field without specifying Parameters Data and Url");
         }
 
-        /**
-         * @see Zend_Json
-         */
-        require_once "Zend/Json.php";
-        $params = Zend_Json::encode($params);
+        $params = ZendX_JQuery::encodeJson($params);
 
         $js = sprintf('%s("#%s").autocomplete(%s);',
             ZendX_JQuery_View_Helper_JQuery::getJQueryHandler(),

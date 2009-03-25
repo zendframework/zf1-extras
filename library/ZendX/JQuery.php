@@ -94,4 +94,25 @@ class ZendX_JQuery
             self::enableView($view);
         }
     }
+
+    /**
+     * Encode Json that may include javascript expressions.
+     *
+     * Take care of using the Zend_Json_Encoder to alleviate problems with the json_encode
+     * magic key mechanism as of now.
+     *
+     * @see Zend_Json::encode
+     * @param  mixed $value
+     * @return mixed
+     */
+    public static function encodeJson($value)
+    {
+        if(!class_exists('Zend_Json')) {
+            /**
+             * @see Zend_Json
+             */
+            require_once "Zend/Json.php";
+        }
+        return Zend_Json::encode($value, false, array('enableJsonExprFinder' => true));
+    }
 }

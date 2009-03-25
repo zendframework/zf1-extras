@@ -110,11 +110,7 @@ class ZendX_JQuery_View_Helper_TabContainer extends ZendX_JQuery_View_Helper_UiW
         }
 
         if(count($params)) {
-            /**
-             * @see Zend_Json
-             */
-            require_once "Zend/Json.php";
-            $params = Zend_Json::encode($params);
+            $params = ZendX_JQuery::encodeJson($params);
         } else {
             $params = '{}';
         }

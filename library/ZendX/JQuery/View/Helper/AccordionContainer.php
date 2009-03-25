@@ -90,11 +90,7 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
             }
 
             if(count($params) > 0) {
-    	        /**
-    	         * @see Zend_Json
-    	         */
-                require_once "Zend/Json.php";
-                $params = Zend_Json::encode($params);
+                $params = ZendX_JQuery::encodeJson($params);
             } else {
                 $params = "{}";
             }

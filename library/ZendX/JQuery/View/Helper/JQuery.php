@@ -21,6 +21,11 @@
  */
 
 /**
+ * @see ZendX_JQuery
+ */
+require_once "ZendX/JQuery.php";
+
+/**
  * @see Zend_Registry
  */
 require_once 'Zend/Registry.php';

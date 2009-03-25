@@ -55,11 +55,7 @@ class ZendX_JQuery_View_Helper_Spinner extends ZendX_JQuery_View_Helper_UiWidget
 	    }
 
 	    if(count($params)) {
-	        /**
-	         * @see Zend_Json
-	         */
-	        require_once "Zend/Json.php";
-	        $params = Zend_Json::encode($params);
+	        $params = ZendX_JQuery::encodeJson($params);
 	    } else {
 	        $params = '{}';
 	    }

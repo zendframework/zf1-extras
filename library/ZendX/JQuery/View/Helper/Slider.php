@@ -95,11 +95,7 @@ class ZendX_JQuery_View_Helper_Slider extends ZendX_JQuery_View_Helper_UiWidget
         $attribs['id'] .= "-slider";
 
         if(count($params) > 0) {
-            /**
-             * @see Zend_Json
-             */
-            require_once "Zend/Json.php";
-            $params = Zend_Json::encode($params);
+            $params = ZendX_JQuery::encodeJson($params);
             $params = str_replace('"'.$sliderUpdateFnName.'"', $sliderUpdateFnName, $params);
         } else {
             $params = '{}';

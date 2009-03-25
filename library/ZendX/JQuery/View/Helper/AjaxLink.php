@@ -205,11 +205,7 @@ class ZendX_JQuery_View_Helper_AjaxLink extends Zend_View_Helper_HtmlElement
 		}
 
 		if(isset($params) && count($params) > 0) {
-	        /**
-	         * @see Zend_Json
-	         */
-		    require_once 'Zend/Json.php';
-		    $params = Zend_Json::encode($params);
+            $params = ZendX_JQuery::encodeJson($params);
 		} else {
 		    $params = '{}';
 		}
