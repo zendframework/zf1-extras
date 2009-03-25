@@ -21,6 +21,11 @@
  */
 
 /**
+ * @see ZendX_JQuery
+ */
+require_once "ZendX/JQuery.php";
+
+/**
  * jQuery View Helper. Transports all jQuery stack and render information across all views.
  *
  * @uses 	   ZendX_JQuery_View_Helper_JQuery_Container
@@ -92,7 +97,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      *
      * @var String
      */
-    protected $_version = "1.2.6";
+    protected $_version = ZendX_JQuery::DEFAULT_JQUERY_VERSION;
 
     /**
      * Default Render Mode (all parts)
@@ -121,7 +126,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      *
      * @var String
      */
-    protected $_uiVersion = "1.5.2";
+    protected $_uiVersion = ZendX_JQuery::DEFAULT_UI_VERSION;
 
     /**
      * View Instance
@@ -175,28 +180,51 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     }
 
     /**
-     * Use CDN, using version specified. Currently supported
-     * by Googles Ajax Library API are: 1.2.3, 1.2.6
+     * Set the version of the jQuery library used.
      *
-     * @param  string $version
+     * @param string $version
      * @return ZendX_JQuery_View_Helper_JQuery_Container
      */
-    public function setCdnVersion($version = null)
+    public function setVersion($version)
     {
-        if (preg_match('/^[1-9]\.[0-9](\.[0-9])?$/', $version)) {
+        if (is_string($version) && preg_match('/^[1-9]\.[0-9](\.[0-9])?$/', $version)) {
             $this->_version = $version;
         }
         return $this;
     }
 
     /**
+     * Get the version used with the jQuery library
+     *
+     * @return string
+     */
+    public function getVersion()
+    {
+        return $this->_version;
+    }
+
+    /**
+     * Use CDN, using version specified. Currently supported
+     * by Googles Ajax Library API are: 1.2.3, 1.2.6
+     *
+     * @deprecated As of version 1.8, use {@link setVersion()} instead.
+     * @param  string $version
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
+    public function setCdnVersion($version = null)
+    {
+        return $this->setVersion($version);
+    }
+
+    /**
      * Get CDN version
      *
+     * @deprecated As of version 1.8, use {@link getVersion()} instead.
      * @return string
      */
     public function getCdnVersion()
     {
-        return $this->_version;
+        return $this->getVersion();
     }
 
     /**
@@ -255,28 +283,50 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     }
 
     /**
-     * Set jQuery UI CDN Version
-     *
-     * @param String $version
+     * Set jQuery UI version used.
+     * 
+     * @param  string $version
      * @return ZendX_JQuery_View_Helper_JQuery_Container
      */
-    public function setUiCdnVersion($version="1.5.2")
+    public function setUiVersion($version)
     {
     	if (preg_match('/^[1-9]\.[0-9](\.[0-9])?$/', $version)) {
-    		$this->_uiPath = null;
     		$this->_uiVersion = $version;
     	}
     	return $this;
     }
 
     /**
+     * Get jQuery UI Version used.
+     *
+     * @return string
+     */
+    public function getUiVersion()
+    {
+        return $this->_uiVersion;
+    }
+
+    /**
+     * Set jQuery UI CDN Version
+     *
+     * @deprecated As of 1.8 use {@link setUiVersion()}
+     * @param String $version
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
+    public function setUiCdnVersion($version="1.5.2")
+    {
+        return $this->setUiVersion($version);
+    }
+
+    /**
      * Return jQuery UI CDN Version
      *
+     * @deprecated As of 1.8 use {@link getUiVersion()}
      * @return String
      */
     public function getUiCdnVersion()
     {
-    	return $this->_uiVersion;
+        return $this->getUiVersion();
     }
 
     /**

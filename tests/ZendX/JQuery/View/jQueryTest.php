@@ -90,15 +90,16 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($jquery instanceof ZendX_JQuery_View_Helper_JQuery_Container);
 	}
 
-    public function testShouldAllowSpecifyingJQueryVersionWhenUtilizingCdn()
+    public function testShouldAllowSpecifyingJQueryVersion()
     {
-        $this->helper->setCdnVersion('1.2.3');
-        $this->assertEquals('1.2.3', $this->helper->getCdnVersion());
+        $this->helper->setVersion('1.2.3');
+        $this->assertEquals('1.2.3', $this->helper->getVersion());
     }
 
-    public function testShouldUseLatestVersion()
+    public function testShouldUseDefaultSupportedVersionWhenNotSpecifiedOtherwise()
     {
-    	$this->assertEquals('1.2.6', $this->helper->getCdnVersion());
+    	$this->assertEquals(ZendX_JQuery::DEFAULT_JQUERY_VERSION, $this->helper->getVersion());
+    	$this->assertEquals(ZendX_JQuery::DEFAULT_JQUERY_VERSION, $this->helper->getCdnVersion());
     }
 
     /**
@@ -139,7 +140,12 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
          $this->assertFalse($this->helper->useUiLocal());
          $this->assertTrue($this->helper->useUiCdn());
          $this->assertNull($this->helper->getUiPath());
-         $this->assertEquals("1.5.2", $this->helper->getUiCdnVersion());
+    }
+
+    public function testGetUiVersionReturnsDefaultSupportedVersionIfNotSpecifiedOtherwise()
+    {
+        $this->assertEquals(ZendX_JQuery::DEFAULT_UI_VERSION, $this->helper->getUiVersion());
+        $this->assertEquals(ZendX_JQuery::DEFAULT_UI_VERSION, $this->helper->getUiCdnVersion());
     }
 
     public function testShouldAllowEnableUi()
@@ -151,13 +157,10 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
          $this->assertContains($this->helper->getUiCdnVersion(), $render);
     }
 
-    public function testShouldAllowSetUiCdnVersion()
+    public function testShouldAllowSetUiVersion()
     {
-         $this->helper->setUiCdnVersion("1.5.1");
-
-         $this->assertTrue($this->helper->useUiCdn());
-         $this->assertFalse($this->helper->useUiLocal());
-         $this->assertContains("1.5.1", $this->helper->getUiCdnVersion());
+         $this->helper->setUiVersion("1.5.1");
+         $this->assertContains("1.5.1", $this->helper->getUiVersion());
     }
 
     public function testShouldAllowSetLocalUiPath()

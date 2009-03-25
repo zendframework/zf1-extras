@@ -31,6 +31,20 @@
 class ZendX_JQuery
 {
     /**
+     * Current default supported jQuery library version with ZendX_JQuery
+     * 
+     * @const string
+     */
+    const DEFAULT_JQUERY_VERSION = "1.3.2";
+
+    /**
+     * Currently supported jQuery UI library version with ZendX_JQuery
+     *
+     * @const string
+     */
+    const DEFAULT_UI_VERSION = "1.7.1";
+
+    /**
      * @see http://code.google.com/apis/ajaxlibs/documentation/index.html#jquery
      * @const string Base path to CDN
      */
