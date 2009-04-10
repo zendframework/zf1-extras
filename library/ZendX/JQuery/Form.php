@@ -42,7 +42,7 @@ class ZendX_JQuery_Form extends Zend_Form
     {
         $this->addPrefixPath('ZendX_JQuery_Form_Decorator', 'ZendX/JQuery/Form/Decorator', 'decorator')
              ->addPrefixPath('ZendX_JQuery_Form_Element', 'ZendX/JQuery/Form/Element', 'element')
-             ->addElementPrefixPath('ZendX_Dojo_Form_Decorator', 'ZendX/JQuery/Form/Decorator', 'decorator')
+             ->addElementPrefixPath('ZendX_JQuery_Form_Decorator', 'ZendX/JQuery/Form/Decorator', 'decorator')
              ->addDisplayGroupPrefixPath('ZendX_JQuery_Form_Decorator', 'ZendX/JQuery/Form/Decorator');
         parent::__construct($options);
     }
