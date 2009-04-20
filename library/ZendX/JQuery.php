@@ -21,6 +21,11 @@
  */
 
 /**
+ * @see Zend_Json
+ */
+require_once "Zend/Json.php";
+
+/**
  * jQuery Global Class holding constants and static convienience methods.
  *
  * @todo       Offer convenience methods to add a tab or accordion container/pane combination.
