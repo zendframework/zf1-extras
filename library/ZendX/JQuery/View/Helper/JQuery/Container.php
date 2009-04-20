@@ -129,6 +129,13 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     protected $_uiVersion = ZendX_JQuery::DEFAULT_UI_VERSION;
 
     /**
+     * Load CDN Path from SSL or Non-SSL?
+     *
+     * @var boolean
+     */
+    protected $_loadSslCdnPath = false;
+
+    /**
      * View Instance
      *
      * @var Zend_View_Interface
@@ -225,6 +232,17 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     public function getCdnVersion()
     {
         return $this->getVersion();
+    }
+
+    /**
+     * Set Use SSL on CDN Flag
+     *
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
+    public function setCdnSsl($flag)
+    {
+        $this->_loadSslCdnPath = $flag;
+        return $this;
     }
 
     /**
@@ -703,7 +721,8 @@ class ZendX_JQuery_View_Helper_JQuery_Container
 
 	        if($this->uiIsEnabled()) {
 	        	if($this->useUiCdn()) {
-					$uiPath = sprintf('http://ajax.googleapis.com/ajax/libs/jqueryui/%s/jquery-ui.min.js', $this->getUiCdnVersion());
+                    $baseUri = $this->_getJQueryLibraryBaseCdnUri();
+					$uiPath = sprintf('%s%s/jquery-ui.min.js', $baseUri, $this->getUiCdnVersion());
 	        	} else if($this->useUiLocal()) {
 	        		$uiPath = $this->getUiPath();
 	        	}
@@ -771,6 +790,18 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         return $html;
     }
 
+    /**
+     * @return string
+     */
+    protected function _getJQueryLibraryBaseCdnUri()
+    {
+        if($this->_loadSslCdnPath == true) {
+            $baseUri = ZendX_JQuery::CDN_BASE_GOOGLE_SSL;
+        } else {
+            $baseUri = ZendX_JQuery::CDN_BASE_GOOGLE;
+        }
+        return $baseUri;
+    }
 
 	/**
 	 * Internal function that constructs the include path of the jQuery library.
@@ -782,7 +813,8 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         if($this->_jqueryLibraryPath != null) {
             $source = $this->_jqueryLibraryPath;
         } else {
-            $source = ZendX_JQuery::CDN_BASE_GOOGLE . $this->getCdnVersion() .
+            $baseUri = $this->_getJQueryLibraryBaseCdnUri();
+            $source = $baseUri . $this->getCdnVersion() .
             	ZendX_JQuery::CDN_JQUERY_PATH_GOOGLE;
         }
 

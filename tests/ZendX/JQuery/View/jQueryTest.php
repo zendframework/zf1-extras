@@ -464,4 +464,27 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
         $this->helper->enable();
         $this->assertContains($assert, $this->helper->__toString());
     }
+
+    /**
+     * @group ZF-6078
+     */
+    public function testIncludeJQueryLibraryFromSslPath()
+    {
+        $this->helper->setCdnSsl(true);
+        $this->helper->enable();
+
+        $this->assertContains(ZendX_JQuery::CDN_BASE_GOOGLE_SSL, $this->helper->__toString());
+    }
+
+    /**
+     * @group ZF-6078
+     */
+    public function testIncludeJQueryUiLibraryFromSslPath()
+    {
+        $this->helper->setCdnSsl(true);
+        $this->helper->enable();
+        $this->helper->uiEnable();
+
+        $this->assertTrue(substr_count($this->helper->__toString(), ZendX_JQuery::CDN_BASE_GOOGLE_SSL) == 2);
+    }
 }

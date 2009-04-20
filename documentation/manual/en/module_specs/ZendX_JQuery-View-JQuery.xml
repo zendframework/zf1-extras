@@ -179,10 +179,12 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
                         integration.</para></listitem>
                 <listitem><para><code>isEnabled()</code>: determine whether or not
                         jQuery integration is enabled.</para></listitem>
-                <listitem><para><code>setCdnVersion()</code>: set the jQuery version
-                        that should be loaded from the Google Ajax Library CDN</para></listitem>
-                <listitem><para><code>getCdnVersion()</code>: get the current jQuery
-                        version that is set for CDN inclusion.</para></listitem>
+                <listitem><para><code>setVersion()</code>: set the jQuery version
+                        that is used. This also decides on the library loaded
+                        from the Google Ajax Library CDN</para></listitem>
+                <listitem><para><code>getVersion()</code>: get the current jQuery
+                        that is used. This also decides on the library loaded
+                        from the Google Ajax Library CDN</para></listitem>
                 <listitem><para><code>useCdn()</code>: Return true, if CDN usage is
                         currently enabled</para></listitem>
                 <listitem><para><code>useLocalPath()</code>: Return true, if local usage
@@ -204,10 +206,12 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
                         integration.</para></listitem>
                 <listitem><para><code>uiIsEnabled()</code>: determine whether or not
                         jQuery UI integration is enabled.</para></listitem>
-                <listitem><para><code>setUiCdnVersion()</code>: set the jQuery UI version
-                        that should be loaded from the Google Ajax Library CDN</para></listitem>
-                <listitem><para><code>getUiCdnVersion()</code>: get the current jQuery UI
-                        version that is set for CDN inclusion.</para></listitem>
+                <listitem><para><code>setUiVersion()</code>: set the jQuery UI version
+                        that is used. This also decides on the library loaded
+                        from the Google Ajax Library CDN</para></listitem>
+                <listitem><para><code>getUiVersion()</code>: get the current jQuery UI
+                        that is used. This also decides on the library loaded
+                        from the Google Ajax Library CDN</para></listitem>
                 <listitem><para><code>useUiCdn()</code>: Return true, if CDN usage is
                         currently enabled for jQuery UI</para></listitem>
                 <listitem><para><code>useUiLocal()</code>: Return true, if local usage
@@ -254,6 +258,8 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
                         is the default behaviour.</para></listitem>
                 <listitem><para><code>getRenderMode()</code>: Return the current
                         jQuery environment rendering mode.</para></listitem>
+                <listitem><para><code>setCdnSsl($bool)</code>: Set if the CDN Google Ajax Library should be loaded
+                        from an SSL or a Non-SSL location.</para></listitem>
             </itemizedlist>
 
             <para>These are quite a number of methods, but many of them are used for internally by all the

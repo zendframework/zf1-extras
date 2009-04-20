@@ -56,6 +56,12 @@ class ZendX_JQuery
     const CDN_BASE_GOOGLE = 'http://ajax.googleapis.com/ajax/libs/jquery/';
 
     /**
+     * @see http://code.google.com/apis/ajaxlibs/documentation/index.html#jquery
+     * @const string Base path to CDN
+     */
+    const CDN_BASE_GOOGLE_SSL = 'https://ajax.googleapis.com/ajax/libs/jquery/';
+
+    /**
      * Always uses compressed version, because this is assumed to be the use case
      * in production enviroment. An uncompressed version has to included manually.
      *
