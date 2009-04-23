@@ -721,7 +721,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
 
 	        if($this->uiIsEnabled()) {
 	        	if($this->useUiCdn()) {
-                    $baseUri = $this->_getJQueryLibraryBaseCdnUri();
+                    $baseUri = $this->_getJQueryUiLibraryBaseCdnUri();
 					$uiPath = sprintf('%s%s/jquery-ui.min.js', $baseUri, $this->getUiCdnVersion());
 	        	} else if($this->useUiLocal()) {
 	        		$uiPath = $this->getUiPath();
@@ -799,6 +799,19 @@ class ZendX_JQuery_View_Helper_JQuery_Container
             $baseUri = ZendX_JQuery::CDN_BASE_GOOGLE_SSL;
         } else {
             $baseUri = ZendX_JQuery::CDN_BASE_GOOGLE;
+        }
+        return $baseUri;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getJQueryUiLibraryBaseCdnUri()
+    {
+        if($this->_loadSslCdnPath == true) {
+            $baseUri = ZendX_JQuery::CDN_BASEUI_GOOGLE_SSL;
+        } else {
+            $baseUri = ZendX_JQuery::CDN_BASEUI_GOOGLE;
         }
         return $baseUri;
     }

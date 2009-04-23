@@ -485,6 +485,6 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
         $this->helper->enable();
         $this->helper->uiEnable();
 
-        $this->assertTrue(substr_count($this->helper->__toString(), ZendX_JQuery::CDN_BASE_GOOGLE_SSL) == 2);
+        $this->assertContains(ZendX_JQuery::CDN_BASEUI_GOOGLE_SSL, $this->helper->__toString());
     }
 }

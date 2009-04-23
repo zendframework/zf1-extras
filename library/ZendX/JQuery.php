@@ -54,12 +54,14 @@ class ZendX_JQuery
      * @const string Base path to CDN
      */
     const CDN_BASE_GOOGLE = 'http://ajax.googleapis.com/ajax/libs/jquery/';
+    const CDN_BASEUI_GOOGLE = 'http://ajax.googleapis.com/ajax/libs/jqueryui/';
 
     /**
      * @see http://code.google.com/apis/ajaxlibs/documentation/index.html#jquery
      * @const string Base path to CDN
      */
     const CDN_BASE_GOOGLE_SSL = 'https://ajax.googleapis.com/ajax/libs/jquery/';
+    const CDN_BASEUI_GOOGLE_SSL = 'https://ajax.googleapis.com/ajax/libs/jqueryui/';
 
     /**
      * Always uses compressed version, because this is assumed to be the use case
