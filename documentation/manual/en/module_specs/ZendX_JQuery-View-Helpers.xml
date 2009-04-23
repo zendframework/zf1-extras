@@ -343,7 +343,7 @@ class MyIndexController extends Zend_Controller_Action
                 an example accompanies them to show their usage.</para>
 
             <itemizedlist>
-                <listitem><para><code>dialog($id, $content, $params, $attribs)</code>: Create a Dialog Box that is rendered with
+                <listitem><para><code>dialogContainer($id, $content, $params, $attribs)</code>: Create a Dialog Box that is rendered with
                         the given content.on startup. If the option 'autoOpen' set to false is specified the box will not be displayed
                         on load but can be shown with the additional <code>dialog("open")</code> javascript function. See UI docs
                         for details.</para></listitem>
