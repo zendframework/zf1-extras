@@ -720,12 +720,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
 	        $scriptTags .= '<script type="text/javascript" src="' . $source . '"></script>'.PHP_EOL;
 
 	        if($this->uiIsEnabled()) {
-	        	if($this->useUiCdn()) {
-                    $baseUri = $this->_getJQueryUiLibraryBaseCdnUri();
-					$uiPath = sprintf('%s%s/jquery-ui.min.js', $baseUri, $this->getUiCdnVersion());
-	        	} else if($this->useUiLocal()) {
-	        		$uiPath = $this->getUiPath();
-	        	}
+                $uiPath = $this->_getJQueryUiLibraryPath();
 	        	$scriptTags .= '<script type="text/javascript" src="'.$uiPath.'"></script>'.PHP_EOL;
 	        }
 
@@ -827,10 +822,29 @@ class ZendX_JQuery_View_Helper_JQuery_Container
             $source = $this->_jqueryLibraryPath;
         } else {
             $baseUri = $this->_getJQueryLibraryBaseCdnUri();
-            $source = $baseUri . $this->getCdnVersion() .
+            $source = $baseUri .
+                ZendX_JQuery::CDN_SUBFOLDER_JQUERY .
+                $this->getCdnVersion() .
             	ZendX_JQuery::CDN_JQUERY_PATH_GOOGLE;
         }
 
         return $source;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getJQueryUiLibraryPath()
+    {
+        if($this->useUiCdn()) {
+            $baseUri = $this->_getJQueryLibraryBaseCdnUri();
+            $uiPath = $baseUri.
+                ZendX_JQuery::CDN_SUBFOLDER_JQUERYUI .
+                $this->getUiCdnVersion() .
+                "/jquery-ui.min.js";
+        } else if($this->useUiLocal()) {
+            $uiPath = $this->getUiPath();
+        }
+        return $uiPath;
     }
 }

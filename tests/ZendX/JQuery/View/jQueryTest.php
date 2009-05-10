@@ -477,14 +477,56 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-6078
+     * @group ZF-6594
      */
-    public function testIncludeJQueryUiLibraryFromSslPath()
+    public function testJQueryGoogleCdnPathIsBuiltCorrectly()
     {
-        $this->helper->setCdnSsl(true);
+        $jQueryCdnPath = "http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js";
+        $this->helper->setVersion("1.3.1");
         $this->helper->enable();
+
+        $this->assertContains($jQueryCdnPath, $this->helper->__toString());
+    }
+
+    /**
+     * @group ZF-6594
+     */
+    public function testJQueryUiGoogleCdnPathIsBuiltCorrectly()
+    {
+        $jQueryCdnPath = "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/jquery-ui.min.js";
+        $this->helper->setVersion("1.3.1");
+        $this->helper->enable();
+        $this->helper->setUiVersion("1.7.1");
         $this->helper->uiEnable();
 
-        $this->assertContains(ZendX_JQuery::CDN_BASEUI_GOOGLE_SSL, $this->helper->__toString());
+        $this->assertContains($jQueryCdnPath, $this->helper->__toString());
+    }
+
+    /**
+     * @group ZF-6594
+     */
+    public function testJQueryGoogleCdnSslPathIsBuiltCorrectly()
+    {
+        $jQueryCdnPath = "https://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js";
+        $this->helper->setCdnSsl(true);
+        $this->helper->setVersion("1.3.1");
+        $this->helper->enable();
+
+        $this->assertContains($jQueryCdnPath, $this->helper->__toString());
+    }
+
+    /**
+     * @group ZF-6594
+     */
+    public function testJQueryUiGoogleCdnSslPathIsBuiltCorrectly()
+    {
+        $jQueryCdnPath = "https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/jquery-ui.min.js";
+        $this->helper->setCdnSsl(true);
+        $this->helper->setVersion("1.3.1");
+        $this->helper->enable();
+        $this->helper->setUiVersion("1.7.1");
+        $this->helper->uiEnable();
+
+        $this->assertContains($jQueryCdnPath, $this->helper->__toString());
     }
 }
