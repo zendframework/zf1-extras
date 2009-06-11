@@ -36,9 +36,15 @@ require_once "ZendX/JQuery/View/Helper/UiWidget.php";
   */
 class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Helper_UiWidget
 {
+    /**
+     * @var array
+     */
     protected $_panes = array();
 
-    protected $_elementHtmlTemplate = '<li class="ui-accordion-group"><a href="#" class="ui-accordion-header">%s</a><div class="ui-accordion-content">%s</div></li>';
+    /**
+     * @var string
+     */
+    protected $_elementHtmlTemplate = null;
 
     /**
      * Add Accordion Pane for the Accordion-Id
@@ -83,10 +89,10 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
             $attribs['id'] = $id;
         }
 
+        $html = "";
         if(isset($this->_panes[$id])) {
-            $html = "";
             foreach($this->_panes[$id] AS $element) {
-                $html .= sprintf($this->_elementHtmlTemplate, $element['name'], $element['content']);
+                $html .= sprintf($this->getElementHtmlTemplate(), $element['name'], $element['content']).PHP_EOL;
             }
 
             if(count($params) > 0) {
@@ -102,14 +108,46 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
             );
             $this->jquery->addOnLoad($js);
 
+            $html = $this->getAccordionTemplate($attribs, $html);
+        }
+        return $html;
+    }
+
+    /**
+     * @param  array $attribs
+     * @param  string $html
+     * @return string
+     */
+    protected function getAccordionTemplate($attribs, $html)
+    {
+        if(version_compare($this->jquery->getUiVersion(), "1.7.0") >= 0) {
+            $html = '<div'
+                  . $this->_htmlAttribs($attribs)
+                  . '>'.PHP_EOL
+                  . $html
+                  . '</div>'.PHP_EOL;
+        } else {
             $html = '<ul'
                   . $this->_htmlAttribs($attribs)
                   . '>'.PHP_EOL
                   . $html
                   . '</ul>'.PHP_EOL;
-            return $html;
-            unset($this->_panes[$id]);
         }
-        return '';
+        return $html;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getElementHtmlTemplate()
+    {
+        if($this->_elementHtmlTemplate == null) {
+            if(version_compare($this->jquery->getUiVersion(), "1.7.0") >= 0) {
+                $this->_elementHtmlTemplate = '<a href="#">%s</a><div>%s</div>';
+            } else {
+                $this->_elementHtmlTemplate = '<li class="ui-accordion-group"><a href="#" class="ui-accordion-header">%s</a><div class="ui-accordion-content">%s</div></li>';
+            }
+        }
+        return $this->_elementHtmlTemplate;
     }
 }
