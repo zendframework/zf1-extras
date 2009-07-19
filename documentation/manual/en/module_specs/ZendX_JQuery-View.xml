@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reviewed: no -->
 <sect1 id="zendx.jquery.view" xmlns:xi="http://www.w3.org/2001/XInclude">
     <title>ZendX_JQuery View Helpers</title>
 
@@ -6,10 +8,9 @@
         These can be enabled in two ways, adding jQuery to the view helper path:
     </para>
 
-    <programlisting role="php"><![CDATA[
+    <programlisting language="php"><![CDATA[
 $view->addHelperPath("ZendX/JQuery/View/Helper", "ZendX_JQuery_View_Helper");
-]]>
-    </programlisting>
+]]></programlisting>
 
     <para>Or using the <code>ZendX_JQuery::enableView(Zend_View_Interface $view)</code> method
         that does the same for you.</para>

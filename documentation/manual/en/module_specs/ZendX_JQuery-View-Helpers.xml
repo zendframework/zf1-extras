@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reviewed: no -->
 <sect2 id="zendx.jquery.view.helpers">
     <title>JQuery Helpers</title>
 
@@ -8,14 +10,13 @@
             inject the response into a chosen DOM element. It also offers the possibility to append simple jQuery effects
             to both the link and the response DOM element. A simple example introduces its functionality:</para>
 
-        <programlisting role="php"><![CDATA[
+        <programlisting language="php"><![CDATA[
 <!-- Inside your View Object -->
 <div id="container"></div>
-<?= $this->view->ajaxLink("Link Name",
+<?php echo $this->view->ajaxLink("Link Name",
                           "url.php",
                           array('update' => '#container')); ?>
-]]>
-        </programlisting>
+]]></programlisting>
 
         <para>This example creates a link with the label "Link Name" that fires an ajax request to url.php
             upon click and renders the response into the div container "#container". The function header
@@ -101,7 +102,7 @@
             example assumes that you have only one view object that you want to display and don't care a lot about
             html best practices, since we have to output the jQuery environment just before the closing body tag.</para>
 
-          <programlisting role="php"><![CDATA[
+          <programlisting language="php"><![CDATA[
 <html>
     <head>
         <title>Zend Framework jQuery AjaxLink Example</title>
@@ -115,46 +116,48 @@
         <!-- list only prints a list of for links -->
         <ul>
             <li>
-                <?= $this->ajaxLink("Example 1",
-                                    "/ctrl/action1",
-                                    array('update' => '#content',
-                                          'noscript' => false,
-                                          'method' => 'POST')); ?>
+                <?php echo $this->ajaxLink("Example 1",
+                                           "/ctrl/action1",
+                                           array('update' => '#content',
+                                                 'noscript' => false,
+                                                 'method' => 'POST')); ?>
             </li>
             <li>
-                <?= $this->ajaxLink("Example 2",
-                                    "/ctrl/action2",
-                                    array('update' => '#content',
-                                          'class' => 'someLink'),
-                                    array('param1' => 'value1',
-                                          'param2' => 'value2')); ?>
+                <?php echo $this->ajaxLink("Example 2",
+                                           "/ctrl/action2",
+                                           array('update' => '#content',
+                                                 'class' => 'someLink'),
+                                           array('param1' => 'value1',
+                                                 'param2' => 'value2')); ?>
             </li>
-            <li><?= $this->ajaxLink("Example 3",
-                                    "/ctrl/action3",
-                                    array('dataType' => 'json',
-                                          'complete' => 'alert(data)')); ?>
+            <li><?php echo $this->ajaxLink("Example 3",
+                                           "/ctrl/action3",
+                                           array('dataType' => 'json',
+                                                 'complete' =>
+                                                    'alert(data)')); ?>
             </li>
-            <li><?= $this->ajaxLink("Example 4",
-                                    "/ctrl/action4",
-                                    array('beforeSend' => 'hide',
-                                          'complete' => 'show')); ?>
+            <li><?php echo $this->ajaxLink("Example 4",
+                                           "/ctrl/action4",
+                                           array('beforeSend' => 'hide',
+                                                 'complete' => 'show')); ?>
             </li>
             <li>
-                <?= $this->ajaxLink("Example 5",
-                                    "/ctrl/action5",
-                                    array('beforeSend' =>
-                                            'myBeforeSendCallbackJsFunc();',
-                                          'complete' =>
-                                            'myCompleteCallbackJsFunc(data);')); ?>
+                <?php echo $this->ajaxLink("Example 5",
+                                           "/ctrl/action5",
+                                           array(
+                                            'beforeSend' =>
+                                             'myBeforeSendCallbackJsFunc();',
+                                            'complete' =>
+                                             'myCompleteCallbackJsFunc(data);')
+                                           ); ?>
             </li>
         </ul>
 
         <!-- only at this point the javascript is printed to sreen -->
-        <?= $this->jQuery(); ?>
+        <?php echo $this->jQuery(); ?>
     </body>
 </html>
-]]>
-          </programlisting>
+]]></programlisting>
 
           <para>You might have already seen that the 'update', 'complete', and 'beforeSend' options have to be executed in specific order and syntax so that you cannot
               use those callbacks and override their behaviour completely when you are using <code>ajaxLink()</code>. For larger use cases you will probably want to
@@ -178,13 +181,12 @@
                 are executed on the clicked link.</para></listitem>
             </itemizedlist>
 
-            <programlisting role="php"><![CDATA[
-<?= $this->ajaxLink("Example 6", 
-                    "/ctrl/action6",
-                    array('beforeSend' => 'hide',
-                          'complete' => 'show')); ?>
-]]>
-            </programlisting>
+            <programlisting language="php"><![CDATA[
+<?php echo $this->ajaxLink("Example 6",
+                           "/ctrl/action6",
+                           array('beforeSend' => 'hide',
+                                 'complete' => 'show')); ?>
+]]></programlisting>
           </sect4>
     </sect3>
 
@@ -247,48 +249,49 @@
                     for all the currently known travel locations, a date picker for start and end dates
                     and a spinner to specify the amount.</para>
 
-                <programlisting role="php"><![CDATA[
+                <programlisting language="php"><![CDATA[
 <form method="post" action="bid.php">
     <label for="locaction">Where do you want to travel?</label>
-    <?= $this->autoComplete("location",
-                            "",
-                            array('data' => array('New York',
-                                                  'Mexico City',
-                                                  'Sydney',
-                                                  'Ruegen',
-                                                  'Baden Baden'),
-                                  'multiple' => true)); ?>
+    <?php echo $this->autoComplete("location",
+                                   "",
+                                   array('data' => array('New York',
+                                                         'Mexico City',
+                                                         'Sydney',
+                                                         'Ruegen',
+                                                         'Baden Baden'),
+                                         'multiple' => true)); ?>
     <br />
 
     <label for="startDate">Travel Start Date:</label>
-    <?= $this->datePicker("startDate",
-                          '',
-                          array('defaultDate' => '+7',
-                                'minDate' => '+7',
-                                'onClose' => 'myJsonFuncCechkingValidity')); ?>
+    <?php echo $this->datePicker("startDate",
+                                 '',
+                                 array('defaultDate' => '+7',
+                                       'minDate' => '+7',
+                                       'onClose' =>
+                                           'myJsonFuncCechkingValidity')); ?>
     <br />
 
     <label for="startDate">Travel End Date:</label>
-    <?= $this->datePicker("endDate",
-                          '',
-                          array('defaultDate' => '+14',
-                                'minDate' => '+7',
-                                'onClose' => 'myJsonFuncCechkingValidity')); ?>
+    <?php echo $this->datePicker("endDate",
+                                 '',
+                                 array('defaultDate' => '+14',
+                                       'minDate' => '+7',
+                                       'onClose' =>
+                                           'myJsonFuncCechkingValidity')); ?>
     <br />
 
     <label for="bid">Your Bid:</label>
-    <?= $this->spinner("bid", 
-                       "",
-                       array('min' => 1205.50,
-                             'max' => 10000,
-                             'start' => 1205.50,
-                             'currency' => '€')); ?>
+    <?php echo $this->spinner("bid",
+                              "",
+                              array('min' => 1205.50,
+                                    'max' => 10000,
+                                    'start' => 1205.50,
+                                    'currency' => '€')); ?>
     <br />
 
     <input type="submit" value="Bid!" />
 </form>
-]]>
-                </programlisting>
+]]></programlisting>
 
                 <para>You can see the use of jQuery UI Widget specific parameters. These all correspond to those given in the jQuery UI docs
                     and are converted to JSON and handed through to the view script.</para>
@@ -308,17 +311,16 @@
                 your bootstrap or Controller initialization function:
             </para>
 
-            <programlisting role="php"><![CDATA[
+            <programlisting language="php"><![CDATA[
 Zend_Controller_Action_HelperBroker::addHelper(
     new ZendX_JQuery_Controller_Action_Helper_AutoComplete()
 );
-]]>
-            </programlisting>
+]]></programlisting>
 
             <para>You can then directly call the helper to render AutoComplete Output in
             your Controller</para>
 
-            <programlisting role="php"><![CDATA[
+            <programlisting language="php"><![CDATA[
 class MyIndexController extends Zend_Controller_Action
 {
     public function autocompleteAction()
@@ -330,8 +332,7 @@ class MyIndexController extends Zend_Controller_Action
         $this->_helper->autoComplete(array("New York", "Bonn", "Tokio"));
     }
 }
-]]>
-            </programlisting>
+]]></programlisting>
         </sect4>
 
         <sect4 id="zendx.jquery.view.helpers.ui.layout">
@@ -371,19 +372,18 @@ class MyIndexController extends Zend_Controller_Action
                     an array of news items to the view script. This array contains at most 5 news elements, so we don't have to care
                     about the tab container getting to many tabs.</para>
 
-                <programlisting role="php"><![CDATA[
+                <programlisting language="php"><![CDATA[
 <?php foreach($this->news AS $article): ?>
 <?php $this->tabPane("newstab",
-                  $article->body,
-                  array('title' => $article->title)); ?>
+                     $article->body,
+                     array('title' => $article->title)); ?>
 <?php endforeach; ?>
 
 <h2>Latest News</h2>
-<?= $this->tabContainer("newstab",
-                        array(),
-                        array('class' => 'flora')); ?>
-]]>
-                </programlisting>
+<?php echo $this->tabContainer("newstab",
+                               array(),
+                               array('class' => 'flora')); ?>
+]]></programlisting>
             </example>
         </sect4>
     </sect3>

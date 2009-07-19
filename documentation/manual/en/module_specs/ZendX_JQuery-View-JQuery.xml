@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reviewed: no -->
 <sect2 id="zendx.jquery.view.jquery">
     <title>jQuery() View Helper</title>
 
@@ -44,43 +46,41 @@
             on initialization of this view, or right before rendering:
         </para>
 
-        <programlisting role="php"><![CDATA[
+        <programlisting language="php"><![CDATA[
 $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
-]]>
-        </programlisting>
+]]></programlisting>
 
         <para>If you need them throughout your application, you can register them in your bootstrap
             file using access to the Controller Plugin ViewRenderer:
         </para>
 
-        <programlisting role="php"><![CDATA[
+        <programlisting language="php"><![CDATA[
 $view = new Zend_View();
 $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
 
 $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
 $viewRenderer->setView($view)
 Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
-]]>
-        </programlisting>
+]]></programlisting>
 
         <para>Now in the view script we want to display a Date Picker and an Ajax based Link.</para>
 
-        <programlisting role="php"><![CDATA[
-<?= $this->ajaxLink("Show me something",
+        <programlisting language="php"><![CDATA[
+<?php echo $this->ajaxLink("Show me something",
                     "/hello/world",
-                    array('update' => '#content')); ?>
+                    array('update' => '#content'));?>
 
 <div id="content"></div>
 
 <form method="post" action="/hello/world">
-Pick your Date: <?= $this->datePicker("dp1",
-                                      '',
-                                      array('defaultDate' =>
-                                                date('Y/m/d', time()))); ?>
+Pick your Date: <?php echo $this->datePicker("dp1",
+                                             '',
+                                             array(
+                                                'defaultDate' =>
+                                                    date('Y/m/d', time())));?>
 <input type="submit" value="Submit" />
 </form>
-]]>
-        </programlisting>
+]]></programlisting>
 
         <para>Both helpers now stacked some javascript statements on the jQuery helper and printed a link and
             a form element respectively. To access the javascript we have to utilize the jQuery()
@@ -89,19 +89,18 @@ Pick your Date: <?= $this->datePicker("dp1",
             the jQuery() environment, and we choose to do so in the layout script's head segment:
         </para>
 
-        <programlisting role="php"><![CDATA[
+        <programlisting language="php"><![CDATA[
 <html>
     <head>
         <title>A jQuery View Helper Example</title>
-        <?= $this->jQuery(); ?>
+        <?php echo $this->jQuery(); ?>
     </head>
 
     <body>
-        <?= $this->layout()->content; ?>
+        <?php echo $this->layout()->content; ?>
     </body>
 </html>
-]]>
-        </programlisting>
+]]></programlisting>
 
         <para>Although <code>$this->layout()->content;</code> is printed behind the <code>$this->jQuery()</code> statement,
             the content of the view script is rendered before. This way all the javascript onLoad code has already been put
@@ -126,7 +125,7 @@ Pick your Date: <?= $this->datePicker("dp1",
                 in at the moment, either <code>$</code> or <code>$j</code>
             </para>
 
-            <programlisting role="php"><![CDATA[
+            <programlisting language="php"><![CDATA[
 class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
 {
     public function someHelper()
@@ -144,8 +143,7 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
         return '';
     }
 }
-]]>
-            </programlisting>
+]]></programlisting>
         </example>
     </sect3>
 
@@ -303,8 +301,7 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
 $view->jQuery
      ->setRenderMode(ZendX_JQuery::RENDER_JAVASCRIPT |
                      ZendX_JQuery::RENDER_JQUERY_ON_LOAD);
-]]>
-        </programlisting>
+]]></programlisting>
 
         <para>This statement makes sure only the required javascript statements and onLoad blocks of the current page are rendered by the jQuery helper.</para>
     </sect3>

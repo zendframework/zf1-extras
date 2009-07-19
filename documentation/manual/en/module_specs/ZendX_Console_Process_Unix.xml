@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Reviewed: no -->
 <sect1 id="zendx.console.process.unix.overview">
     <title>ZendX_Console_Process_Unix</title>
 
@@ -48,7 +50,7 @@
                 This example illustrates a basic child process
             </para>
 
-            <programlisting role="php"><![CDATA[
+            <programlisting language="php"><![CDATA[
 class MyProcess extends ZendX_Console_Process_Unix
 {
     protected function _run()
@@ -72,8 +74,7 @@ while ($process1->isRunning() && $process2->isRunning()) {
 }
 
 echo 'All processes completed';
-]]>
-            </programlisting>
+]]></programlisting>
 
             <para>
                 In this example a process is forked twice and executed. As every
