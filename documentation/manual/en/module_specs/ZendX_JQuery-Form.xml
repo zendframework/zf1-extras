@@ -6,7 +6,7 @@
     <para>All View Helpers are pressed into Zend_Form elements or decorators also. They can even be
         easily integrated into your already existing forms. To enable a Form for Zend_JQuery support
         you can use two ways: Init your form as <code>$form = new ZendX_JQuery_Form();</code> or
-        use the static method <code>ZendX_JQuery::enableForm($form)</code> to enable jQuery element support.
+        use the static method <methodname>ZendX_JQuery::enableForm($form)</methodname> to enable jQuery element support.
     </para>
 
     <sect2 id="zendx.jquery.form.usage">
@@ -14,7 +14,7 @@
 
         <para>Both elements and decorators of the Zend jQuery Form set can be initialized with
             the option key <code>jQueryParams</code> to set certain jQuery object related parameters.
-            This jQueryParams array of options matches to the <code>$params</code> variable
+            This jQueryParams array of options matches to the <varname>$params</varname> variable
             of the corresponding view helpers. For example:</para>
 
         <programlisting language="php"><![CDATA[
@@ -29,16 +29,16 @@ $view->datePicker("dp1", "", array('defaultDate' => '2007/10/10'), array());
         <para>Additionally elements jQuery options can be customized by the following methods:</para>
 
         <itemizedlist>
-            <listitem><para><code>setJQueryParam($name, $value)</code>: Set the jQuery option <code>$name</code> to
+            <listitem><para><methodname>setJQueryParam($name, $value)</methodname>: Set the jQuery option <varname>$name</varname> to
                     the given value.</para></listitem>
-            <listitem><para><code>setJQueryParams($params)</code>: Set key value pairs of jQuery options and merge
+            <listitem><para><methodname>setJQueryParams($params)</methodname>: Set key value pairs of jQuery options and merge
                     them with the already set options.</para></listitem>
-            <listitem><para><code>getJQueryParam($name)</code>: Return the jQuery option with the given name.</para></listitem>
-            <listitem><para><code>getJQueryParams()</code>: Return an array of all currently set jQuery options.</para></listitem>
+            <listitem><para><methodname>getJQueryParam($name)</methodname>: Return the jQuery option with the given name.</para></listitem>
+            <listitem><para><methodname>getJQueryParams()</methodname>: Return an array of all currently set jQuery options.</para></listitem>
         </itemizedlist>
 
-        <para>Each jQuery related Decorator also owns a <code>getJQueryParams()</code> method, to set options you have to
-            use the <code>setDecorators()</code>, <code>addDecorator()</code> or <code>addDecorators()</code> functionality
+        <para>Each jQuery related Decorator also owns a <methodname>getJQueryParams()</methodname> method, to set options you have to
+            use the <methodname>setDecorators()</methodname>, <methodname>addDecorator()</methodname> or <methodname>addDecorators()</methodname> functionality
             of a form element and set the jQueryParams key as option:</para>
 
         <programlisting language="php"><![CDATA[

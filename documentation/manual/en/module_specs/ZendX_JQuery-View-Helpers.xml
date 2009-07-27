@@ -160,7 +160,7 @@
 ]]></programlisting>
 
           <para>You might have already seen that the 'update', 'complete', and 'beforeSend' options have to be executed in specific order and syntax so that you cannot
-              use those callbacks and override their behaviour completely when you are using <code>ajaxLink()</code>. For larger use cases you will probably want to
+              use those callbacks and override their behaviour completely when you are using <methodname>ajaxLink()</methodname>. For larger use cases you will probably want to
               write the request via jQuery on your own. The primary use case for the callbacks is effect usage, other uses may very well become hard to maintain.
               As shown in Example Link 5, you can also forward the beforeSend/complete Callbacks to your own javascript functions.</para>
 
@@ -201,18 +201,18 @@
             <title>jQuery UI Form Helpers</title>
 
             <para>The method signature for all form view helpers closely resembles the Dojo View helpers signature,
-                <code>helper($id, $value, $params, $attribs)</code>. A description of the parameters follows:</para>
+                <methodname>helper($id, $value, $params, $attribs)</methodname>. A description of the parameters follows:</para>
 
             <itemizedlist>
-                <listitem><para><code>$id</code>: Will act as the identifier name for the helper element inside a form. If in the attributes
+                <listitem><para><varname>$id</varname>: Will act as the identifier name for the helper element inside a form. If in the attributes
                         no id element is given, this will also become the form element id, that has to be unique across
                         the DOM.</para></listitem>
-                <listitem><para><code>$value</code>: Default value of the element.</para></listitem>
-                <listitem><para><code>$params</code>: Widget specific parameters that customize the look and feel
+                <listitem><para><varname>$value</varname>: Default value of the element.</para></listitem>
+                <listitem><para><varname>$params</varname>: Widget specific parameters that customize the look and feel
                         of the widget. These options are unique to each widget and <ulink url="http://docs.jquery.com/UI">
                         described in the jQuery UI documentation</ulink>. The data is casted to JSON, so make sure
-                        to use the <code>Zend_Json_Expr</code> class to mark executable javascript as safe.</para></listitem>
-                <listitem><para><code>$attribs</code>: HTML Attributes of the Form Helper</para></listitem>
+                        to use the <classname>Zend_Json_Expr</classname> class to mark executable javascript as safe.</para></listitem>
+                <listitem><para><varname>$attribs</varname>: HTML Attributes of the Form Helper</para></listitem>
             </itemizedlist>
 
             <para>The following UI widgets are available as form view helpers. Make sure you use the correct
@@ -221,21 +221,21 @@
                 have been removed from the announced 1.6 release.</para>
 
             <itemizedlist>
-                <listitem><para><code>autoComplete($id, $value, $params, $attribs)</code>: The AutoComplete View helper
+                <listitem><para><methodname>autoComplete($id, $value, $params, $attribs)</methodname>: The AutoComplete View helper
                     will be included in a future jQuery UI version (currently only via jQuery SVN) and creates a text field and registeres
                     it to have auto complete functionality. The completion data source has to be given as jQuery
                     related parameters 'url' or 'data' as described in the jQuery UI manual.
                 </para></listitem>
-                <listitem><para><code>colorPicker($id, $value, $params, $attribs)</code>: ColorPicker is currently available
+                <listitem><para><methodname>colorPicker($id, $value, $params, $attribs)</methodname>: ColorPicker is currently available
                     in jQuery UI only from SVN and creates a text field that opens up a color picking tool when activated.
                 </para></listitem>
-                <listitem><para><code>datePicker($id, $value, $params, $attribs)</code>: Create a DatePicker
+                <listitem><para><methodname>datePicker($id, $value, $params, $attribs)</methodname>: Create a DatePicker
                     inside a text field. This widget is available since jQuery UI 1.5 and can therefore currently be used
                     with the Google CDN. Using the 'handles' option to create multiple handles overwrites the default set value
                     and the jQuery parameter 'startValue' internally inside the view helper.</para></listitem>
-                <listitem><para><code>slider($id, $value, $params, $attribs)</code>: Create a Sliding element
+                <listitem><para><methodname>slider($id, $value, $params, $attribs)</methodname>: Create a Sliding element
                     that updates its value into a hidden form field. Available since jQuery UI 1.5.</para></listitem>
-                <listitem><para><code>spinner($id, $value, $params, $attribs)</code>: Create a Spinner element
+                <listitem><para><methodname>spinner($id, $value, $params, $attribs)</methodname>: Create a Spinner element
                     that can spin through numeric values in a specified range. This is set on top of a form text field
                     and is available only from jQuery UI SVN</para></listitem>
             </itemizedlist>
@@ -344,22 +344,22 @@ class MyIndexController extends Zend_Controller_Action
                 an example accompanies them to show their usage.</para>
 
             <itemizedlist>
-                <listitem><para><code>dialogContainer($id, $content, $params, $attribs)</code>: Create a Dialog Box that is rendered with
+                <listitem><para><methodname>dialogContainer($id, $content, $params, $attribs)</methodname>: Create a Dialog Box that is rendered with
                         the given content.on startup. If the option 'autoOpen' set to false is specified the box will not be displayed
-                        on load but can be shown with the additional <code>dialog("open")</code> javascript function. See UI docs
+                        on load but can be shown with the additional <methodname>dialog("open")</methodname> javascript function. See UI docs
                         for details.</para></listitem>
-                <listitem><para><code>tabPane($id, $content, $options)</code>: Add a new pane to a tab container with the given <code>$id</code>.
-                        The given <code>$content</code> is shown in this tab pane. To set the title use <code>$options['title']</code>.
-                        If <code>$options['contentUrl']</code> is set, the content of the tab is requested via ajax on tab activation.
+                <listitem><para><methodname>tabPane($id, $content, $options)</methodname>: Add a new pane to a tab container with the given <varname>$id</varname>.
+                        The given <varname>$content</varname> is shown in this tab pane. To set the title use <varname>$options['title']</varname>.
+                        If <varname>$options['contentUrl']</varname> is set, the content of the tab is requested via ajax on tab activation.
                     </para></listitem>
-                <listitem><para><code>tabContainer($id, $params, $attribs)</code>: Render a tab container with all the currently registered
+                <listitem><para><methodname>tabContainer($id, $params, $attribs)</methodname>: Render a tab container with all the currently registered
                         panes. This view helper also offers to add panes with the following syntax:
                         <code>$this->tabContainer()->addPane($id, $label, $content, $options)</code>.
                     </para></listitem>
-                <listitem><para><code>accordionPane($id, $content, $options)</code>: Add a new pane to the accordion container with the given <code>$id</code>.
-                        The given <code>$content</code> is shown in this tab pane. To set the title use <code>$options['title']</code>.
+                <listitem><para><methodname>accordionPane($id, $content, $options)</methodname>: Add a new pane to the accordion container with the given <varname>$id</varname>.
+                        The given <varname>$content</varname> is shown in this tab pane. To set the title use <varname>$options['title']</varname>.
                     </para></listitem>
-                <listitem><para><code>accordionContainer($id, $params, $attribs)</code>: Render an accordion container with all the currently registered
+                <listitem><para><methodname>accordionContainer($id, $params, $attribs)</methodname>: Render an accordion container with all the currently registered
                         panes. This view helper also offers to add panes with the following syntax:
                         <code>$this->accordionContainer()->addPane($id, $label, $content, $options)</code>.
                     </para></listitem>

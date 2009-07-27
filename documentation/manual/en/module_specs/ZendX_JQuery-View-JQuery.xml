@@ -4,7 +4,7 @@
     <title>jQuery() View Helper</title>
 
     <para>
-        The <code>jQuery()</code> view helper simplifies setup of your jQuery environment
+        The <methodname>jQuery()</methodname> view helper simplifies setup of your jQuery environment
         in your application. It takes care of loading the core and ui library dependencies if necessary
         and acts as a stack for all the registered onLoad javascript statements. All jQuery view helpers
         put their javascript code onto this stack. It acts as a collector for everything jQuery in your
@@ -19,10 +19,10 @@
     </itemizedlist>
 
     <para>
-        The <code>jQuery()</code> view helper implementation, like its <code>dojo()</code> pendant,
+        The <methodname>jQuery()</methodname> view helper implementation, like its <methodname>dojo()</methodname> pendant,
         follows the placeholder architecture implementation; the data set in it persists between view
         objects, and may be directly echo'd from your layout script. Since views specified in a Zend_Layout
-        script file are rendered before the layout itself, the <code>jQuery()</code> helper can act as a
+        script file are rendered before the layout itself, the <methodname>jQuery()</methodname> helper can act as a
         stack for jQuery statements and render them into the head segment of the html page.
     </para>
 
@@ -85,7 +85,7 @@ Pick your Date: <?php echo $this->datePicker("dp1",
         <para>Both helpers now stacked some javascript statements on the jQuery helper and printed a link and
             a form element respectively. To access the javascript we have to utilize the jQuery()
             functionality. Both helpers already activated their dependencies that is they have called
-            <code>jQuery()->enable()</code> and <code>jQuery()->enableUi()</code>. We only have to print
+            <methodname>jQuery()->enable()</methodname> and <methodname>jQuery()->enableUi()</methodname>. We only have to print
             the jQuery() environment, and we choose to do so in the layout script's head segment:
         </para>
 
@@ -121,8 +121,8 @@ Pick your Date: <?php echo $this->datePicker("dp1",
             <title>Building your own Helper with No Conflict Mode</title>
 
             <para>To make use of the NoConflict Mode in your own jQuery helper, you only have to use the static method
-                <code>ZendX_JQuery_View_Helper_JQuery::getJQueryHandler()</code> method. It returns the variable jQuery is operating
-                in at the moment, either <code>$</code> or <code>$j</code>
+                <methodname>ZendX_JQuery_View_Helper_JQuery::getJQueryHandler()</methodname> method. It returns the variable jQuery is operating
+                in at the moment, either <code>$</code> or <varname>$j</varname>
             </para>
 
             <programlisting language="php"><![CDATA[
@@ -163,7 +163,7 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
         <title>Methods Available</title>
 
         <para>
-            The <code>jQuery()</code> view helper always returns an instance of
+            The <methodname>jQuery()</methodname> view helper always returns an instance of
             the jQuery placeholder container. That container object has the
             following methods available:
         </para>
@@ -171,25 +171,25 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
         <sect4 id="zendx.jquery.view.jquery.methods.core">
             <title>jQuery Core Library methods</title>
             <itemizedlist>
-                <listitem><para><code>enable()</code>: explicitly enable jQuery
+                <listitem><para><methodname>enable()</methodname>: explicitly enable jQuery
                         integration.</para></listitem>
-                <listitem><para><code>disable()</code>: disable jQuery
+                <listitem><para><methodname>disable()</methodname>: disable jQuery
                         integration.</para></listitem>
-                <listitem><para><code>isEnabled()</code>: determine whether or not
+                <listitem><para><methodname>isEnabled()</methodname>: determine whether or not
                         jQuery integration is enabled.</para></listitem>
-                <listitem><para><code>setVersion()</code>: set the jQuery version
+                <listitem><para><methodname>setVersion()</methodname>: set the jQuery version
                         that is used. This also decides on the library loaded
                         from the Google Ajax Library CDN</para></listitem>
-                <listitem><para><code>getVersion()</code>: get the current jQuery
+                <listitem><para><methodname>getVersion()</methodname>: get the current jQuery
                         that is used. This also decides on the library loaded
                         from the Google Ajax Library CDN</para></listitem>
-                <listitem><para><code>useCdn()</code>: Return true, if CDN usage is
+                <listitem><para><methodname>useCdn()</methodname>: Return true, if CDN usage is
                         currently enabled</para></listitem>
-                <listitem><para><code>useLocalPath()</code>: Return true, if local usage
+                <listitem><para><methodname>useLocalPath()</methodname>: Return true, if local usage
                         is currently enabled</para></listitem>
-                <listitem><para><code>setLocalPath()</code>: Set the local path to the
+                <listitem><para><methodname>setLocalPath()</methodname>: Set the local path to the
                         jQuery Core library</para></listitem>
-                <listitem><para><code>getLocalPath()</code>: If set, return the local path to the
+                <listitem><para><methodname>getLocalPath()</methodname>: If set, return the local path to the
                         jQuery Core library</para></listitem>
             </itemizedlist>
         </sect4>
@@ -198,25 +198,25 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
             <title>jQuery UI Library methods</title>
 
             <itemizedlist>
-                <listitem><para><code>uiEnable()</code>: explicitly enable jQuery UI
+                <listitem><para><methodname>uiEnable()</methodname>: explicitly enable jQuery UI
                         integration.</para></listitem>
-                <listitem><para><code>uiDisable()</code>: disable jQuery UI
+                <listitem><para><methodname>uiDisable()</methodname>: disable jQuery UI
                         integration.</para></listitem>
-                <listitem><para><code>uiIsEnabled()</code>: determine whether or not
+                <listitem><para><methodname>uiIsEnabled()</methodname>: determine whether or not
                         jQuery UI integration is enabled.</para></listitem>
-                <listitem><para><code>setUiVersion()</code>: set the jQuery UI version
+                <listitem><para><methodname>setUiVersion()</methodname>: set the jQuery UI version
                         that is used. This also decides on the library loaded
                         from the Google Ajax Library CDN</para></listitem>
-                <listitem><para><code>getUiVersion()</code>: get the current jQuery UI
+                <listitem><para><methodname>getUiVersion()</methodname>: get the current jQuery UI
                         that is used. This also decides on the library loaded
                         from the Google Ajax Library CDN</para></listitem>
-                <listitem><para><code>useUiCdn()</code>: Return true, if CDN usage is
+                <listitem><para><methodname>useUiCdn()</methodname>: Return true, if CDN usage is
                         currently enabled for jQuery UI</para></listitem>
-                <listitem><para><code>useUiLocal()</code>: Return true, if local usage
+                <listitem><para><methodname>useUiLocal()</methodname>: Return true, if local usage
                         is currently enabled for jQuery UI</para></listitem>
-                <listitem><para><code>setUiLocalPath()</code>: Set the local path to the
+                <listitem><para><methodname>setUiLocalPath()</methodname>: Set the local path to the
                         jQuery UI library</para></listitem>
-                <listitem><para><code>getUiLocalPath()</code>: If set, get the local path
+                <listitem><para><methodname>getUiLocalPath()</methodname>: If set, get the local path
                         to the jQuery UI library</para></listitem>
             </itemizedlist>
         </sect4>
@@ -225,38 +225,38 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
             <title>jQuery Helper Utility methods</title>
 
             <itemizedlist>
-                <listitem><para><code>setView(Zend_View_Interface $view)</code>: set
+                <listitem><para><methodname>setView(Zend_View_Interface $view)</methodname>: set
                         a view instance in the container.</para></listitem>
-                <listitem><para><code>onLoadCaptureStart()</code>: Start capturing javascript code
+                <listitem><para><methodname>onLoadCaptureStart()</methodname>: Start capturing javascript code
                         for jQuery onLoad execution.</para></listitem>
-                <listitem><para><code>onLoadCaptureEnd()</code>: Stop capturing</para></listitem>
-                <listitem><para><code>javascriptCaptureStart()</code>: Start capturing javascript code
+                <listitem><para><methodname>onLoadCaptureEnd()</methodname>: Stop capturing</para></listitem>
+                <listitem><para><methodname>javascriptCaptureStart()</methodname>: Start capturing javascript code
                         that has to be rendered after the inclusion of either jQuery Core or UI libraries.</para></listitem>
-                <listitem><para><code>javascriptCaptureEnd()</code>: Stop capturing.</para></listitem>
-                <listitem><para><code>addJavascriptFile($path)</code>: Add javascript file to be included after
+                <listitem><para><methodname>javascriptCaptureEnd()</methodname>: Stop capturing.</para></listitem>
+                <listitem><para><methodname>addJavascriptFile($path)</methodname>: Add javascript file to be included after
                                 jQuery Core or UI library.</para></listitem>
-                <listitem><para><code>getJavascriptFiles()</code>: Return all currently registered
+                <listitem><para><methodname>getJavascriptFiles()</methodname>: Return all currently registered
                         additional javascript files.</para></listitem>
-                <listitem><para><code>clearJavascriptFiles()</code>: Clear the javascript files</para></listitem>
-                <listitem><para><code>addJavascript($statement)</code>: Add javascript statement to be included
+                <listitem><para><methodname>clearJavascriptFiles()</methodname>: Clear the javascript files</para></listitem>
+                <listitem><para><methodname>addJavascript($statement)</methodname>: Add javascript statement to be included
                         after jQuery Core or UI library.</para></listitem>
-                <listitem><para><code>getJavascript()</code>: Return all currently registered
+                <listitem><para><methodname>getJavascript()</methodname>: Return all currently registered
                         additional javascript statements.</para></listitem>
-                <listitem><para><code>clearJavascript()</code>: Clear the javascript statements.</para></listitem>
-                <listitem><para><code>addStylesheet($path)</code>: Add a stylesheet file that is needed
+                <listitem><para><methodname>clearJavascript()</methodname>: Clear the javascript statements.</para></listitem>
+                <listitem><para><methodname>addStylesheet($path)</methodname>: Add a stylesheet file that is needed
                         for a jQuery view helper to display correctly.</para></listitem>
-                <listitem><para><code>getStylesheets()</code>: Get all currently registered
+                <listitem><para><methodname>getStylesheets()</methodname>: Get all currently registered
                         additional stylesheets.</para></listitem>
-                <listitem><para><code>addOnLoad($statement)</code>: Add javascript statement that should
+                <listitem><para><methodname>addOnLoad($statement)</methodname>: Add javascript statement that should
                         be executed on document loading.</para></listitem>
-                <listitem><para><code>getOnLoadActions()</code>: Return all currently registered
+                <listitem><para><methodname>getOnLoadActions()</methodname>: Return all currently registered
                         onLoad statements.</para></listitem>
-                <listitem><para><code>setRenderMode($mask)</code>: Render only a specific subset of the
+                <listitem><para><methodname>setRenderMode($mask)</methodname>: Render only a specific subset of the
                         jQuery environment via ZendX_JQuery::RENDER_ constants. Rendering all elements
                         is the default behaviour.</para></listitem>
-                <listitem><para><code>getRenderMode()</code>: Return the current
+                <listitem><para><methodname>getRenderMode()</methodname>: Return the current
                         jQuery environment rendering mode.</para></listitem>
-                <listitem><para><code>setCdnSsl($bool)</code>: Set if the CDN Google Ajax Library should be loaded
+                <listitem><para><methodname>setCdnSsl($bool)</methodname>: Set if the CDN Google Ajax Library should be loaded
                         from an SSL or a Non-SSL location.</para></listitem>
             </itemizedlist>
 
@@ -279,7 +279,7 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
             rendering because you have merged all the stylesheets into a single file and include it statically
             in your layout. To allow a smooth refactoring you can enable or disable the rendering
             of certain jQuery environment blocks with help of the following constants and the
-        <code>jQuery()->setRenderMode($bitmask)</code> function.</para>
+        <methodname>jQuery()->setRenderMode($bitmask)</methodname> function.</para>
 
         <itemizedlist>
             <listitem><para><code>ZendX_JQuery::RENDER_LIBRARY</code>: Renders jQuery Core and UI library</para></listitem>
@@ -297,7 +297,7 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
             with the following statement in your view:
         </para>
 
-        <programlisting role="php"><![CDATA[
+        <programlisting language="php"><![CDATA[
 $view->jQuery
      ->setRenderMode(ZendX_JQuery::RENDER_JAVASCRIPT |
                      ZendX_JQuery::RENDER_JQUERY_ON_LOAD);
@@ -309,12 +309,12 @@ $view->jQuery
     <sect3 id="zendx.jquery.view.jquery.migrations">
         <title>Migrations</title>
 
-        <para>Prior to 1.8 the methods <code>setCdnVersion()</code>, <code>setLocalPath()</code>
-            <code>setUiCdnVersion()</code> and <code>setUiLocalPath()</code> all enabled the view
+        <para>Prior to 1.8 the methods <methodname>setCdnVersion()</methodname>, <methodname>setLocalPath()</methodname>
+            <methodname>setUiCdnVersion()</methodname> and <methodname>setUiLocalPath()</methodname> all enabled the view
             helper upon calling, which is considered a bug from the following perspective: If
             you want to use the any non-default library option, you would have to manually disable the
             jQuery helper aftwards if you only require it to be loaded in some scenarios. With version
-            1.8 the jQuery helper does only enable itsself, when <code>enable()</code> is called,
+            1.8 the jQuery helper does only enable itsself, when <methodname>enable()</methodname> is called,
             which all internal jQuery View helpers do upon being called.
         </para>
     </sect3>

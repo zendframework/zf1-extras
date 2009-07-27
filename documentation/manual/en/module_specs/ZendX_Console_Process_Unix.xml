@@ -6,7 +6,7 @@
     <sect2 id="zendx.console.process.unix.introduction">
         <title>Introduction</title>
         <para>
-            <code>ZendX_Console_Process_Unix</code> allows developers to spawn
+            <classname>ZendX_Console_Process_Unix</classname> allows developers to spawn
             an object as a new process, and so do multiple tasks in parallel on
             console environments. Through its specific nature, it is only
             working on *nix based systems like Linux, Solaris, Mac/OSx and such.
@@ -20,28 +20,28 @@
     <sect2 id="zendx.console.process.unix.basic">
         <title>Basic usage of ZendX_Console_Process_Unix</title>
         <para>
-            <code>ZendX_Console_Process_Unix</code> is an abstract class, which
+            <classname>ZendX_Console_Process_Unix</classname> is an abstract class, which
             requires the user to extend it. It has a single abstract method
-            called <code>_run()</code> which has to be implemented to create a
+            called <methodname>_run()</methodname> which has to be implemented to create a
             working process. It also comes with multiple methods for checking
             the alive status and share variables between the parent and the
             child process.
         </para>
 
         <para>
-            The <code>_run()</code> method and every method which is called
+            The <methodname>_run()</methodname> method and every method which is called
             by it is executed by the child process. Every other method which is
             called directly by the parent is executed by the parent process.
         </para>
 
         <para>
-            <code>setVariable()</code> and <code>getVariable()</code> can be
+            <methodname>setVariable()</methodname> and <methodname>getVariable()</methodname> can be
             used from both the parent- and the child process to share variables.
             To observe the alive status, the child process should call
-            <code>_setAlive()</code> in a frequent interval, so that the parent
-            process can check the last alive time via <code>getLastAlive()</code>.
+            <methodname>_setAlive()</methodname> in a frequent interval, so that the parent
+            process can check the last alive time via <methodname>getLastAlive()</methodname>.
             To get the PID of the child process, the parent can call
-            <code>getPid()</code>.
+            <methodname>getPid()</methodname>.
         </para>
 
         <example id="zendx.console.process.unix.example">

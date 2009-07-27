@@ -12,7 +12,7 @@
 $view->addHelperPath("ZendX/JQuery/View/Helper", "ZendX_JQuery_View_Helper");
 ]]></programlisting>
 
-    <para>Or using the <code>ZendX_JQuery::enableView(Zend_View_Interface $view)</code> method
+    <para>Or using the <methodname>ZendX_JQuery::enableView(Zend_View_Interface $view)</methodname> method
         that does the same for you.</para>
 
     <xi:include href="ZendX_JQuery-View-JQuery.xml" />
