@@ -30,6 +30,7 @@ require_once "Zend/Registry.php";
 require_once "Zend/View.php";
 require_once "Zend/Form/Element.php";
 require_once "Zend/Form/SubForm.php";
+require_once "Zend/Form/Decorator/Description.php";
 require_once "Zend/Json.php";
 require_once "ZendX/JQuery.php";
 require_once "ZendX/JQuery/Form.php";
@@ -201,6 +202,22 @@ class ZendX_JQuery_Form_ElementTest extends PHPUnit_Framework_TestCase
         $jquery = $view->jQuery()->__toString();
         $this->assertContains('sf1[dp1]', $form);
         $this->assertNotContains('$("#sf1[dp1]")', $jquery);
+    }
+    
+    /**
+     * @group ZF-6979
+     */
+    public function testDatePickerWithDescriptionDecorator()
+    {
+        $view = new Zend_View();
+
+        $datePicker = new ZendX_JQuery_Form_Element_DatePicker("dp1");
+        $datePicker->addDecorator(new Zend_Form_Decorator_Description());
+        $datePicker->setDescription("foo");
+
+        $html = $datePicker->render($view);
+
+        $this->assertContains('<p class="hint">foo</p>', $html);
     }
 }
 
