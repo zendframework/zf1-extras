@@ -198,8 +198,31 @@ class ZendX_JQuery_View_AccordionContainerTest extends PHPUnit_Framework_TestCas
 
         $this->assertEquals(
             '<div id="container1">
-<a href="#">foo</a><div>foo</div>
-<a href="#">bar</a><div>bar</div>
+<h3><a href="#">foo</a></h3><div>foo</div>
+<h3><a href="#">bar</a></h3><div>bar</div>
+</div>
+',
+            $accordion
+        );
+    }
+
+    public function testAccordionSetWrongHtmlTemplate_ThrowsException()
+    {
+        $this->setExpectedException("ZendX_JQuery_View_Exception");
+
+        $this->view->getHelper('accordionContainer')->setElementHtmlTemplate("foo");
+    }
+
+    public function testAccordionSetHtmlTemplate()
+    {
+        $this->view->getHelper('accordionContainer')->setElementHtmlTemplate("<h3>%s</h3><p>%s</p>");
+
+        $this->view->accordionPane("container1", "foo", array('title' => 'foo'));
+        $accordion = $this->view->accordionContainer("container1", array(), array());
+
+        $this->assertEquals(
+            '<div id="container1">
+<h3>foo</h3><p>foo</p>
 </div>
 ',
             $accordion
