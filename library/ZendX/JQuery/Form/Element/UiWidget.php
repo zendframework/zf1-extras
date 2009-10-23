@@ -122,6 +122,7 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
         if (empty($decorators)) {
             $this->addDecorator('UiWidgetElement')
                  ->addDecorator('Errors')
+                 ->addDecorator('Description', array('tag' => 'p', 'class' => 'description'))
                  ->addDecorator('HtmlTag', array('tag' => 'dd'))
                  ->addDecorator('Label', array('tag' => 'dt'));
         }

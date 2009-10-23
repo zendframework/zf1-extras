@@ -36,9 +36,8 @@ require_once "ZendX/JQuery/View/Helper/DatePicker.php";
 
 class ZendX_JQuery_View_DatePickerTest extends PHPUnit_Framework_TestCase
 {
-	private $view = null;
-	private $jquery = null;
-	private $helper = null;
+    private $view = null;
+    private $jquery = null;
 
     /**
      * Runs the test methods of this class.
@@ -51,25 +50,25 @@ class ZendX_JQuery_View_DatePickerTest extends PHPUnit_Framework_TestCase
         $result = PHPUnit_TextUI_TestRunner::run($suite);
     }
 
-	public function setUp()
-	{
+    public function setUp()
+    {
         Zend_Registry::_unsetInstance();
         $this->view   = $this->getView();
         $this->jquery = new ZendX_JQuery_View_Helper_JQuery_Container();
         $this->jquery->setView($this->view);
         Zend_Registry::set('ZendX_JQuery_View_Helper_JQuery', $this->jquery);
-	}
+    }
 
-	public function tearDown()
-	{
-		ZendX_JQuery_View_Helper_JQuery::disableNoConflictMode();
-	}
+    public function tearDown()
+    {
+        ZendX_JQuery_View_Helper_JQuery::disableNoConflictMode();
+    }
 
-	/**
-	 * Get jQuery View
-	 *
-	 * @return Zend_View
-	 */
+    /**
+     * Get jQuery View
+     *
+     * @return Zend_View
+     */
     public function getView()
     {
         require_once 'Zend/View.php';
@@ -144,7 +143,7 @@ class ZendX_JQuery_View_DatePickerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @see ZF-5615
+     * @group ZF-5615
      */
     public function testDatePickerLocalization()
     {

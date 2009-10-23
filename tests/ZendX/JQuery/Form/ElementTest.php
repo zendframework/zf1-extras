@@ -217,7 +217,20 @@ class ZendX_JQuery_Form_ElementTest extends PHPUnit_Framework_TestCase
 
         $html = $datePicker->render($view);
 
-        $this->assertContains('<p class="hint">foo</p>', $html);
+        $this->assertContains('<p class="description">foo</p>', $html);
+    }
+
+    public function testGetDefaultDecorators()
+    {
+        $widget = new ZendX_JQuery_Form_Element_DatePicker("dp1");;
+        $decorators = $widget->getDecorators();
+        $this->assertEquals(5, count($decorators));
+
+        $this->assertType('ZendX_JQuery_Form_Decorator_UiWidgetElement', $decorators['ZendX_JQuery_Form_Decorator_UiWidgetElement']);
+        $this->assertType('Zend_Form_Decorator_Errors',                  $decorators['Zend_Form_Decorator_Errors']);
+        $this->assertType('Zend_Form_Decorator_Description',             $decorators['Zend_Form_Decorator_Description']);
+        $this->assertType('Zend_Form_Decorator_HtmlTag',                 $decorators['Zend_Form_Decorator_HtmlTag']);
+        $this->assertType('Zend_Form_Decorator_Label',                   $decorators['Zend_Form_Decorator_Label']);
     }
 }
 
