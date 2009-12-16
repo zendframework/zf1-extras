@@ -36,11 +36,11 @@ require_once "ZendX/JQuery.php";
  */
 class ZendX_JQuery_View_Helper_JQuery_Container
 {
-	/**
-	 * Path to local webserver jQuery library
-	 *
-	 * @var String
-	 */
+    /**
+     * Path to local webserver jQuery library
+     *
+     * @var String
+     */
     protected $_jqueryLibraryPath = null;
 
     /**
@@ -479,11 +479,11 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         return true;
     }
 
-	/**
-	 * Add a Javascript File to the include stack.
-	 *
-	 * @return ZendX_JQuery_View_Helper_JQuery_Container
-	 */
+    /**
+     * Add a Javascript File to the include stack.
+     *
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
     public function addJavascriptFile($path)
     {
         $path = (string) $path;
@@ -493,24 +493,24 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         return $this;
     }
 
-	/**
-	 * Return all currently registered Javascript files.
-	 *
-	 * This does not include the jQuery library, which is handled by another retrieval
-	 * strategy.
-	 *
-	 * @return Array
-	 */
+    /**
+     * Return all currently registered Javascript files.
+     *
+     * This does not include the jQuery library, which is handled by another retrieval
+     * strategy.
+     *
+     * @return Array
+     */
     public function getJavascriptFiles()
     {
         return $this->_javascriptSources;
     }
 
-	/**
-	 * Clear all currently registered Javascript files.
-	 *
-	 * @return ZendX_JQuery_View_Helper_JQuery_Container
-	 */
+    /**
+     * Clear all currently registered Javascript files.
+     *
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
     public function clearJavascriptFiles()
     {
         $this->_javascriptSources = array();
@@ -521,11 +521,11 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      * Add arbitrary javascript to execute in jQuery JS container
      *
      * @param  string $js
-	 * @return ZendX_JQuery_View_Helper_JQuery_Container
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function addJavascript($js)
     {
-        $js = preg_replace('/^\s*(.*?)\s*$/s', '$1', $js);
+        $js = trim($js);
         if (!in_array(substr($js, -1), array(';', '}'))) {
             $js .= ';';
         }
@@ -563,7 +563,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      * Add a stylesheet
      *
      * @param  string $path
-	 * @return ZendX_JQuery_View_Helper_JQuery_Container
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function addStylesheet($path)
     {
@@ -588,7 +588,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      * Add a script to execute onLoad
      *
      * @param  string $callback Lambda
-	 * @return ZendX_JQuery_View_Helper_JQuery_Container
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function addOnLoad($callback)
     {
@@ -619,27 +619,27 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         return $this;
     }
 
-	/**
-	 * Set which parts of the jQuery enviroment should be rendered.
-	 *
-	 * This function allows for a gradual refactoring of the jQuery code
-	 * rendered by calling __toString(). Use ZendX_JQuery::RENDER_*
-	 * constants. By default all parts of the enviroment are rendered.
-	 *
-	 * @see    ZendX_JQuery::RENDER_ALL
-	 * @param  integer $mask
-	 * @return ZendX_JQuery_View_Helper_JQuery_Container
-	 */
+    /**
+     * Set which parts of the jQuery enviroment should be rendered.
+     *
+     * This function allows for a gradual refactoring of the jQuery code
+     * rendered by calling __toString(). Use ZendX_JQuery::RENDER_*
+     * constants. By default all parts of the enviroment are rendered.
+     *
+     * @see    ZendX_JQuery::RENDER_ALL
+     * @param  integer $mask
+     * @return ZendX_JQuery_View_Helper_JQuery_Container
+     */
     public function setRenderMode($mask)
     {
         $this->_renderMode = $mask;
         return $this;
     }
 
-	/**
-	 * Return bitmask of the current Render Mode
-	 * @return integer
-	 */
+    /**
+     * Return bitmask of the current Render Mode
+     * @return integer
+     */
     public function getRenderMode()
     {
         return $this->_renderMode;
@@ -684,13 +684,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         }
 
         array_reverse($stylesheets);
-        /*$style = '<style type="text/css">' . PHP_EOL
-               . (($this->_isXhtml) ? '<!--' : '<!--') . PHP_EOL;
-        foreach ($stylesheets as $stylesheet) {
-            $style .= '    @import "' . $stylesheet . '";' . PHP_EOL;
-        }
-        $style .= (($this->_isXhtml) ? '-->' : '-->') . PHP_EOL
-                . '</style>';*/
         $style = "";
         foreach($stylesheets AS $stylesheet) {
             if ($this->view instanceof Zend_View_Abstract) {
@@ -713,27 +706,27 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     protected function _renderScriptTags()
     {
-    	$scriptTags = '';
-    	if( ($this->getRenderMode() & ZendX_JQuery::RENDER_LIBRARY) > 0) {
-	        $source = $this->_getJQueryLibraryPath();
+        $scriptTags = '';
+        if( ($this->getRenderMode() & ZendX_JQuery::RENDER_LIBRARY) > 0) {
+            $source = $this->_getJQueryLibraryPath();
 
-	        $scriptTags .= '<script type="text/javascript" src="' . $source . '"></script>'.PHP_EOL;
+            $scriptTags .= '<script type="text/javascript" src="' . $source . '"></script>'.PHP_EOL;
 
-	        if($this->uiIsEnabled()) {
+            if($this->uiIsEnabled()) {
                 $uiPath = $this->_getJQueryUiLibraryPath();
-	        	$scriptTags .= '<script type="text/javascript" src="'.$uiPath.'"></script>'.PHP_EOL;
-	        }
+                $scriptTags .= '<script type="text/javascript" src="'.$uiPath.'"></script>'.PHP_EOL;
+            }
 
-	        if(ZendX_JQuery_View_Helper_JQuery::getNoConflictMode() == true) {
-	        	$scriptTags .= '<script type="text/javascript">var $j = jQuery.noConflict();</script>'.PHP_EOL;
-	        }
-    	}
+            if(ZendX_JQuery_View_Helper_JQuery::getNoConflictMode() == true) {
+                $scriptTags .= '<script type="text/javascript">var $j = jQuery.noConflict();</script>'.PHP_EOL;
+            }
+        }
 
-		if( ($this->getRenderMode() & ZendX_JQuery::RENDER_SOURCES) > 0) {
-	        foreach($this->getJavascriptFiles() AS $javascriptFile) {
-	            $scriptTags .= '<script type="text/javascript" src="' . $javascriptFile . '"></script>'.PHP_EOL;
-	        }
-		}
+        if( ($this->getRenderMode() & ZendX_JQuery::RENDER_SOURCES) > 0) {
+            foreach($this->getJavascriptFiles() AS $javascriptFile) {
+                $scriptTags .= '<script type="text/javascript" src="' . $javascriptFile . '"></script>'.PHP_EOL;
+            }
+        }
 
         return $scriptTags;
     }
@@ -747,15 +740,15 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     {
         $onLoadActions = array();
         if( ($this->getRenderMode() & ZendX_JQuery::RENDER_JQUERY_ON_LOAD) > 0) {
-	        foreach ($this->getOnLoadActions() as $callback) {
-	            $onLoadActions[] = $callback;
-	        }
+            foreach ($this->getOnLoadActions() as $callback) {
+                $onLoadActions[] = $callback;
+            }
         }
 
-		$javascript = '';
-		if( ($this->getRenderMode() & ZendX_JQuery::RENDER_JAVASCRIPT) > 0) {
-        	$javascript = implode("\n    ", $this->getJavascript());
-		}
+        $javascript = '';
+        if( ($this->getRenderMode() & ZendX_JQuery::RENDER_JAVASCRIPT) > 0) {
+            $javascript = implode("\n    ", $this->getJavascript());
+        }
 
         $content = '';
 
