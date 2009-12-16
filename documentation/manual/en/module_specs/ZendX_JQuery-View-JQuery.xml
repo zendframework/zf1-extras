@@ -298,7 +298,7 @@ class MyHelper_SomeHelper extends Zend_View_Helper_Abstract
         </para>
 
         <programlisting language="php"><![CDATA[
-$view->jQuery
+$view->jQuery()
      ->setRenderMode(ZendX_JQuery::RENDER_JAVASCRIPT |
                      ZendX_JQuery::RENDER_JQUERY_ON_LOAD);
 ]]></programlisting>

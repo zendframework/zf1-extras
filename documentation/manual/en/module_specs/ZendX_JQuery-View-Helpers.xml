@@ -263,21 +263,19 @@
     <br />
 
     <label for="startDate">Travel Start Date:</label>
-    <?php echo $this->datePicker("startDate",
-                                 '',
-                                 array('defaultDate' => '+7',
-                                       'minDate' => '+7',
-                                       'onClose' =>
-                                           'myJsonFuncCechkingValidity')); ?>
+    <?php echo $this->datePicker("startDate", '',
+             array(
+                'defaultDate' => '+7',
+                'minDate' => '+7',
+                'onClose' => new Zend_Json_Expr('myJsonFuncCechkingValidity'))); ?>
     <br />
 
     <label for="startDate">Travel End Date:</label>
-    <?php echo $this->datePicker("endDate",
-                                 '',
-                                 array('defaultDate' => '+14',
-                                       'minDate' => '+7',
-                                       'onClose' =>
-                                           'myJsonFuncCechkingValidity')); ?>
+    <?php echo $this->datePicker("endDate", '',
+             array(
+                'defaultDate' => '+14',
+                'minDate' => '+7',
+                'onClose' => new Zend_Json_Expr('myJsonFuncCechkingValidity'))); ?>
     <br />
 
     <label for="bid">Your Bid:</label>
