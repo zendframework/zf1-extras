@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Zend Framework
  *
@@ -13,36 +12,33 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   ZendX
- * @package    ZendX
+ * @category   Zend
+ * @package    ZendX_Console
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2008 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: AllTests.php 12231 2008-10-31 23:55:11Z dasprid $
  */
 
 /**
  * Test helper
  */
-require_once dirname(__FILE__) . '/../TestHelper.php';
+require_once dirname(__FILE__) . '/../../../TestHelper.php';
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'ZendX_AllTests::main');
+    define('PHPUnit_MAIN_METHOD', 'ZendX_Application_Resource_AllTests::main');
 }
 
-require_once 'ZendX/Application/AllTests.php';
-require_once 'ZendX/Console/AllTests.php';
-require_once 'ZendX/JQuery/AllTests.php';
-require_once 'ZendX/Db/AllTests.php';
+require_once 'ZendX/Application/Resource/JQueryTest.php';
 
 /**
- * @category   ZendX
- * @package    ZendX
+ * @category   Zend
+ * @package    ZendX_Applicatoin
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ZendX_AllTests
+class ZendX_Application_Resource_AllTests
 {
     public static function main()
     {
@@ -51,17 +47,13 @@ class ZendX_AllTests
 
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('Zend Framework Extras - ZendX');
-
-        $suite->addTestSuite('ZendX_Application_AllTests');
-        $suite->addTestSuite('ZendX_Console_AllTests');
-        $suite->addTestSuite('ZendX_JQuery_AllTests');
-        $suite->addTestSuite('ZendX_Db_AllTests');
-
+        $suite = new PHPUnit_Framework_TestSuite('Zend Framework - ZendX_Application_Resource');
+        $suite->addTestSuite('ZendX_Application_Resource_JQueryTest');
+        
         return $suite;
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'ZendX_AllTests::main') {
-    Zend_AllTests::main();
+if (PHPUnit_MAIN_METHOD == 'ZendX_Application_Resource_AllTests::main') {
+    ZendX_Application_Resource_AllTests::main();
 }
