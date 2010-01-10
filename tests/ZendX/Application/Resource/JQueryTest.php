@@ -17,7 +17,7 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: NavigationTest.php 20096 2010-01-06 02:05:09Z bkarwin $
+ * @version    $Id$
  */
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
@@ -90,7 +90,6 @@ class Zend_Application_Resource_JQueryTest extends PHPUnit_Framework_TestCase
 
     public function testInitializationInitializesJqueryObject()
     {
-//         $resource->setOptions(array('noconflictmode' => true, 'version' => '1.2.3'));
         $this->bootstrap->registerPluginResource('view');
         $resource = new ZendX_Application_Resource_JQuery(array());
         $resource->setBootstrap($this->bootstrap);
@@ -99,28 +98,6 @@ class Zend_Application_Resource_JQueryTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($res instanceof ZendX_JQuery_View_Helper_JQuery_Container);
         $this->assertSame($res, $resource->getJQuery());
     }
-    
-    /**
-     *  *   resources.Jquery.noconflictmode = false        ; default
- *   resources.Jquery.version = 1.7.1               ; <null>
- *   resources.Jquery.localpath = "/foo/bar"
- *   resources.Jquery.uienable = true;
- *   resources.Jquery.ui_enable = true;
- *   resources.Jquery.uiversion = 0.7.7;
- *   resources.Jquery.ui_version = 0.7.7;
- *   resources.Jquery.uilocalpath = "/bar/foo";
- *   resources.Jquery.ui_localpath = "/bar/foo";
- *   resources.Jquery.cdn_ssl = false
- *   resources.Jquery.render_mode = 255 ; default
- *   resources.Jquery.rendermode = 255 ; default
- *   
- *   resources.Jquery.javascriptfile = "/some/file.js"
- *   resources.Jquery.javascriptfiles.0 = "/some/file.js"
- *   resources.Jquery.stylesheet = "/some/file.css"
- *   resources.Jquery.stylesheets.0 = "/some/file.css"
- *   /**
-     *
-     */
     
     public function testOptionsArePassedOn() {
         $options = array('noconflictmode' => true,
