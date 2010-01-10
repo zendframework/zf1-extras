@@ -21,7 +21,7 @@
  */
 
 if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'ZendX_Application_Resource_JQueryTest::main');
+    define('PHPUnit_MAIN_METHOD', 'ZendX_Application_Resource_JqueryTest::main');
 }
 
 /**
@@ -42,7 +42,7 @@ require_once 'Zend/Loader/Autoloader.php';
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_Application
  */
-class Zend_Application_Resource_JQueryTest extends PHPUnit_Framework_TestCase
+class Zend_Application_Resource_JqueryTest extends PHPUnit_Framework_TestCase
 {
     public static function main()
     {
@@ -91,12 +91,12 @@ class Zend_Application_Resource_JQueryTest extends PHPUnit_Framework_TestCase
     public function testInitializationInitializesJqueryObject()
     {
         $this->bootstrap->registerPluginResource('view');
-        $resource = new ZendX_Application_Resource_JQuery(array());
+        $resource = new ZendX_Application_Resource_Jquery(array());
         $resource->setBootstrap($this->bootstrap);
 
         $res = $resource->init();
         $this->assertTrue($res instanceof ZendX_JQuery_View_Helper_JQuery_Container);
-        $this->assertSame($res, $resource->getJQuery());
+        $this->assertSame($res, $resource->getJquery());
     }
     
     public function testOptionsArePassedOn() {
@@ -113,7 +113,7 @@ class Zend_Application_Resource_JQueryTest extends PHPUnit_Framework_TestCase
                          'stylesheets' => array('johndoe.css','janedoe.css'));                         
         
         $this->bootstrap->registerPluginResource('view');
-        $resource = new ZendX_Application_Resource_JQuery(array());
+        $resource = new ZendX_Application_Resource_Jquery(array());
         $resource->setBootstrap($this->bootstrap);
         $resource->setOptions($options);
 
@@ -138,7 +138,7 @@ class Zend_Application_Resource_JQueryTest extends PHPUnit_Framework_TestCase
                          'render_mode' => 187);
         
         $this->bootstrap->registerPluginResource('view');
-        $resource = new ZendX_Application_Resource_JQuery(array());
+        $resource = new ZendX_Application_Resource_Jquery(array());
         $resource->setBootstrap($this->bootstrap);
         $resource->setOptions($options);
 

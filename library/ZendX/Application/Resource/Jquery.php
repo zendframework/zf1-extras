@@ -76,7 +76,7 @@ class ZendX_Application_Resource_Jquery
      */
     public function init()
     {
-        return $this->getJQuery();
+        return $this->getJquery();
     }
 
     /**
@@ -84,7 +84,7 @@ class ZendX_Application_Resource_Jquery
      *
      * @return ZendX_JQuery_View_Helper_JQuery_Container
      */
-    public function getJQuery()
+    public function getJquery()
     {
         if (null === $this->_jquery) {
             $this->getBootstrap()->bootstrap('view');
