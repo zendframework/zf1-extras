@@ -99,18 +99,21 @@ class Zend_Application_Resource_JqueryTest extends PHPUnit_Framework_TestCase
         $this->assertSame($res, $resource->getJquery());
     }
     
-    public function testOptionsArePassedOn() {
-        $options = array('noconflictmode' => true,
-                         'version' => '1.2.3',
-                         'localpath' => '/foo/bar/',
-                         'ui_version' => '2.3.4',
-                         'uilocalpath' => '/bar/foo/',
-                         'cdn_ssl' => true,
-                         'rendermode' => 192,
-                         'javascriptfile' => '/fooBar.js',
-                         'javascriptfiles' => array('johndoe.js','janedoe.js'),
-                         'stylesheet' => '/fooBar.css',
-                         'stylesheets' => array('johndoe.css','janedoe.css'));                         
+    public function testOptionsArePassedOn() 
+    {
+        $options = array(
+            'noconflictmode'  => true,
+            'version'         => '1.2.3',
+            'localpath'       => '/foo/bar/',
+            'ui_version'      => '2.3.4',
+            'uilocalpath'     => '/bar/foo/',
+            'cdn_ssl'         => true,
+            'rendermode'      => 192,
+            'javascriptfile'  => '/fooBar.js',
+            'javascriptfiles' => array('johndoe.js','janedoe.js'),
+            'stylesheet'      => '/fooBar.css',
+            'stylesheets'     => array('johndoe.css','janedoe.css'),
+        );
         
         $this->bootstrap->registerPluginResource('view');
         $resource = new ZendX_Application_Resource_Jquery(array());
@@ -132,10 +135,13 @@ class Zend_Application_Resource_JqueryTest extends PHPUnit_Framework_TestCase
                             $res->getJavascriptFiles());                            
     }
     
-    public function testAliasOptionsArePassedOn() {
-        $options = array('uiversion' => '3.4.5',
-                         'ui_localpath' => '/f00/b4r/',
-                         'render_mode' => 187);
+    public function testAliasOptionsArePassedOn() 
+    {
+        $options = array(
+            'uiversion'    => '3.4.5',
+            'ui_localpath' => '/f00/b4r/',
+            'render_mode'  => 187,
+        );
         
         $this->bootstrap->registerPluginResource('view');
         $resource = new ZendX_Application_Resource_Jquery(array());

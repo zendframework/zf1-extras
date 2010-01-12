@@ -42,9 +42,6 @@
  *   resources.Jquery.javascriptfiles.0 = "/some/file.js"
  *   resources.Jquery.stylesheet = "/some/file.css"
  *   resources.Jquery.stylesheets.0 = "/some/file.css"
- *   
- *   
- *   
  * </pre>
  * 
  * Resource for settings JQuery options
@@ -99,13 +96,20 @@ class ZendX_Application_Resource_Jquery
         return $this->_jquery;
     }
     
-    protected function _parseOptions(array $options) {
+    /**
+     * Parse options to find those pertinent to jquery helper and invoke them
+     * 
+     * @param  array $options 
+     * @return void
+     */
+    protected function _parseOptions(array $options) 
+    {
         $options = array_merge($options, array('cdn_ssl' => false));
         
         foreach ($options as $key => $value) {
             switch($key) {
                 case 'noconflictmode':
-                    if(!(bool)$value) {
+                    if (!(bool)$value) {
                         ZendX_JQuery_View_Helper_JQuery::disableNoConflictMode();
                     } else {
                         ZendX_JQuery_View_Helper_JQuery::enableNoConflictMode();
@@ -144,16 +148,16 @@ class ZendX_Application_Resource_Jquery
                     $this->_view->JQuery()->addStylesheet($value);
                     break;
                 case 'stylesheets':
-                    foreach($value as $stylesheet) {
+                    foreach ($value as $stylesheet) {
                         $this->_view->JQuery()->addStylesheet($stylesheet);
                     }
                     break;
             }
         }
 
-        if((isset($key['uienable']) && $key['uienable'] == true) ||
-            (isset($key['ui_enable']) && $key['ui_enable'] == true) ||
-            (!isset($key['ui_enable']) && !isset($key['uienable'])))
+        if ((isset($key['uienable']) && (bool) $key['uienable']) 
+            || (isset($key['ui_enable']) && (bool) $key['ui_enable']) 
+            || (!isset($key['ui_enable']) && !isset($key['uienable'])))
         {
             $this->_view->JQuery()->uiEnable();
         } else {
