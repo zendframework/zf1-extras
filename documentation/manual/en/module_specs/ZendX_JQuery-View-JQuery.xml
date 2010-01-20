@@ -59,7 +59,7 @@ $view = new Zend_View();
 $view->addHelperPath('ZendX/JQuery/View/Helper/', 'ZendX_JQuery_View_Helper');
 
 $viewRenderer = new Zend_Controller_Action_Helper_ViewRenderer();
-$viewRenderer->setView($view)
+$viewRenderer->setView($view);
 Zend_Controller_Action_HelperBroker::addHelper($viewRenderer);
 ]]></programlisting>
 
@@ -85,7 +85,7 @@ Pick your Date: <?php echo $this->datePicker("dp1",
         <para>Both helpers now stacked some javascript statements on the jQuery helper and printed a link and
             a form element respectively. To access the javascript we have to utilize the jQuery()
             functionality. Both helpers already activated their dependencies that is they have called
-            <methodname>jQuery()->enable()</methodname> and <methodname>jQuery()->enableUi()</methodname>. We only have to print
+            <methodname>jQuery()->enable()</methodname> and <methodname>jQuery()->uiEnable()</methodname>. We only have to print
             the jQuery() environment, and we choose to do so in the layout script's head segment:
         </para>
 
