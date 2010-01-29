@@ -99,9 +99,9 @@ class ZendX_JQuery_View_AutoCompleteTest extends PHPUnit_Framework_TestCase
 
     public function testShouldCreateInputField()
     {
-        $element = $this->view->autoComplete("elem1", "Default", array('data' => array('Test')));
+        $element = $this->view->autoComplete("elem1", "Default", array('source' => array('Test')));
 
-        $this->assertEquals(array('$("#elem1").autocomplete({"data":["Test"]});'), $this->view->jQuery()->getOnLoadActions());
+        $this->assertEquals(array('$("#elem1").autocomplete({"source":["Test"]});'), $this->view->jQuery()->getOnLoadActions());
         $this->assertContains("<input", $element);
         $this->assertContains('id="elem1"', $element);
         $this->assertContains('value="Default"', $element);
