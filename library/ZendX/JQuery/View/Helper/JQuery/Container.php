@@ -522,6 +522,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     public function addJavascript($js)
     {
         $this->_javascriptStatements[] = $js;
+        $this->enable();
         return $this;
     }
 
@@ -660,7 +661,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
     protected function _renderStylesheets()
     {
     	if( ($this->getRenderMode() & ZendX_JQuery::RENDER_STYLESHEETS) == 0) {
-    		return '';
+            return '';
     	}
 
         foreach ($this->getStylesheets() as $stylesheet) {
