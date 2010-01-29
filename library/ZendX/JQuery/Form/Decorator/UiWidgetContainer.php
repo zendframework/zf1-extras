@@ -128,11 +128,7 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetContainer extends Zend_Form_D
         }
 
         $jQueryParams = $this->getJQueryParams();
-        $attribs     = array_merge($this->getAttribs(), $this->getOptions());
-
-        if(!isset($jQueryParams['title'])) {
-
-        }
+        $attribs     = $this->getOptions();
 
         $helper      = $this->getHelper();
         $id          = $element->getId() . '-container';

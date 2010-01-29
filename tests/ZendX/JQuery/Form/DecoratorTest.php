@@ -215,6 +215,54 @@ class ZendX_JQuery_Form_DecoratorTest extends PHPUnit_Framework_TestCase
         $this->assertContains('id="tabContainer-frag-1"', $output);
     }
 
+    /**
+     * @group ZF-8055
+     */
+    public function testUiWidgetDialogContainerRenderBug()
+    {
+        $view = new Zend_View();
+        ZendX_JQuery::enableView($view);
+
+        // Create new jQuery Form
+        $form = new ZendX_JQuery_Form();
+        $form->setView($view);
+        $form->setAction('formdemo.php');
+        $form->setAttrib('id', 'mainForm');
+
+        // Use a TabContainer for your form:
+        $form->setDecorators(array(
+            'FormElements',
+            'Form',
+            array('DialogContainer', array(
+                'id'          => 'tabContainer',
+                'style'       => 'width: 600px;',
+                'jQueryParams' => array(
+                    'tabPosition' => 'top'
+                ),
+            )),
+        ));
+
+        $subForm1 = new ZendX_JQuery_Form('subform1');
+        $subForm1->setView($view);
+
+        // Add Element Spinner
+        $elem = new ZendX_JQuery_Form_Element_Spinner("spinner1", array('label' => 'Spinner:', 'attribs' => array('class' => 'flora')));
+        $elem->setJQueryParams(array('min' => 0, 'max' => 1000, 'start' => 100));
+
+        $subForm1->addElement($elem);
+
+        $subForm1->setDecorators(array(
+            'FormElements',
+            array('HtmlTag', array('tag' => 'dl')),
+        ));
+
+        $form->addSubForm($subForm1, "form1");
+
+        $output = $form->render($view);
+
+        $this->assertContains('<div id="tabContainer" style="width: 600px;"><form', $output);
+    }
+
     public function testRenderWidgetElementShouldEnableJQueryHelper()
     {
         $view = new Zend_View();

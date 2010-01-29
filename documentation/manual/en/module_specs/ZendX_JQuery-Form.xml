@@ -198,5 +198,40 @@ $form->addSubForm($subForm2, 'subform2');
 $formString = $form->render($view);
 ]]></programlisting>
         </example>
+
+        <example id="zendx.jquery.form.decorators.dialogexample">
+            <title>Wrapping a Form into the Dialog Container</title>
+
+            <para>The only use for the Dialog Container in Zend Form context is to wrap itself around a form and
+            display it in a dialog. Its important to remember that the order of the decorators has to be different than in the Accordion and
+            Tab Container examples.</para>
+
+            <programlisting language="php"><![CDATA[
+// Create new jQuery Form
+$form = new ZendX_JQuery_Form();
+$form->setAction('formdemo.php');
+
+// Wrap the complete form inside a Dialog box
+$form->setDecorators(array(
+    'FormElements',
+    'Form',
+    array('DialogContainer', array(
+        'id'          => 'tabContainer',
+        'style'       => 'width: 600px;',
+        'jQueryParams' => array(
+            'tabPosition' => 'top'
+        ),
+    )),
+));
+
+// Add Element Spinner
+$elem = new ZendX_JQuery_Form_Element_Spinner("spinner1", array('label' => 'Spinner:', 'attribs' => array('class' => 'flora')));
+$elem->setJQueryParams(array('min' => 0, 'max' => 1000, 'start' => 100));
+
+$form->addElement($elem);
+]]>
+            </programlisting>
+
+        </example>>
     </sect2>
 </sect1>
