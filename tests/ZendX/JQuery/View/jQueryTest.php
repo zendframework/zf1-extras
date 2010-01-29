@@ -295,21 +295,6 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
     	$this->assertEquals(array('test.css', 'test2.css'), $this->helper->getStylesheets());
     }
 
-    public function testShouldAddJavascriptOnlyOnce()
-    {
-    	$this->helper->addJavascript("alert();");
-    	$this->helper->addJavascript("alert();");
-
-    	$this->assertEquals(1, count($this->helper->getJavascript()));
-    }
-
-    public function testShouldAddDelimWhenNoneGiven()
-    {
-    	$this->helper->addJavascript("alert()");
-
-    	$this->assertEquals(array('alert();'), $this->helper->getJavascript());
-    }
-
     public function testShouldRenderNothingOnDisable()
     {
     	$this->helper->setCDNVersion("1.2.6");

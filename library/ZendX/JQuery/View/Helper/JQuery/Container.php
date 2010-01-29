@@ -525,15 +525,6 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function addJavascript($js)
     {
-        $js = trim($js);
-        if (!in_array(substr($js, -1), array(';', '}'))) {
-            $js .= ';';
-        }
-
-        if (in_array($js, $this->_javascriptStatements)) {
-            return $this;
-        }
-
         $this->_javascriptStatements[] = $js;
         return $this;
     }
