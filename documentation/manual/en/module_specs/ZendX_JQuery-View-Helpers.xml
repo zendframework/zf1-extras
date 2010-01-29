@@ -216,18 +216,17 @@
             </itemizedlist>
 
             <para>The following UI widgets are available as form view helpers. Make sure you use the correct
-                version of jQuery UI library to be able to use them. The Google CDN only offers jQuery UI up
-                to version 1.5.2. Some other components are only available from jQuery UI SVN, since they
-                have been removed from the announced 1.6 release.</para>
+                version of jQuery UI library to be able to use them. The Google CDN always offers you the latest
+                released version.</para>
 
             <itemizedlist>
                 <listitem><para><methodname>autoComplete($id, $value, $params, $attribs)</methodname>: The AutoComplete View helper
-                    will be included in a future jQuery UI version (currently only via jQuery SVN) and creates a text field and registeres
+                    is part of jQuery UI since version 1.8 and creates a text field and registeres
                     it to have auto complete functionality. The completion data source has to be given as jQuery
                     related parameters 'url' or 'data' as described in the jQuery UI manual.
                 </para></listitem>
-                <listitem><para><methodname>colorPicker($id, $value, $params, $attribs)</methodname>: ColorPicker is currently available
-                    in jQuery UI only from SVN and creates a text field that opens up a color picking tool when activated.
+                <listitem><para><methodname>colorPicker($id, $value, $params, $attribs)</methodname>: ColorPicker is still
+                a ZendX_JQuery element for legacy reason, but was removed from jQuery UI completly.
                 </para></listitem>
                 <listitem><para><methodname>datePicker($id, $value, $params, $attribs)</methodname>: Create a DatePicker
                     inside a text field. This widget is available since jQuery UI 1.5 and can therefore currently be used
@@ -236,8 +235,8 @@
                 <listitem><para><methodname>slider($id, $value, $params, $attribs)</methodname>: Create a Sliding element
                     that updates its value into a hidden form field. Available since jQuery UI 1.5.</para></listitem>
                 <listitem><para><methodname>spinner($id, $value, $params, $attribs)</methodname>: Create a Spinner element
-                    that can spin through numeric values in a specified range. This is set on top of a form text field
-                    and is available only from jQuery UI SVN</para></listitem>
+                    that can spin through numeric values in a specified range. This element was removed from
+                    the 1.6 jQuery UI release and has not been re-released yet.</para></listitem>
             </itemizedlist>
 
             <example id="zendx.jquery.view.helpers.form.example">
@@ -254,12 +253,11 @@
     <label for="locaction">Where do you want to travel?</label>
     <?php echo $this->autoComplete("location",
                                    "",
-                                   array('data' => array('New York',
+                                   array('source' => array('New York',
                                                          'Mexico City',
                                                          'Sydney',
                                                          'Ruegen',
-                                                         'Baden Baden'),
-                                         'multiple' => true)); ?>
+                                                         'Baden Baden'))); ?>
     <br />
 
     <label for="startDate">Travel Start Date:</label>

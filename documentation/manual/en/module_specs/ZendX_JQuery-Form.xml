@@ -178,7 +178,7 @@ $subForm2->addElement($elem);
 $elem = new ZendX_JQuery_Form_Element_AutoComplete(
                 "ac1", array('label' => 'Autocomplete:')
             );
-$elem->setJQueryParams(array('data' => array('New York',
+$elem->setJQueryParams(array('source' => array('New York',
                                              'Berlin',
                                              'Bern',
                                              'Boston')));
