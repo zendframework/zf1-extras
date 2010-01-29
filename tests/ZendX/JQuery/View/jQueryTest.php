@@ -215,6 +215,13 @@ class ZendX_JQuery_View_jQueryTest extends PHPUnit_Framework_TestCase
     	$this->assertEquals(2, count($this->helper->getOnLoadActions()));
     }
 
+    public function testAddOnLoadEnablesJQuery()
+    {
+        $this->assertFalse($this->helper->isEnabled());
+        $this->helper->addOnLoad("1");
+        $this->assertTrue($this->helper->isEnabled());
+    }
+
     public function testShouldAllowCaptureOnLoad()
     {
     	$this->helper->onLoadCaptureStart();

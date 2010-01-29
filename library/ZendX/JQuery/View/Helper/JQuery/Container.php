@@ -582,6 +582,7 @@ class ZendX_JQuery_View_Helper_JQuery_Container
         if (!in_array($callback, $this->_onLoadActions, true)) {
             $this->_onLoadActions[] = $callback;
         }
+        $this->enable();
         return $this;
     }
 
