@@ -12,16 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to license@zend.com so we can send you a copy immediately.
  *
- * @category   Zend
- * @package    Zend_Application
+ * @category   ZendX
+ * @package    ZendX_Application
  * @subpackage Resource
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id$
+ * @version    $Id: Jquery.php 20240 2010-01-13 04:51:56Z matthew $
  */
 
 /**
- * Cache Manager resource
+ * JQuery application resource
  *
  * Example configuration:
  * <pre>
@@ -37,13 +37,13 @@
  *   resources.Jquery.cdn_ssl = false
  *   resources.Jquery.render_mode = 255 ; default
  *   resources.Jquery.rendermode = 255 ; default
- *   
+ *
  *   resources.Jquery.javascriptfile = "/some/file.js"
  *   resources.Jquery.javascriptfiles.0 = "/some/file.js"
  *   resources.Jquery.stylesheet = "/some/file.css"
  *   resources.Jquery.stylesheets.0 = "/some/file.css"
  * </pre>
- * 
+ *
  * Resource for settings JQuery options
  *
  * @uses       Zend_Application_Resource_ResourceAbstract
@@ -65,7 +65,7 @@ class ZendX_Application_Resource_Jquery
      * @var Zend_View
      */
     protected $_view;
-    
+
     /**
      * Defined by Zend_Application_Resource_Resource
      *
@@ -95,17 +95,17 @@ class ZendX_Application_Resource_Jquery
 
         return $this->_jquery;
     }
-    
+
     /**
      * Parse options to find those pertinent to jquery helper and invoke them
-     * 
-     * @param  array $options 
+     *
+     * @param  array $options
      * @return void
      */
-    protected function _parseOptions(array $options) 
+    protected function _parseOptions(array $options)
     {
         $options = array_merge($options, array('cdn_ssl' => false));
-        
+
         foreach ($options as $key => $value) {
             switch($key) {
                 case 'noconflictmode':
@@ -134,7 +134,7 @@ class ZendX_Application_Resource_Jquery
                     break;
                 case 'render_mode':
                 case 'rendermode':
-                    $this->_view->JQuery()->setRenderMode($value);                
+                    $this->_view->JQuery()->setRenderMode($value);
                     break;
                 case 'javascriptfile':
                     $this->_view->JQuery()->addJavascriptFile($value);
@@ -155,8 +155,8 @@ class ZendX_Application_Resource_Jquery
             }
         }
 
-        if ((isset($key['uienable']) && (bool) $key['uienable']) 
-            || (isset($key['ui_enable']) && (bool) $key['ui_enable']) 
+        if ((isset($key['uienable']) && (bool) $key['uienable'])
+            || (isset($key['ui_enable']) && (bool) $key['ui_enable'])
             || (!isset($key['ui_enable']) && !isset($key['uienable'])))
         {
             $this->_view->JQuery()->uiEnable();
