@@ -254,7 +254,7 @@ class ZendX_JQuery_View_Helper_AjaxLink extends Zend_View_Helper_HtmlElement
         $js = implode($js);
 
         if($inline == true) {
-            $attribs['onClick'] = $js;
+            $attribs['onclick'] = $js;
         } else {
             if(!isset($attribs['id'])) {
                 $clickClass = sprintf("ajaxLink%d", ZendX_JQuery_View_Helper_AjaxLink::$currentLinkCallbackId);
