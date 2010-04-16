@@ -142,6 +142,10 @@ class ZendX_JQuery
      */
     public static function encodeJson($value)
     {
+        if (is_array($value) && count($value) == 0) {
+            return '{}';
+        }
+
         if(!class_exists('Zend_Json')) {
             /**
              * @see Zend_Json

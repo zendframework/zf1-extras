@@ -41,60 +41,49 @@ require_once "ZendX/JQuery/View/Helper/UiWidget.php";
  */
 class ZendX_JQuery_View_Helper_DatePicker extends ZendX_JQuery_View_Helper_UiWidget
 {
-	/**
-	 * Create a jQuery UI Widget Date Picker
-	 *
-	 * @link   http://docs.jquery.com/UI/Datepicker
-	 * @param  string $id
-	 * @param  string $value
-	 * @param  array  $params jQuery Widget Parameters
-	 * @param  array  $attribs HTML Element Attributes
-	 * @return string
-	 */
-	public function datePicker($id, $value = null, array $params = array(), array $attribs = array())
-	{
-		$attribs = $this->_prepareAttributes($id, $value, $attribs);
+    /**
+     * Create a jQuery UI Widget Date Picker
+     *
+     * @link   http://docs.jquery.com/UI/Datepicker
+     * @param  string $id
+     * @param  string $value
+     * @param  array  $params jQuery Widget Parameters
+     * @param  array  $attribs HTML Element Attributes
+     * @return string
+     */
+    public function datePicker($id, $value = null, array $params = array(), array $attribs = array())
+    {
+        $attribs = $this->_prepareAttributes($id, $value, $attribs);
 
-		//
-		// Prepare params
-		//
-		if(!isset($params['dateFormat']) && Zend_Registry::isRegistered('Zend_Locale')) {
-		    $params['dateFormat'] = self::resolveZendLocaleToDatePickerFormat();
-		}
+        if(!isset($params['dateFormat']) && Zend_Registry::isRegistered('Zend_Locale')) {
+            $params['dateFormat'] = self::resolveZendLocaleToDatePickerFormat();
+        }
 
-		// TODO: Allow translation of DatePicker Text Values to get this action from client to server
+        // TODO: Allow translation of DatePicker Text Values to get this action from client to server
+        $params = ZendX_JQuery::encodeJson($params);
 
-		if(count($params) > 0) {
-            $params = ZendX_JQuery::encodeJson($params);
-		} else {
-		    $params = "{}";
-		}
+        $js = sprintf('%s("#%s").datepicker(%s);',
+                ZendX_JQuery_View_Helper_JQuery::getJQueryHandler(),
+                $attribs['id'],
+                $params
+        );
 
-		$js = sprintf('%s("#%s").datepicker(%s);',
-		    ZendX_JQuery_View_Helper_JQuery::getJQueryHandler(),
-		    $attribs['id'],
-		    $params
-		);
+        $this->jquery->addOnLoad($js);
 
-		//
-		// Add DatePicker callup to onLoad Stack
-		//
-		$this->jquery->addOnLoad($js);
+        return $this->view->formText($id, $value, $attribs);
+    }
 
-		return $this->view->formText($id, $value, $attribs);
-	}
-
-	/**
-	 * A Check for Zend_Locale existance has already been done in {@link datePicker()}
-	 * this function only resolves the default format from Zend Locale to
-	 * a jQuery Date Picker readable format. This function can be potentially buggy
-	 * because of its easy nature and is therefore stripped from the core functionality
-	 * to be easily overriden.
-	 *
-	 * @return string
-	 */
-	public static function resolveZendLocaleToDatePickerFormat($format=null)
-	{
+    /**
+     * A Check for Zend_Locale existance has already been done in {@link datePicker()}
+     * this function only resolves the default format from Zend Locale to
+     * a jQuery Date Picker readable format. This function can be potentially buggy
+     * because of its easy nature and is therefore stripped from the core functionality
+     * to be easily overriden.
+     *
+     * @return string
+     */
+    public static function resolveZendLocaleToDatePickerFormat($format=null)
+    {
         if($format == null) {
             $locale = Zend_Registry::get('Zend_Locale');
             if( !($locale instanceof Zend_Locale) ) {
@@ -111,8 +100,8 @@ class ZendX_JQuery_View_Helper_DatePicker extends ZendX_JQuery_View_Helper_UiWid
         $dateFormat = array(
             'EEEEE' => 'D', 'EEEE' => 'DD', 'EEE' => 'D', 'EE' => 'D', 'E' => 'D',
             'MMMM' => 'MM', 'MMM' => 'M', 'MM' => 'mm', 'M' => 'm',
-            'YYYYY' => 'yy', 'YYYY' => 'yy', 'YYY' => 'yy', 'YY' => 'y', 'Y' => 'y',
-            'yyyyy' => 'yy', 'yyyy' => 'yy', 'yyy' => 'yy', 'yy' => 'y',
+            'YYYYY' => 'yy', 'YYYY' => 'yy', 'YYY' => 'yy', 'YY' => 'y', 'Y' => 'yy',
+            'yyyyy' => 'yy', 'yyyy' => 'yy', 'yyy' => 'yy', 'yy' => 'y', 'y' => 'yy',
             'G' => '', 'e' => '', 'a' => '', 'h' => '', 'H' => '', 'm' => '',
             's' => '', 'S' => '', 'z' => '', 'Z' => '', 'A' => '',
         );
@@ -141,6 +130,6 @@ class ZendX_JQuery_View_Helper_DatePicker extends ZendX_JQuery_View_Helper_UiWid
             $newFormat .= $chr;
         }
 
-	    return $newFormat;
-	}
+        return $newFormat;
+    }
 }
