@@ -24,11 +24,6 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 }
 
 /**
- * Test helper
- */
-require_once 'TestHelper.php';
-
-/**
  * @see ZendX_AllTests
  */
 require_once 'ZendX/AllTests.php';
