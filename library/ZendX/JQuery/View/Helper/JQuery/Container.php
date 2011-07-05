@@ -239,8 +239,18 @@ class ZendX_JQuery_View_Helper_JQuery_Container
      */
     public function setCdnSsl($flag)
     {
-        $this->_loadSslCdnPath = $flag;
+        $this->_loadSslCdnPath = (boolean) $flag;
         return $this;
+    }
+
+    /**
+     * Get Flag of SSL on CDN
+     *
+     * @return boolean True if SSL is used on CDN
+     */
+    public function getCdnSsl()
+    {
+        return $this->_loadSslCdnPath;
     }
 
     /**
