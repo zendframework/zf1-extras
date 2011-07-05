@@ -87,7 +87,7 @@ class ZendX_JQuery_View_AjaxLinkTest extends ZendX_JQuery_View_jQueryTestCase
         $render = $this->jquery->__toString();
         $this->assertContains('inject.php', $render);
         $this->assertContains('function(data, textStatus) { jsonCallback(data); }', $render);
-        $this->assertContains("'json');", $render);
+        $this->assertContains('"json");', $render);
         $this->assertContains('{"name":"Ludwig von Mises","email":"mises@vienna.at"}', $render);
     }
 
@@ -206,5 +206,24 @@ class ZendX_JQuery_View_AjaxLinkTest extends ZendX_JQuery_View_jQueryTestCase
 
         $this->assertNotContains("/>Label1</a>", $html);
         $this->assertContains(">Label1</a>", $html);
-    }
+   }
+
+   /** @group ZF-9926 */
+   public function testDoNotUseSingleQuotesInJsAsItBreaksInlineLinks()
+   {
+       $view = $this->getView();
+
+       $html = $view->ajaxLink('Label1', '/some/url', array(
+           'method'     => 'post',
+           'dataType'   => 'json',
+           'noscript'   => true,
+           'beforeSend' => 'if(!confirm("Are you sure?")) {return false;}$("#progress-bar").show();',
+           'complete'   => '$("#progress-bar").hide();',
+           'inline'     => true
+       ));
+
+       $this->assertContains('$.post("/some/url"', $html);
+       $this->assertNotContains("'/some/url'", $html);
+       $this->assertNotContains("'json'", $html);
+   }
 }

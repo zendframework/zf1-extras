@@ -242,11 +242,11 @@ class ZendX_JQuery_View_Helper_AjaxLink extends Zend_View_Helper_HtmlElement
 
         switch($requestHandler) {
             case 'GET':
-                $js[] = sprintf("%s.get('%s', %s, function(data, textStatus) { %s }, '%s');return false;",
+                $js[] = sprintf('%s.get("%s", %s, function(data, textStatus) { %s }, "%s");return false;',
                     $jqHandler, $url, $params, implode(" ", $callbackCompleteJs), $options['dataType']);
                 break;
             case 'POST':
-                $js[] = sprintf("%s.post('%s', %s, function(data, textStatus) { %s }, '%s');return false;",
+                $js[] = sprintf('%s.post("%s", %s, function(data, textStatus) { %s }, "%s");return false;',
                     $jqHandler, $url, $params, implode(" ", $callbackCompleteJs), $options['dataType']);
                 break;
         }
