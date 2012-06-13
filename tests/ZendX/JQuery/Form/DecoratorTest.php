@@ -45,6 +45,17 @@ class ZendX_JQuery_Form_DecoratorTest extends PHPUnit_Framework_TestCase
         Zend_Registry::_unsetInstance();
     }
 
+    /**
+     * Returns the contens of the exepcted $file
+     *
+     * @param  string $file
+     * @return string
+     */
+    protected function _getExpected($file)
+    {
+        return file_get_contents(dirname(__FILE__) . '/_files/expected/' . $file);
+    }
+
     public function testUiWidgetElementDecoratorRender()
     {
         $ac = new ZendX_JQuery_Form_Element_Spinner("ac1");
@@ -213,6 +224,100 @@ class ZendX_JQuery_Form_DecoratorTest extends PHPUnit_Framework_TestCase
         $this->assertContains('id="tabContainer"', $output);
         $this->assertContains('href="#tabContainer-frag-1"', $output);
         $this->assertContains('id="tabContainer-frag-1"', $output);
+    }
+
+    /**
+     * @group ZF-12175
+     */
+    public function testUiWidgetContainerRenderWithContent()
+    {
+        // Setup view
+        $view = new Zend_View();
+        ZendX_JQuery::enableView($view);
+
+        // Create jQuery Form
+        $form = new ZendX_JQuery_Form(
+            array(
+                 'method'     => Zend_Form::METHOD_GET,
+                 'attribs'    => array(
+                     'id' => 'mainForm',
+                 ),
+                 'decorators' => array(
+                     'FormElements',
+                     array(
+                         'HtmlTag',
+                         array(
+                             'tag' => 'dl',
+                         ),
+                     ),
+                     array(
+                         'TabContainer',
+                         array(
+                             'id'        => 'tabContainer',
+                             'placement' => 'prepend',
+                             'separator' => '',
+                         ),
+                     ),
+                     'Form',
+                 )
+            )
+        );
+
+        // Add sub form
+        $subForm = new ZendX_JQuery_Form(
+            array(
+                 'decorators' => array(
+                     'FormElements',
+                     array(
+                         'HtmlTag',
+                         array(
+                             'tag' => 'dl',
+                         ),
+                     ),
+                     array(
+                         'TabPane',
+                         array(
+                             'jQueryParams' => array(
+                                 'containerId' => 'mainForm',
+                                 'title'       => 'Slider',
+                             ),
+                         ),
+                     ),
+                 )
+            )
+        );
+        $form->addSubForm($subForm, 'subform');
+
+        // Add spinner element to subform
+        $subForm->addElement(
+            'spinner',
+            'spinner',
+            array(
+                 'label'   => 'Spinner:',
+                 'attribs' => array(
+                     'class' => 'flora',
+                 ),
+                 'jQueryParams' => array(
+                     'min'   => 0,
+                      'max'   => 1000,
+                      'start' => 100,
+                 ),
+            )
+        );
+
+        // Add submit button to main form
+        $form->addElement(
+            'submit',
+            'submit',
+            array(
+                 'label' => 'Send',
+            )
+        );
+
+        $this->assertSame(
+            $this->_getExpected('uiwidgetcontainer/with_content.html'),
+            $form->render($view)
+        );
     }
 
     /**
