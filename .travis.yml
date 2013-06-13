@@ -12,7 +12,7 @@ before_install:
  - phpenv rehash
 
 before_script:
- - composer require zendframework/zf1:1.12.*
+ - composer require zendframework/zf1:master
 
 script:
  - cd tests/
