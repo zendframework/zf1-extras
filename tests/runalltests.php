@@ -20,7 +20,7 @@
 * @version $Id$
 */
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 $PHPUNIT = null;
 if (!$PHPUNIT) {
