@@ -12,7 +12,7 @@ before_install:
  - phpenv rehash
 
 before_script:
- - composer require siad007/zf1:<2
+ - composer require siad007/zf1:1.12.*
 
 script:
  - cd tests/
