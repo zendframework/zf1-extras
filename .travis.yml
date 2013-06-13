@@ -11,6 +11,9 @@ before_install:
  - sh ./tests/install_dependencies.sh
  - phpenv rehash
 
+before_script:
+ - composer require siad007/zf1
+
 script:
  - cd tests/
  - php runalltests.php
