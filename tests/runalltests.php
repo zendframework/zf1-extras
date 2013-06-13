@@ -20,6 +20,8 @@
 * @version $Id$
 */
 
+require 'vendor/autoload.php';
+
 $PHPUNIT = null;
 if (!$PHPUNIT) {
     if (!$PHPUNIT && strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
