@@ -15,8 +15,5 @@ before_script:
  - composer require zendframework/zendframework1:1.12.*@dev
 
 script:
- - cd library/
- - ls -la
- - cd ../
  - cd tests/
  - php runalltests.php
