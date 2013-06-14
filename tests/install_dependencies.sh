@@ -27,4 +27,3 @@ pear install phpunit/Text_Template-1.0.0
 pear install phpunit/DbUnit-1.0.0
 pear install pear.phpunit.de/PHPUnit-3.4.15
 
-[ "$(php -r \@phpinfo\(\)\; | grep 'PHP Version' -m 1)" == 'PHP Version \=\> 5.2.17' ] && (pecl install phar)
