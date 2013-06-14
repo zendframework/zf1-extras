@@ -19,10 +19,9 @@
 * @license http://framework.zend.com/license/new-bsd New BSD License
 * @version $Id$
 */
-$Zf1Path = realpath('../vendor/zendframework/zendframework1/library/');
-$loader = include '../vendor/autoload.php';
-$loader->setUseIncludePath($Zf1Path);
-$loader->add('Zend_', $Zf1Path.'/Zend');
+$zf = realpath('../vendor/zendframework/zendframework1/library/');
+include '../vendor/autoload.php';
+set_include_path(implode(PATH_SEPARATOR, array($zf, get_include_path())));
 
 $PHPUNIT = null;
 if (!$PHPUNIT) {
