@@ -97,8 +97,9 @@ class ZendX_Console_Process_UnixTest extends PHPUnit_Framework_TestCase
             $diffTime = round(microtime(true) - $startTime);
         } while ($process->isRunning() && $diffTime < 2);
         
-        $process->stop();
+        $result = $process->stop();
         
+        $this->assertTrue($result);
         $this->assertEquals(1, $diffTime);
     }
     
