@@ -23,16 +23,12 @@ $zf = realpath('../vendor/zendframework/zendframework1/library');
 include '../vendor/autoload.php';
 set_include_path(implode(PATH_SEPARATOR, array($zf, get_include_path())));
 include $zf . '/Zend/Loader/AutoloaderFactory.php';
-include $zf . '/Zend/Loader/ClassMapAutoloader.php';
 include $zf . '/Zend/Loader/Autoloader.php';
 Zend_Loader_AutoloaderFactory::factory(
   array(
-    'Zend_Loader_ClassMapAutoloader' => array(
-        __DIR__ . '/../library/autoload_classmap.php',
-    ),
     'Zend_Loader_StandardAutoloader' => array(
         'prefixes' => array(
-        'Zend' => __DIR__ . '/../library/Zend'
+        'Zend' => $zf . '/Zend'
     ),
         'fallback_autoloader' => true
     )
