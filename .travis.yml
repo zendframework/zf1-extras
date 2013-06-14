@@ -16,6 +16,7 @@ before_script:
  - composer install
 
 script:
+ - cp -rf vendor/zendframework/zendframework1/library/Zend library/Zend
  - cp -rf vendor/zendframework/zendframework1/tests/Zend tests/Zend
  - cd tests/
  - php runalltests.php
