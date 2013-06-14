@@ -12,6 +12,7 @@ before_install:
  - phpenv rehash
 
 before_script:
+ - if [[ "$TRAVIS_PHP_VERSION" == "5.2.17" ]]; then pecl install phar; fi
  - composer require zendframework/zendframework1:1.12.*@dev
  - composer install
 
