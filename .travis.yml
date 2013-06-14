@@ -15,9 +15,9 @@ before_install:
 
 before_script:
  - if [[ "$TRAVIS_PHP_VERSION" == "5.2" ]]; then git clone https://github.com/zendframework/zf1; cp -rf zf1/library/Zend library/Zend; cp -rf zf1/tests/Zend tests/Zend; fi
- - if [[ "$TRAVIS_PHP_VERSION" >= "5.3" ]]; then composer require zendframework/zendframework1:1.12.*@dev; composer install; fi
- - if [[ "$TRAVIS_PHP_VERSION" >= "5.3" ]]; then cp -rf vendor/zendframework/zendframework1/library/Zend library/Zend; fi
- - if [[ "$TRAVIS_PHP_VERSION" >= "5.3" ]]; then cp -rf vendor/zendframework/zendframework1/tests/Zend tests/Zend; fi
+ - if [[ "$TRAVIS_PHP_VERSION" != "5.2" ]]; then composer require zendframework/zendframework1:1.12.*@dev; composer install; fi
+ - if [[ "$TRAVIS_PHP_VERSION" != "5.2" ]]; then cp -rf vendor/zendframework/zendframework1/library/Zend library/Zend; fi
+ - if [[ "$TRAVIS_PHP_VERSION" != "5.2" ]]; then cp -rf vendor/zendframework/zendframework1/tests/Zend tests/Zend; fi
 
 script:
  - cd tests/
