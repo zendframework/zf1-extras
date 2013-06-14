@@ -97,9 +97,11 @@ class ZendX_Console_Process_UnixTest extends PHPUnit_Framework_TestCase
             $diffTime = round(microtime(true) - $startTime);
         } while ($process->isRunning() && $diffTime < 2);
         
-        $process->stop();
-        
-        $this->assertEquals(1, $diffTime);
+        $result = $process->stop();
+
+        $this->assertFalse($process->isRunning());
+        $this->assertTrue($result);
+        $this->assertEquals(2, $diffTime);
     }
     
     public function testParallel()
@@ -120,7 +122,7 @@ class ZendX_Console_Process_UnixTest extends PHPUnit_Framework_TestCase
         $process1->stop();
         $process2->stop();
         
-        $this->assertEquals(2, $diffTime);
+        $this->assertEquals(3, $diffTime);
     }
     
     public function testVariables()
