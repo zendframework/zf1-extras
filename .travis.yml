@@ -16,9 +16,6 @@ before_script:
  - composer install
 
 script:
- - cd vendor/
- - ls -la
- - cd ../
- - cat vendor/autoload_real.php
+ - cat vendor/composer/autoload_real.php
  - cd tests/
  - php runalltests.php
