@@ -21,19 +21,9 @@
 */
 $zf = realpath('../vendor/zendframework/zendframework1/library');
 include '../vendor/autoload.php';
+spl_autoload_unregister(array('Zend_Loader_Autoloader','autoload'));
 set_include_path(implode(PATH_SEPARATOR, array($zf, get_include_path())));
-include $zf . '/Zend/Loader/AutoloaderFactory.php';
-include $zf . '/Zend/Loader/Autoloader.php';
-Zend_Loader_AutoloaderFactory::factory(
-  array(
-    'Zend_Loader_StandardAutoloader' => array(
-        'prefixes' => array(
-        'Zend' => $zf . '/Zend'
-    ),
-        'fallback_autoloader' => true
-    )
-  )
-);
+
 $PHPUNIT = null;
 if (!$PHPUNIT) {
     if (!$PHPUNIT && strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
