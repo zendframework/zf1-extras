@@ -19,5 +19,6 @@ script:
  - cd vendor/
  - ls -la
  - cd ../
+ - cat vendor/autoload.php
  - cd tests/
  - php runalltests.php
