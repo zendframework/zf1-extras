@@ -8,11 +8,12 @@ env: TMPDIR=/tmp
 
 before_install:
  - phpenv rehash
+ - if [[ "$TRAVIS_PHP_VERSION" == "5.2" ]]; then pecl install -a phar; fi
+ - phpenv rehash
  - sh ./tests/install_dependencies.sh
  - phpenv rehash
 
 before_script:
- - if [[ "$TRAVIS_PHP_VERSION" == "5.2" ]]; then pecl install -a phar; fi
  - composer require zendframework/zendframework1:1.12.*@dev
  - composer install
 
