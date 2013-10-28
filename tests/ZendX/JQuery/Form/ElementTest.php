@@ -226,11 +226,26 @@ class ZendX_JQuery_Form_ElementTest extends PHPUnit_Framework_TestCase
         $decorators = $widget->getDecorators();
         $this->assertEquals(5, count($decorators));
 
-        $this->assertType('ZendX_JQuery_Form_Decorator_UiWidgetElement', $decorators['ZendX_JQuery_Form_Decorator_UiWidgetElement']);
-        $this->assertType('Zend_Form_Decorator_Errors',                  $decorators['Zend_Form_Decorator_Errors']);
-        $this->assertType('Zend_Form_Decorator_Description',             $decorators['Zend_Form_Decorator_Description']);
-        $this->assertType('Zend_Form_Decorator_HtmlTag',                 $decorators['Zend_Form_Decorator_HtmlTag']);
-        $this->assertType('Zend_Form_Decorator_Label',                   $decorators['Zend_Form_Decorator_Label']);
+        $this->assertTrue(
+            $decorators['ZendX_JQuery_Form_Decorator_UiWidgetElement'] instanceof
+            ZendX_JQuery_Form_Decorator_UiWidgetElement
+        );
+        $this->assertTrue(
+            $decorators['Zend_Form_Decorator_Errors'] instanceof
+            Zend_Form_Decorator_Errors
+        );
+        $this->assertTrue(
+            $decorators['Zend_Form_Decorator_Description'] instanceof
+            Zend_Form_Decorator_Description
+        );
+        $this->assertTrue(
+            $decorators['Zend_Form_Decorator_HtmlTag'] instanceof
+            Zend_Form_Decorator_HtmlTag
+        );
+        $this->assertTrue(
+            $decorators['Zend_Form_Decorator_Label'] instanceof
+            Zend_Form_Decorator_Label
+        );
     }
 }
 
