@@ -10,7 +10,7 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": ">=5.2.11",
-        "zendframework/zendframework1": "1.12.*@dev"
+        "zendframework/zendframework1": "1.12.*"
     },
     "autoload": {
         "psr-0": {
