@@ -57,5 +57,5 @@ class ZendX_Application_AllTests
 }
 
 if (PHPUnit_MAIN_METHOD == 'ZendX_Application_AllTests::main') {
-    ZendX_Console_AllTests::main();
+    ZendX_Application_AllTests::main();
 }
