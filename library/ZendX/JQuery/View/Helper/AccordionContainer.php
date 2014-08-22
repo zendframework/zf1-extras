@@ -52,6 +52,7 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
      * @param  string $id
      * @param  string $name
      * @param  string $content
+     * @param  array  $options
      * @return ZendX_JQuery_View_Helper_AccordionContainer
      */
     public function addPane($id, $name, $content, array $options=array())
@@ -155,6 +156,7 @@ class ZendX_JQuery_View_Helper_AccordionContainer extends ZendX_JQuery_View_Help
      * Set the accordion element template
      *
      * @param  string $htmlTemplate
+     * @throws ZendX_JQuery_View_Exception
      * @return ZendX_JQuery_View_Helper_AccordionContainer
      */
     public function setElementHtmlTemplate($htmlTemplate)
