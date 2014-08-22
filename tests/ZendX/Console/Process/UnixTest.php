@@ -69,7 +69,14 @@ class ZendX_Console_Process_UnixTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('posix_* functions are required');
         }
     }
-    
+
+    protected function tearDown()
+    {
+        if (ob_get_length() == 0 ) {
+            ob_start();
+        }
+    }
+
     public function testStop()
     {
         $startTime = microtime(true);
