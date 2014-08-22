@@ -80,6 +80,8 @@ class ZendX_JQuery_View_Helper_DatePicker extends ZendX_JQuery_View_Helper_UiWid
      * because of its easy nature and is therefore stripped from the core functionality
      * to be easily overriden.
      *
+     * @param  string $format
+     * @throws ZendX_JQuery_Exception
      * @return string
      */
     public static function resolveZendLocaleToDatePickerFormat($format=null)
