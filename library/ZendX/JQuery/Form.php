@@ -36,7 +36,6 @@ class ZendX_JQuery_Form extends Zend_Form
      * Constructor
      *
      * @param  array|Zend_Config|null $options
-     * @return void
      */
     public function __construct($options = null)
     {
