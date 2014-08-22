@@ -59,6 +59,7 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetPane extends Zend_Form_Decora
     /**
      * Get view helper for rendering container
      *
+     * @throws Zend_Form_Decorator_Exception
      * @return string
      */
     public function getHelper()
@@ -91,6 +92,7 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetPane extends Zend_Form_Decora
     /**
      * Get jQuery option parameters
      *
+     * @throws Zend_Form_Decorator_Exception
      * @return array
      */
     public function getJQueryParams()
