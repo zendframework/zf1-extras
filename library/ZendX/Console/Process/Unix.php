@@ -401,12 +401,12 @@ abstract class ZendX_Console_Process_Unix
 
         // Now we need to differentiate a bit.
         switch ($this->_internalIpcData['_callType']) {
-            case VOID_METHOD:
+            case self::VOID_METHOD:
                 // Notify the child so it can process the request
                 $this->_sendSigUsr1();
                 break;
 
-            case RETURN_METHOD:
+            case self::RETURN_METHOD:
                 // Set the semaphorew
                 shmop_write($this->_internalSemKey, 1, 0);
 
