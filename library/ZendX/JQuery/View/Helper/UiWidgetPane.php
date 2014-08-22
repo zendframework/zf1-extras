@@ -28,7 +28,7 @@ require_once "UiWidget.php";
 /**
  * jQuery Pane Base class, adds captureStart/captureEnd functionality for panes.
  *
- * @uses 	   ZendX_JQuery_View_Helper_JQuery_Container
+ * @uses       ZendX_JQuery_View_Helper_JQuery_Container
  * @package    ZendX_JQuery
  * @subpackage View
  * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
@@ -56,7 +56,8 @@ abstract class ZendX_JQuery_View_Helper_UiWidgetPane extends ZendX_JQuery_View_H
      * @param  string $id
      * @param  string $name
      * @param  array  $options
-     * @return void
+     * @throws ZendX_JQuery_View_Exception
+     * @return boolean
      */
     public function captureStart($id, $name, array $options=array())
     {
@@ -78,6 +79,7 @@ abstract class ZendX_JQuery_View_Helper_UiWidgetPane extends ZendX_JQuery_View_H
      * Finish capturing content for layout container
      *
      * @param  string $id
+     * @throws ZendX_JQuery_View_Exception
      * @return string
      */
     public function captureEnd($id)
