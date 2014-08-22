@@ -49,9 +49,8 @@ class ZendX_JQuery_Form_Element_UiWidget extends Zend_Form_Element
     /**
      * Constructor
      *
-     * @param  mixed $spec
-     * @param  mixed $options
-     * @return void
+     * @param mixed $spec
+     * @param mixed $options
      */
     public function __construct($spec, $options = null)
     {
