@@ -64,13 +64,11 @@ class ZendX_JQuery_View_Helper_JQuery extends Zend_View_Helper_Abstract
 	 */
     private static $noConflictMode = false;
 
-   /**
+    /**
      * Initialize helper
      *
      * Retrieve container from registry or create new container and store in
      * registry.
-     *
-     * @return void
      */
     public function __construct()
     {
