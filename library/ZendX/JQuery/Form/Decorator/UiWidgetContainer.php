@@ -53,6 +53,7 @@ abstract class ZendX_JQuery_Form_Decorator_UiWidgetContainer extends Zend_Form_D
     /**
      * Get view helper for rendering container
      *
+     * @throws Zend_Form_Decorator_Exception
      * @return string
      */
     public function getHelper()
