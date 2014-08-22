@@ -45,6 +45,7 @@ extends Zend_Controller_Action_Helper_AutoComplete_Abstract
      *
      * @param  mixed   $data
      * @param  boolean $keepLayouts
+     * @throws Zend_Controller_Action_Exception
      * @return mixed
      */
     public function prepareAutoCompletion($data, $keepLayouts = false)
