@@ -7,8 +7,8 @@ Master: [![Build Status](https://api.travis-ci.org/zendframework/zf1-extras.png?
 RELEASE INFORMATION
 ===================
 
-Zend Framework Extras 1.12.8dev Release.
-Released on MMM DD, YYYY.
+Zend Framework Extras 1.12.8 Release.
+Released on August 26, 2014.
 
 MIGRATION NOTES
 ===============
