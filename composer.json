@@ -1,7 +1,7 @@
 {
     "name": "zendframework/zf1-extras",
     "description": "Zend Framework 1 Extras",
-    "type": "library",
+    "type": "zend-extra",
     "keywords": [
         "framework",
         "zf1"
@@ -10,6 +10,7 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": ">=5.2.11",
+        "composer/installers": "~1.0",
         "zendframework/zendframework1": "1.12.*"
     },
     "autoload": {
