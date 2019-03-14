@@ -1,5 +1,12 @@
 ![Logo](http://framework.zend.com/images/logos/ZendFramework-logo.png)
 
+> ## End-of-Live occurred 28 Sep 2016
+>
+> This project is no longer maintained, and reached its end of life on 28 Sep
+> 2016; the last public release was 1.12.20.
+>
+> At this time, the repository has been archived, and is read-only.
+
 Welcome to the Zend Framework 1.12 Extras!
 
 Master: [![Build Status](https://api.travis-ci.org/zendframework/zf1-extras.png?branch=master)](https://travis-ci.org/zendframework/zf1-extras)
